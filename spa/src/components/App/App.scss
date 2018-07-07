@@ -1,0 +1,102 @@
+.TruEdit-app {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    p {
+        margin-top: 0;
+        line-height: 1.4;
+    }
+
+    .wrap {
+        margin: 14px 17px 14px 3px;
+
+        &.wrap-publish {
+            margin: 8px;
+        }
+    }
+
+    .wrap h1.wp-heading-inline {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #2c333d;
+        width: 100%;
+    }
+
+    .metabox-holder {
+        padding-top: 0 !important;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .flex-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .actions {
+        margin-bottom: 1rem;
+    }
+
+    .wp-core-ui .button:focus {
+        outline: none;
+    }
+
+    .button-group {
+
+        &.button-group-margin {
+            .button {
+                border-radius: 3px;
+                margin-right: 8px;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .button {
+            border-radius: 3px;
+            margin: 0 4px;
+            
+            &:first-child {
+                margin-left: 0;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > div {
+
+            &:nth-child(2) {
+                margin: 0 0.5rem;
+            }
+            display: inline-block;
+        }
+    }
+
+    @media screen and (max-width: 782px) {
+        .button-group {
+            &.button-group-margin {
+                .button {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+}

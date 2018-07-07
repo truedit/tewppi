@@ -1,0 +1,59 @@
+.submit-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column; }
+
+.publish-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: calc(100vh - 50px); }
+  .publish-state p {
+    font-weight: bold; }
+  .publish-state > div {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; }
+  .publish-state .state {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem; }
+  .publish-state .path {
+    stroke-dasharray: 1000px;
+    stroke-dashoffset: 0px; }
+    .publish-state .path.circle {
+      animation: dash 2s ease-out; }
+    .publish-state .path.line {
+      stroke-dashoffset: 1000px;
+      animation: dash 2s .35s ease-out forwards; }
+    .publish-state .path.check {
+      stroke-dashoffset: -100px;
+      animation: dash-check 2s .35s ease-out forwards; }
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000px; }
+  100% {
+    stroke-dashoffset: 0px; } }
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000px; }
+  100% {
+    stroke-dashoffset: 0px; } }
+
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100px; }
+  100% {
+    stroke-dashoffset: 900px; } }
+
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100px; }
+  100% {
+    stroke-dashoffset: 900px; } }

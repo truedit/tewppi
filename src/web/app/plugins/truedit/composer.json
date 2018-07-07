@@ -1,0 +1,14 @@
+{
+    "name": "truedit/wordpress",
+    "type": "project",
+    "require": {
+        "masterminds/html5": "^2.3",
+        "truedit/api-php": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./lib/truedit-api-php"
+        }
+    ]
+}

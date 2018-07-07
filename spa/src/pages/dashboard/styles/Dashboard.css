@@ -1,0 +1,32 @@
+.TruEdit-app #dashboard-widgets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .TruEdit-app #dashboard-widgets .dashboard-primary > div .postbox-container {
+    width: 100% !important;
+    flex: 1;
+    width: auto;
+    float: none; }
+  .TruEdit-app #dashboard-widgets .dashboard-secondary {
+    width: 100%; }
+    .TruEdit-app #dashboard-widgets .dashboard-secondary > div {
+      display: flex; }
+      .TruEdit-app #dashboard-widgets .dashboard-secondary > div .postbox-container {
+        width: auto !important;
+        float: none;
+        flex: 1; }
+        .TruEdit-app #dashboard-widgets .dashboard-secondary > div .postbox-container:first-child {
+          margin-left: 0; }
+        .TruEdit-app #dashboard-widgets .dashboard-secondary > div .postbox-container:last-child {
+          margin-right: 0; }
+        .TruEdit-app #dashboard-widgets .dashboard-secondary > div .postbox-container .postbox {
+          min-width: auto; }
+
+.TruEdit-app #dashboard-widgets .postbox .inside {
+  margin-bottom: 1rem; }
+
+@media screen and (max-width: 782px) {
+  .TruEdit-app #dashboard-widgets .dashboard-secondary > div {
+    display: block; }
+    .TruEdit-app #dashboard-widgets .dashboard-secondary > div .postbox-container {
+      flex: 1; } }

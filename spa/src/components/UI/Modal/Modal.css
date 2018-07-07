@@ -1,0 +1,39 @@
+.TruEdit-app .media-frame .spinner {
+  float: none; }
+
+.TruEdit-app .media-modal {
+  transition: visibility 0.1s ease-in-out, opacity 0.35s ease-in-out; }
+
+.TruEdit-app .media-modal-show {
+  visibility: visible;
+  opacity: 1; }
+
+.TruEdit-app .media-modal-hide {
+  opacity: 0;
+  visibility: hidden; }
+
+.TruEdit-app .media-frame-content {
+  padding: 12px; }
+  .TruEdit-app .media-frame-content .notice {
+    margin: 0; }
+
+.TruEdit-app .media-modal-content {
+  border-radius: 2px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  border: 1px solid #ccc; }
+  .TruEdit-app .media-modal-content .media-frame-content {
+    bottom: 0; }
+
+.TruEdit-app .no-menu {
+  left: 0 !important; }
+
+.TruEdit-app .media-modal-close:focus, .TruEdit-app .media-modal-close:active {
+  border: none;
+  box-shadow: none;
+  outline: none; }
+
+.TruEdit-app .media-modal-backdrop {
+  transition: opacity 0.45s ease-in-out; }
+  .TruEdit-app .media-modal-backdrop.media-modal-backdrop-hide {
+    opacity: 0;
+    position: unset; }

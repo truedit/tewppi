@@ -1,0 +1,18 @@
+@media screen and (max-width: 782px) {
+  .TruEdit-app .table.automations th {
+    display: none; }
+  .TruEdit-app .table.automations td {
+    display: block;
+    max-width: 500px; }
+    .TruEdit-app .table.automations td::before {
+      position: absolute;
+      font-weight: bold;
+      display: block;
+      overflow: hidden;
+      width: 32%;
+      content: attr(data-colname);
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+    .TruEdit-app .table.automations td p, .TruEdit-app .table.automations td .button-group {
+      padding-left: 50%;
+      margin-bottom: 0.5rem; } }

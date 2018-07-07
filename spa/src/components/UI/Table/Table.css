@@ -1,0 +1,18 @@
+.table-container .table {
+  width: 100%;
+  margin-bottom: 1rem; }
+  .table-container .table thead {
+    text-align: left; }
+  .table-container .table tbody {
+    text-align: left; }
+  .table-container .table th {
+    max-width: 300px; }
+  .table-container .table td {
+    max-width: 300px;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow: hidden; }
+
+@media screen and (max-width: 782px) {
+  .table-container {
+    margin-bottom: 1rem; } }

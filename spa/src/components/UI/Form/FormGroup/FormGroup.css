@@ -1,0 +1,77 @@
+.TruEdit-app .form-groups .form-group:last-child {
+  margin-bottom: 0; }
+
+.TruEdit-app .form-groups-title {
+  box-shadow: 0 4px 6px -6px #ddd;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd; }
+
+.TruEdit-app .form-group {
+  transition: all 0.25s ease-out, transform 0.05s ease;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 1rem; }
+  .TruEdit-app .form-group.form-group-hide {
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    max-height: 0;
+    margin-bottom: 0;
+    transform: translate(0, -50%); }
+    .TruEdit-app .form-group.form-group-hide.form-group-show {
+      visibility: visible;
+      opacity: 1;
+      max-height: 112px;
+      margin-bottom: 1rem;
+      transform: translate(0, 0%); }
+  .TruEdit-app .form-group > .button {
+    margin-right: 0.5rem; }
+    .TruEdit-app .form-group > .button:last-child {
+      margin-right: 0; }
+  .TruEdit-app .form-group .dashicons {
+    line-height: 1.4;
+    height: auto;
+    width: auto;
+    padding-left: 0.5rem; }
+  .TruEdit-app .form-group .form-label {
+    flex-basis: 33%;
+    line-height: 28px;
+    font-weight: 600;
+    color: #23282d;
+    padding-right: 1rem;
+    text-align: left; }
+    .TruEdit-app .form-group .form-label.t-c {
+      text-align: center; }
+    .TruEdit-app .form-group .form-label.t-r {
+      text-align: right; }
+  .TruEdit-app .form-group .form-item {
+    flex: 1; }
+    .TruEdit-app .form-group .form-item > select {
+      width: 100%;
+      border-radius: 0;
+      height: 28px;
+      margin: 0; }
+      .TruEdit-app .form-group .form-item > select[multiple] {
+        height: auto; }
+    .TruEdit-app .form-group .form-item > input {
+      width: 100%;
+      line-height: 28px;
+      padding: 0 1%;
+      margin: 0; }
+    .TruEdit-app .form-group .form-item > textarea {
+      width: 100%;
+      min-height: 100px;
+      max-height: 200px; }
+    .TruEdit-app .form-group .form-item .help-text {
+      margin-top: 0.25rem;
+      color: darkgrey;
+      font-size: 0.75rem; }
+      .TruEdit-app .form-group .form-item .help-text:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0; }
+
+@media screen and (max-width: 782px) {
+  .TruEdit-app .form-group .form-item > select[multiple] {
+    height: auto; } }

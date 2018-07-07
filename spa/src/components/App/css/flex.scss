@@ -1,0 +1,29 @@
+.flex {
+    display: flex;
+    flex-direction: row;
+
+    .flex-item {
+        flex: 1 1 auto;
+        margin: 0 12px;
+        
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 782px) {
+
+    .flex {
+        flex-direction: column;
+
+        .flex-item {
+            margin: 0;
+        }
+    }
+
+}

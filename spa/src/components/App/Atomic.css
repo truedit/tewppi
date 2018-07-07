@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+  flex-direction: row; }
+  .flex .flex-item {
+    flex: 1 1 auto;
+    margin: 0 12px; }
+    .flex .flex-item:first-child {
+      margin-left: 0; }
+    .flex .flex-item:last-child {
+      margin-right: 0; }
+
+@media screen and (max-width: 782px) {
+  .flex {
+    flex-direction: column; }
+    .flex .flex-item {
+      margin: 0; } }
+
+.c-green {
+  color: green; }
+
+.c-red {
+  color: red; }

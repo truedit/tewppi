@@ -1,0 +1,16 @@
+.TruEdit-app {
+    .page-container {
+        width: 100%;
+        .page {
+            transition: opacity 0.2s ease-in;
+            &.page-hide {
+                display: none;
+                opacity: 0;
+                &.page-show {
+                    display: block;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

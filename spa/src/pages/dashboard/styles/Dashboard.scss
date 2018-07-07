@@ -1,0 +1,63 @@
+.TruEdit-app {
+
+    #dashboard-widgets {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    
+        .dashboard-primary {
+            > div {
+                .postbox-container {
+                    width: 100% !important;
+                    flex: 1;
+                    width: auto;
+                    float: none;
+                }
+            }
+        }
+
+        .dashboard-secondary {
+            width: 100%;
+            > div {
+                display: flex;
+
+                .postbox-container {
+                    width: auto !important;
+                    float: none;
+                    flex: 1;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    .postbox {
+                        min-width: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    #dashboard-widgets .postbox .inside {
+        margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 782px) {
+        #dashboard-widgets {
+            .dashboard-secondary {
+                > div {
+                    display: block;
+
+                    .postbox-container {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+
+}

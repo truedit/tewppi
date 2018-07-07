@@ -1,0 +1,128 @@
+$_height: 28px;
+$_seperation: 1rem;
+
+
+.TruEdit-app {
+
+    .form-groups {
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    .form-groups-title {
+        box-shadow: 0 4px 6px -6px #ddd;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .form-group {
+    
+        transition: all 0.25s ease-out, transform 0.05s ease;
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: $_seperation;
+    
+        &.form-group-hide {
+            visibility: hidden;
+            opacity: 0;
+            overflow: hidden;
+            max-height: 0;
+            margin-bottom: 0;
+            transform: translate(0, -50%);
+    
+            &.form-group-show {
+                visibility: visible;
+                opacity: 1;
+                max-height: $_height * 4;
+                margin-bottom: $_seperation;
+                transform: translate(0, 0%);
+            }
+        }
+    
+        > .button {
+            margin-right: 0.5rem;
+    
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    
+        .dashicons {
+            line-height: 1.4;
+            height: auto;
+            width: auto;
+            padding-left: 0.5rem;
+        }
+    
+        .form-label {
+            flex-basis: 33%; 
+            line-height: $_height;
+            font-weight: 600;
+            color: #23282d;
+            padding-right: 1rem;
+            text-align: left;
+    
+            &.t-c { text-align: center; }
+            &.t-r { text-align: right; }
+        }
+    
+        .form-item {
+            flex: 1;
+    
+            > select {
+                width: 100%;
+                border-radius: 0;
+                height: $_height;
+                margin: 0;
+    
+                &[multiple] {
+                    height: auto;
+                }
+            }
+            
+            > input {
+                width: 100%;
+                line-height: $_height;
+                padding: 0 1%;
+                margin: 0;
+            }
+    
+            > textarea {
+                width: 100%;
+                min-height: 100px;
+                max-height: 200px;
+            }
+            
+            .help-text {
+                margin-top: 0.25rem;
+                color: darkgrey;
+                font-size: 0.75rem;
+    
+                &:last-child {
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                }
+            }
+    
+        }
+            
+    }
+    
+    @media screen and (max-width: 782px) {
+    
+        .form-group {
+            .form-item {
+                > select {
+                    &[multiple] {
+                        height: auto;
+                    }
+                }
+            }
+        }
+    
+    }
+
+}

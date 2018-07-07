@@ -1,0 +1,20 @@
+.spinner-page {
+  display: flex;
+  transition: max-height 0.3s ease-out;
+  opacity: 1;
+  visibility: visible;
+  max-height: 100px;
+  justify-content: center; }
+  .spinner-page.spinner-page-hide {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    margin-bottom: 0; }
+  .spinner-page .spinner {
+    max-height: 100px;
+    float: inherit;
+    margin: auto; }
+
+.button .spinner {
+  float: none;
+  margin: -3px 3px 0; }
