@@ -1,6 +1,6 @@
 # Truedit Wordpress Plugin
 
-The TruEdit Wordpress Plugin
+The TruEdit WordPress Plugin allows users to deliver content from TruAuthor to a WordPress site as posts or pages. Multiple automations can be setup with different configurations for the individual use-cases.
 
 ## Wordpress Notes
 - The plugin has been tested with Wordpress 4.7
@@ -8,38 +8,27 @@ The TruEdit Wordpress Plugin
 - Permalinks must be post type
 - Access API via `/wp-json/{something}` e.g `wp-json/truedit/v1/job`
 
-## Downloading and installing the Plug-in
-The plug-in is available in the wordpress marketplace, or you can download the latest release on the [TruEdit Releases](https://github.com/truedit/tewppi/releases) page. If you download the plugin from Github, you can upload and install it to your wordpress page in the same way you would any other Wordpress plug-in as detailed in the [Wordpress Codex](https://codex.wordpress.org/Plugins_Add_New_Screen).
+## Downloading and Installing the Plugin
+You can download the latest release on the [TruEdit Releases](https://github.com/truedit/tewppi/releases) page. If you download the plugin from Github, you can upload and install it to your wordpress page in the same way you would any other Wordpress plugin as detailed in the [Wordpress Codex](https://codex.wordpress.org/Plugins_Add_New_Screen).
 
 #### Installation and Configuration
 1. Log into WordPress Admin
-1. Install ZIP of TruEdit WordPress Plug-in
-1. Activate TruEdit WordPress Plug-In
+1. Install ZIP of TruEdit WordPress plugin
+1. Activate TruEdit WordPress plugin
 1. Navigate to TruEdit>Configuration page
 1. Choose Host (This is the TruEdit server you log into)
 1. Enter API Key (downloaded from TruEdit Web Client)
 1. Enter the Application Key (provided by MEI for the TruEdit server you are accessing)
 1. Click “Save and Verify”
 1. TruEdit should confirm that it successfully connected to TruEdit and verify the Tenant it is connected to.
-1. All Plug-in Requirements items shown should have a green checkmark in the state column.
+1. All plugin Requirements items shown should have a green checkmark in the state column.
 
 #### Modifying Web Server to Allow Cross-Domain Requests
-1. When running the WordPress automations, TruEdit Web Client loads a page from the TruEdit WordPress plug-in. Since your WordPress server is not on the TruEdit domain, you will need to modify your web server to allow cross-domain requests from truedit.com or truedit.de.
+1. When running the WordPress automations, TruEdit Web Client loads a page from the TruEdit WordPress plugin. Since your WordPress server is not on the TruEdit domain, you will need to modify your web server to allow cross-domain requests from truedit.com or truedit.de.
 2. For more information see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
 
-#### Apache example
+#### Apache Example
 You will need to modify the X-Frame-Options setting in HTTPD configuration to “ALLOW-FROM https://truedit.com” or “ALLOW-FROM https://truedit.de” as appropriate
-
-## Building the plugin
-In order to build the plugin, you must first install dependencies using npm, composer and yarn.
-
-1. Enter the `src` directory and run `composer install`
-1. Enter the `spa` directory and run `npm install`
-1. Still in the `spa` directory and run `yarn`
-1. Run `cd src/web/app/plugins/truedit/ && composer install` to install Composer
-   packages specific to the plugin.
-
-Once you have all of the dependencies, you should be able to run `npm run build` in the root of the repository to produce a folder named `truedit` and a zip file named `truedit_wppi.zip` in the `dist/versionNumber/` folder.
 
 ## Using the TruEdit Wordpress Plugin
 
@@ -68,7 +57,7 @@ Congratulations! Your automation is now setup and available in TruEdit.
 1. Click on the Job Menu
 1. Click on the Automations sub-menu
 1. Click on the Automation
-1. A popup will appear with a web form served up by the TruEdit WordPress Plug-in
+1. A popup will appear with a web form served up by the TruEdit WordPress plugin
 Note: If the window appears blank, please review the Cross-Domain request settings. You can also use a web inspector to see any errors returned for the page.
 1. Complete the required information
 1. Click Publish
@@ -78,7 +67,18 @@ Note: If the window appears blank, please review the Cross-Domain request settin
 1. You can run the automation multiple times on a single article to update the previously created post/page.
 1. If you have the TruAuthor window open, you can publish your changes without checking in the TruAuthor document. Simply save the document without checking it back in and then go to the Web Client to run the automation
 
-## Contributing to the plug-in development
+## Building the Plugin
+In order to build the plugin, you must first install dependencies using npm, composer and yarn.
+
+1. Enter the `src` directory and run `composer install`
+1. Enter the `spa` directory and run `npm install`
+1. Still in the `spa` directory and run `yarn`
+1. Run `cd ../src/web/app/plugins/truedit/ && composer install` to install Composer
+   packages specific to the plugin.
+
+Once you have all of the dependencies, you should be able to run `npm run build` in the root of the repository to produce a folder named `truedit` and a zip file named `truedit_wppi.zip` in the `dist/versionNumber/` folder.
+
+## Contributing to Plugin Development
 If you would like to contribute code to the TruEdit Wordpress Plugin, simply submit a pull request to this repository and it will be reviewed. If the code meets the standard outlined in the Coding Conventions section and meaningfully adds to the product, it will likely be merged into the codebase.
 
 #### Coding Conventions
@@ -104,5 +104,5 @@ For new code this means:
 - `dist` - The final output folder for the plugin. This folder should contain a full working wordpress plugin
 - `conf` - Contains any local configs
 
-#### Export API using Swagger
+#### Export API Using Swagger
 `npm run swagger-gen`
