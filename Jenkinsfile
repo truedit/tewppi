@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/ccnvjndevenrep07-wppi', poll: true, branch: 'develop', changelog: true, credentialsId: 'CodeCommit')
+        git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: 'develop', changelog: true, credentialsId: 'CodeCommit')
       }
     }
     stage('Setup Environment') {
