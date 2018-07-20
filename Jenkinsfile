@@ -16,11 +16,6 @@ pipeline {
         sh 'cd ${WORKSPACE} && npm run build '
       }
     }
-    stage('Build getNEXT Branded Plugin') {
-      steps {
-        sh 'cd ${WORKSPACE} && npm run buildgn'
-      }
-    }
     stage('Archive Artifacts') {
       steps {
         archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
