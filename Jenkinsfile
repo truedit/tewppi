@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: 'develop', changelog: true, credentialsId: 'CodeCommit')
+        git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
       }
     }
     stage('Setup Environment') {
@@ -14,11 +14,6 @@ pipeline {
     stage('Build Plugin') {
       steps {
         sh 'cd ${WORKSPACE} && npm run build '
-      }
-    }
-    stage('Build getNEXT Branded Plugin') {
-      steps {
-        sh 'cd ${WORKSPACE} && npm run buildgn'
       }
     }
     stage('Archive Artifacts') {
