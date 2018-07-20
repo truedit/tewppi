@@ -1,3 +1,5 @@
+[![Build Status](https://jenkins.truedit.com/buildStatus/icon?job=WordPress_PI/tewppi/develop)](https://jenkins.truedit.com/job/WordPress_PI/job/tewppi/job/develop/)
+
 # Truedit Wordpress Plugin
 
 The TruEdit WordPress Plugin allows users to deliver content from TruAuthor to a WordPress site as posts or pages. Multiple automations can be setup with different configurations for the individual use-cases.
