@@ -21,10 +21,5 @@ pipeline {
         archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
       }
     }
-    stage('Publish Artifacts to S3') {
-      steps {
-        sh 'echo "Publish to: s3nvcodevit01-assets/artifacts/ccnvjndevenrep07-wppi/$BRANCH_NAME"'
-      }
-    }
   }
 }
