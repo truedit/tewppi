@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/StubbsPKS/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'CodeCommit')
+        git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
       }
     }
     stage('Setup Environment') {
