@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -29,7 +29,7 @@
  */
 class TruEdit {
 
-    private $trueditAdmin;
+	private $trueditAdmin;
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -85,13 +85,13 @@ class TruEdit {
 		$this->define_api();
 	}
 
-	public static function instance(){
-	    if(self::$instance == null){
-	        self::$instance = new TruEdit();
-        }
+	public static function instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new TruEdit();
+		}
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
 	/**
 	 * Load the required dependencies for this plugin.
@@ -116,25 +116,25 @@ class TruEdit {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-levels.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-exception.php';
-		
+
 		/**
 		 * Static helpers
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/helpers/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/helpers/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Interfaces
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/interfaces/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/interfaces/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Models
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/models/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/models/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
@@ -150,7 +150,7 @@ class TruEdit {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-publish.php';
-		
+
 		/**
 		 * Rest Api
 		 */
@@ -247,14 +247,14 @@ class TruEdit {
 
 	private function define_api() {
 
-		$plugin_api = new TruEdit_Api($this->get_plugin_name(), $this->get_version());
+		$plugin_api = new TruEdit_Api( $this->get_plugin_name(), $this->get_version() );
 
 		$apis = [
-			new TruEdit_Admin_Api($this->get_plugin_name(), $this->get_version())
+			new TruEdit_Admin_Api( $this->get_plugin_name(), $this->get_version() ),
 		];
-		
-		foreach($apis as $api) {
-			$plugin_api->add_apis($api->get_apis());
+
+		foreach ( $apis as $api ) {
+			$plugin_api->add_apis( $api->get_apis() );
 		}
 
 		$this->loader->add_action( 'init', $plugin_api, 'init' );
@@ -301,8 +301,8 @@ class TruEdit {
 		return $this->version;
 	}
 
-	public function getTrueditAdmin(){
-	    return $this->trueditAdmin;
-    }
+	public function getTrueditAdmin() {
+		return $this->trueditAdmin;
+	}
 
 }

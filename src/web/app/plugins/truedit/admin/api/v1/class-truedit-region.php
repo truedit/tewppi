@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -26,38 +26,38 @@
  */
 class TruEdit_ApiRoute_Region implements TruEdit_ApiRoute {
 
-    private $plugin_name;
-    private $version;
+	private $plugin_name;
+	private $version;
 
-    private $route_version;
-    private $route;
-    private $routes;
+	private $route_version;
+	private $route;
+	private $routes;
 
-    private $link;
+	private $link;
 
-    public function __construct($plugin_name, $version) {
+	public function __construct( $plugin_name, $version ) {
 
-        $this->plugin_name = $plugin_name;
-        $this->version = $version;
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
 
-        $this->route = 'region';
-        $this->route_version = 1;
-        
-        $this->routes = [
-            'read' => [
-                'route' => $this->route,
-                'options' => [
-                    'methods' => WP_REST_Server::READABLE,
-                    'callback' => [
-                        $this,
-                        'read'
-                    ]
-                ]
-            ]
-        ];
+		$this->route         = 'region';
+		$this->route_version = 1;
 
-        $this->link = 'https://s3.amazonaws.com/TruEdit-plugin/TruEditRegions.xml';
-    }
+		$this->routes = [
+			'read' => [
+				'route'   => $this->route,
+				'options' => [
+					'methods'  => WP_REST_Server::READABLE,
+					'callback' => [
+						$this,
+						'read',
+					],
+				],
+			],
+		];
+
+		$this->link = 'https://s3.amazonaws.com/TruEdit-plugin/TruEditRegions.xml';
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -66,81 +66,70 @@ class TruEdit_ApiRoute_Region implements TruEdit_ApiRoute {
 	 */
 	public function load_dependencies() {}
 
-    /**
-     * Get/Set
-     */
-    public function get_route_version() {
-        return $this->route_version;
-    }
+	/**
+	 * Get/Set
+	 */
+	public function get_route_version() {
+		return $this->route_version;
+	}
 
-    public function get_routes() {
-        return $this->routes;
-    }
+	public function get_routes() {
+		return $this->routes;
+	}
 
-    /**
-     * CRUD
-     */
-    public function read( WP_REST_Request $request ) {
+	/**
+	 * CRUD
+	 */
+	public function read( WP_REST_Request $request ) {
 
-        try {
+		try {
 
-            $xml = simplexml_load_file($this->link);
-            $json = json_encode($xml);
-            
-            $regionData = json_decode($json, true);// true means objects become arrays
-            
-            /* if only one entry, we need to turn it into an array of entries so
-               the foreach below will work. */
-            if (array_key_exists('domain', $regionData['region'])) {
-            	$newRegionData = array();
-            	$newRegionData[] = $regionData['region'];
-            	$regionData['region'] = $newRegionData;
-            }
+			$xml  = simplexml_load_file( $this->link );
+			$json = json_encode( $xml );
 
-            $regions = [];
-            
-            foreach ($regionData['region'] as $region) {
-                $regions[] = [
-                    'domain' => parse_url($region['domain'])['host'],
-                    'label' => $region['label']['en']
-                ];
-            }
+			$regions = [];
 
-            $regions[] = [
-                'domain' => 'Other',
-                'label' => 'Other'
-            ];
+			foreach ( json_decode( $json, true )['region'] as $region ) {
+				$regions[] = [
+					'domain' => parse_url( $region['domain'] )['host'],
+					'label'  => $region['label']['en'],
+				];
+			}
 
-            return new WP_REST_Response($regions, 200);
+			$regions[] = [
+				'domain' => 'Other',
+				'label'  => 'Other',
+			];
 
+			return new WP_REST_Response( $regions, 200 );
 
-        } catch (\Swagger\Client\ApiException $e) {
+		} catch ( \Swagger\Client\ApiException $e ) {
 
-            return TruEdit_Handle::swagger_exception($e);
-            
-        } catch (TruEdit_Exception $e) {
-            
-            return TruEdit_Handle::truedit_exception($e);
-            
-        } catch (Exception $e) {
+			return TruEdit_Handle::swagger_exception( $e );
 
-            return TruEdit_Handle::exception($e);
+		} catch ( TruEdit_Exception $e ) {
 
-        }
+			return TruEdit_Handle::truedit_exception( $e );
 
-    }
+		} catch ( Exception $e ) {
 
-    public function create( WP_REST_Request $request ) {
+			return TruEdit_Handle::exception( $e );
 
-    }
+		}
 
-    public function update( WP_REST_Request $request ) {
-        
-    }
-    
-    public function delete( WP_REST_Request $request ) {
+	}
 
-    }
+	public function create( WP_REST_Request $request ) {
+
+	}
+
+	public function update( WP_REST_Request $request ) {
+
+	}
+
+	public function delete( WP_REST_Request $request ) {
+
+	}
 
 }
 

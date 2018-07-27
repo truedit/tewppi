@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -50,7 +50,7 @@ class TruEdit_Admin {
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -74,11 +74,15 @@ class TruEdit_Admin {
 		 */
 
 		$deps = [
-			'dashicons', 'common', 'forms', 'buttons', 'edit'
+			'dashicons',
+			'common',
+			'forms',
+			'buttons',
+			'edit',
 		];
 
-		foreach ( glob( dirname( __FILE__ ). "/static/css/*" ) as $i => $filename ) {
-			$filename = plugin_dir_url( __FILE__ ) . 'static/css/' . substr($filename, strrpos($filename, '/') + 1);
+		foreach ( glob( dirname( __FILE__ ) . '/static/css/*' ) as $i => $filename ) {
+			$filename = plugin_dir_url( __FILE__ ) . 'static/css/' . substr( $filename, strrpos( $filename, '/' ) + 1 );
 			wp_enqueue_style( $this->plugin_name . '-' . $i, $filename, $deps, $this->version, 'all' );
 		}
 
@@ -103,17 +107,16 @@ class TruEdit_Admin {
 		 * class.
 		 */
 
-		foreach ( glob( dirname( __FILE__ ). "/static/js/*" ) as $filename ) {
-			$filename = plugin_dir_url( __FILE__ ) . 'static/js/' . substr($filename, strrpos($filename, '/') + 1);
+		foreach ( glob( dirname( __FILE__ ) . '/static/js/*' ) as $filename ) {
+			$filename = plugin_dir_url( __FILE__ ) . 'static/js/' . substr( $filename, strrpos( $filename, '/' ) + 1 );
 			wp_enqueue_script( $this->plugin_name, $filename, [], $this->version, true );
 		}
-		
 
 	}
 
 	/**
-	 *	Register admin menus 
-	 */	
+	 *  Register admin menus
+	 */
 	public function menu() {
 
 		add_menu_page(
@@ -121,7 +124,7 @@ class TruEdit_Admin {
 			'TruEdit',
 			'manage_options',
 			'TruEdit',
-			[$this, 'page_welcome'],
+			[ $this, 'page_welcome' ],
 			plugins_url( '/assets/images/truedit-icon.png', __FILE__ )
 		);
 		add_submenu_page(
@@ -131,7 +134,7 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-options', [
 				$this,
-				'page_options'
+				'page_options',
 			]
 		);
 		add_submenu_page(
@@ -141,7 +144,7 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-automations', [
 				$this,
-				'page_automations'
+				'page_automations',
 			]
 		);
 		add_submenu_page(
@@ -151,9 +154,10 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-logs', [
 				$this,
-				'page_logs'
+				'page_logs',
 			]
 		);
+		/*
 		// add_submenu_page(
 		// 	'TruEdit',
 		// 	'Help',
@@ -164,56 +168,65 @@ class TruEdit_Admin {
 		// 		'page_options'
 		// 	]
 		// );
-
+		*/
 	}
-	
+
 	/**
 	 * Filter comments
 	 */
-	public function truedit_comments_clauses($clauses) {
+	public function truedit_comments_clauses( $clauses ) {
 
 		$clauses['where'] .= ( $clauses['where'] ? ' AND ' : '' ) . " comment_agent != 'TruEdit' ";
 		return $clauses;
 
 	}
-	
+
 	public function post_types() {
 
-		register_post_type('truedit_automation', [
-			'labels' => [
-				'name' => 'Automations',
-				'singular_name' => 'Automation'
-			],
-			'public' => false,
-			'has_archive' => true
-		]);
+		register_post_type(
+			'truedit_automation', [
+				'labels'      => [
+					'name'          => 'Automations',
+					'singular_name' => 'Automation',
+				],
+				'public'      => false,
+				'has_archive' => true,
+			]
+		);
 
-		register_post_type('truedit_log', [
-			'labels' => [
-				'name' => 'Logs',
-				'singular_name' => 'Log'
-			],
-			'public' => false,
-			'has_archive' => true
-		]);
+		register_post_type(
+			'truedit_log', [
+				'labels'      => [
+					'name'          => 'Logs',
+					'singular_name' => 'Log',
+				],
+				'public'      => false,
+				'has_archive' => true,
+			]
+		);
 
 	}
 
-	public function page_welcome() { include_once('partials/truedit-admin-display.php'); }
-	public function page_automations() { include_once('partials/truedit-admin-display.php'); }
-	public function page_options() { include_once('partials/truedit-admin-display.php'); }
-	public function page_logs() { include_once('partials/truedit-admin-display.php'); }
+	public function page_welcome() {
+		include_once( 'partials/truedit-admin-display.php' ); }
+	public function page_automations() {
+		include_once( 'partials/truedit-admin-display.php' ); }
+	public function page_options() {
+		include_once( 'partials/truedit-admin-display.php' ); }
+	public function page_logs() {
+		include_once( 'partials/truedit-admin-display.php' ); }
 
 	public function custom_template() {
 
 		if (
-			isset($_GET['truedit']) && $_GET['truedit'] === 'true' && 
-			isset($_GET['type']) && $_GET['type'] === 'automation') {
-			
+			isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] &&
+			isset( $_GET['type'] ) && 'automation' === $_GET['type'] ) {
+			echo "Developer is tweaking";
+			exit;
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
 
-			include_once('partials/truedit-admin-callback.php');
+			include_once( 'partials/truedit-admin-callback.php' );
 
 			exit();
 
@@ -222,14 +235,14 @@ class TruEdit_Admin {
 	}
 
 	/**
-	 * Ads the args that can be detected 
+	 * Ads the args that can be detected
 	 */
-	public function query_vars($vars) {
+	public function query_vars( $vars ) {
 
 		$vars[] = 'truedit';
 		$vars[] = 'type';
 		$vars[] = 'id';
-	
+
 		return $vars;
 
 	}
@@ -237,9 +250,9 @@ class TruEdit_Admin {
 	/**
 	 * Disable auto p
 	 */
-	public function tiny_mce_settings($in) {
-		
-		if (isset($_GET['truedit']) && $_GET['truedit'] === 'true') {
+	public function tiny_mce_settings( $in ) {
+
+		if ( isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] ) {
 			$in['wpautop'] = false;
 		}
 
@@ -247,10 +260,10 @@ class TruEdit_Admin {
 
 	}
 
-	public function truedit_modify_headers(){
-	    TruEditNetwork::allowTruEditIframe();
+	public function truedit_modify_headers() {
+		TruEditNetwork::allowTruEditIframe();
 
-    }
+	}
 
 }
 

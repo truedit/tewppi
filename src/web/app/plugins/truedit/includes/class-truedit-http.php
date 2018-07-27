@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -27,8 +27,8 @@
 class TruEdit_Http {
 
 
-    public function __construct() {
-    }
+	public function __construct() {
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -37,8 +37,6 @@ class TruEdit_Http {
 	 */
 	public function load_dependencies() {
 
-
-        
 	}
 
 

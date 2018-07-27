@@ -10,8 +10,8 @@
 //     );
 //     $id = 789; // int | id
 //     $dl = false; // bool | dl
-//     $x_api_key = "x_api_key_example"; // string | 
-//     $accept_language = "accept_language_example"; // string | 
+//     $x_api_key = "x_api_key_example"; // string |
+//     $accept_language = "accept_language_example"; // string |
 
 //     try {
 //         $apiInstance->retrieveFileUsingGET($id, $dl, $x_api_key, $accept_language);

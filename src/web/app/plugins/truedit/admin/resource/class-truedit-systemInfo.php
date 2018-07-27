@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -26,25 +26,25 @@
  */
 class TruEdit_Resource_SystemInfo extends TruEdit_Resource {
 
-    public function __construct() {
+	public function __construct() {
 
-        parent::__construct();
+		parent::__construct();
 
-        $this->api = new Swagger\Client\Api\SystemInfoApi(
-            $this->getClient(),
-            $this->getConfig()
-        );
+		$this->api = new Swagger\Client\Api\SystemInfoApi(
+			$this->getClient(),
+			$this->getConfig()
+		);
 
-    }
+	}
 
-    public function test($token) {
+	public function test( $token ) {
 
-        try {
-            return $this->api->verifyTokenUsingPOST($token);
-        } catch (Exception $e) {
-            throw $e;
-        }
+		try {
+			return $this->api->verifyTokenUsingPOST( $token );
+		} catch ( Exception $e ) {
+			throw $e;
+		}
 
-    }
+	}
 
 }

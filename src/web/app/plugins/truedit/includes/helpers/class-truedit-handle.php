@@ -1,79 +1,85 @@
-<?php 
+<?php
 
 class TruEdit_Handle {
 
-    private static $version;
-    private static $plugin_name;
+	private static $version;
+	private static $plugin_name;
 
-    public function __construct($plugin_name, $version) {
+	public function __construct( $plugin_name, $version ) {
 
-		self::$plugin_name 		= $plugin_name;
-        self::$version 			= $version;
-        
-    }
+		self::$plugin_name = $plugin_name;
+		self::$version     = $version;
 
-    public static function swagger_exception($e, $action = '') {
+	}
 
-        $code = $e->getCode();
-        $message = '';
-        $warnings = [];
+	public static function swagger_exception( $e, $action = '' ) {
 
-        $body = json_decode($e->getResponseBody());
+		$code     = $e->getCode();
+		$message  = '';
+		$warnings = [];
 
-        if ($code === 404) {
-            $message = 'There was no response from the host. Please check that the host url is correct.';
-        } else if ($code === 401) {
-            $message = 'The API Key or Application Key set is incorrect.';
-        } else {
-            $code = 400;
-            $message = 'There was no response from the host. Please check that the host url is correct.';
-        }
+		$body = json_decode( $e->getResponseBody() );
 
-        // StatusCode 4000 seems be what is used when there is a duplicate Automation
-        // TODO: Refactor this into something more universal. The API gives us plenty of info, we should use it
-        if($body != null && $body->statusCode == 4000 && $code = 400){
-            $message = $body->errorMessage;
-        }
-        
-        TruEdit_Log::error($message);
+		if ( $code === 404 ) {
+			$message = 'There was no response from the host. Please check that the host url is correct.';
+		} elseif ( $code === 401 ) {
+			$message = 'The API Key or Application Key set is incorrect.';
+		} else {
+			$code    = 400;
+			$message = 'There was no response from the host. Please check that the host url is correct.';
+		}
 
-        return new WP_Error('TR_ERROR', $message, [
-            'status' => $code,
-            'warnings' => $warnings
-        ]);
+		// StatusCode 4000 seems be what is used when there is a duplicate Automation
+		// TODO: Refactor this into something more universal. The API gives us plenty of info, we should use it
+		if ( $body != null && $body->statusCode == 4000 && $code = 400 ) {
+			$message = $body->errorMessage;
+		}
 
-    }
+		TruEdit_Log::error( $message );
 
-    public static function truedit_exception($e, $action = '') {
+		return new WP_Error(
+			'TR_ERROR', $message, [
+				'status'   => $code,
+				'warnings' => $warnings,
+			]
+		);
 
-        $code = 400;
-        $message = $e->getMessage();
-        $warnings = [];
-        
-        TruEdit_Log::error($message);
+	}
 
-        return new WP_Error('WP_ERROR', $message, [
-            'status' => $code,
-            'warnings' => $warnings
-        ]); 
+	public static function truedit_exception( $e, $action = '' ) {
 
-    }   
+		$code     = 400;
+		$message  = $e->getMessage();
+		$warnings = [];
 
-    public static function exception($e, $action = '') {
+		TruEdit_Log::error( $message );
 
-        $code = 400;
-        $message = $e->getMessage();
-        $warnings = [];
+		return new WP_Error(
+			'WP_ERROR', $message, [
+				'status'   => $code,
+				'warnings' => $warnings,
+			]
+		);
 
-        TruEdit_Log::error((!empty($action) ? ucwords($action) . ' : ' : '') . $message);
+	}
 
-        return new WP_Error('ERROR', $message, [
-            'status' => $code,
-            'warnings' => $warnings
-        ]);
-        
-    }
-    
-    
+	public static function exception( $e, $action = '' ) {
+
+		$code     = 400;
+		$message  = $e->getMessage();
+		$warnings = [];
+
+		TruEdit_Log::error( ( ! empty( $action ) ? ucwords( $action ) . ' : ' : '' ) . $message );
+
+		return new WP_Error(
+			'ERROR', $message, [
+				'status'   => $code,
+				'warnings' => $warnings,
+			]
+		);
+
+	}
+
+
 }
 

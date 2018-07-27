@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -26,114 +26,114 @@
  */
 class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 
-    private $plugin_name;
-    private $version;
+	private $plugin_name;
+	private $version;
 
-    private $route_version;
-    private $route;
-    private $routes;
+	private $route_version;
+	private $route;
+	private $routes;
 
-    private $valid_opts;
+	private $valid_opts;
 
-    public function __construct($plugin_name, $version) {
-        
-        $this->plugin_name = $plugin_name;
-        $this->version = $version;
+	public function __construct( $plugin_name, $version ) {
 
-        $this->route = 'option';
-        $this->route_version = 1;
-        
-        $this->routes = [
-            'read' => [
-                'route' => $this->route,
-                'options' => [
-                    'methods' => WP_REST_Server::READABLE,
-                    'callback' => [
-                        $this,
-                        'read'
-                    ]
-                ]
-            ],
-            'create' => [
-                'route' => $this->route,
-                'options' => [
-                    'methods' => WP_REST_Server::CREATABLE,
-                    'callback' => [
-                        $this,
-                        'create'
-                    ]
-                ]
-            ]
-        ];
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
 
-        $this->valid_opts = [
-            'replace_non_breaking_space' => [
-                'read' => true,
-                'write' => true
-            ],
-            'replace_carriage_return' => [
-                'read' => true,
-                'write' => true
-            ],
-            'last_verification' => [
-                'read' => true
-            ],
-            'api_key' => [
-                'read' => true,
-                'write' => true
-            ],
-            'app_api_key' => [
-                'read' => true,
-                'write' => true
-            ],
-            'namespace' => [
-                'read' => true,
-                'write' => true
-            ],
-            'last_tested' => [
-                'read' => true
-            ],
-            'server' => [
-                'read' => true,
-                'write' => true
-            ],
-            'tenant' => [
-                'read' => true,
-                'write' => true
-            ],
-            'host' => [
-                'read' => true,
-                'write' => true,
-                'validate_callback' => function($url) {
+		$this->route         = 'option';
+		$this->route_version = 1;
 
-                    /**
-                     * Works
-                     * - example.com
-                     * - optional.example.com
-                     * - optional.example.com:80
-                     * Does not work
-                     * - example.com:
-                     * - example.com:80/
-                     * - example.com/
-                     * - example.com/route
-                     * - .example.com
-                     * - https://example.com
-                     */
-                    $pattern = '/^(([a-zA-Z0-9])+([.]))?([a-zA-Z0-9])+([.])+([a-zA-Z]{1,10})+(\:[0-9]+)?$/';
-                    if (!preg_match($pattern, $url)) {
-                        throw new TruEdit_Exception('INCORRECT_HOST');
-                    }
+		$this->routes = [
+			'read'   => [
+				'route'   => $this->route,
+				'options' => [
+					'methods'  => WP_REST_Server::READABLE,
+					'callback' => [
+						$this,
+						'read',
+					],
+				],
+			],
+			'create' => [
+				'route'   => $this->route,
+				'options' => [
+					'methods'  => WP_REST_Server::CREATABLE,
+					'callback' => [
+						$this,
+						'create',
+					],
+				],
+			],
+		];
 
-                    /**
-                     * If its in our required format, double check that it works if we add https://
-                     */
-                    if (!filter_var('https://' . $url, FILTER_VALIDATE_URL)) {
-                        throw new TruEdit_Exception('INCORRECT_HOST');
-                    }
-                }
-            ]
-        ];
-    }
+		$this->valid_opts = [
+			'replace_non_breaking_space' => [
+				'read'  => true,
+				'write' => true,
+			],
+			'replace_carriage_return'    => [
+				'read'  => true,
+				'write' => true,
+			],
+			'last_verification'          => [
+				'read' => true,
+			],
+			'api_key'                    => [
+				'read'  => true,
+				'write' => true,
+			],
+			'app_api_key'                => [
+				'read'  => true,
+				'write' => true,
+			],
+			'namespace'                  => [
+				'read'  => true,
+				'write' => true,
+			],
+			'last_tested'                => [
+				'read' => true,
+			],
+			'server'                     => [
+				'read'  => true,
+				'write' => true,
+			],
+			'tenant'                     => [
+				'read'  => true,
+				'write' => true,
+			],
+			'host'                       => [
+				'read'              => true,
+				'write'             => true,
+				'validate_callback' => function( $url ) {
+
+					/**
+					 * Works
+					 * - example.com
+					 * - optional.example.com
+					 * - optional.example.com:80
+					 * Does not work
+					 * - example.com:
+					 * - example.com:80/
+					 * - example.com/
+					 * - example.com/route
+					 * - .example.com
+					 * - https://example.com
+					 */
+					$pattern = '/^(([a-zA-Z0-9])+([.]))?([a-zA-Z0-9])+([.])+([a-zA-Z]{1,10})+(\:[0-9]+)?$/';
+					if ( ! preg_match( $pattern, $url ) ) {
+						throw new TruEdit_Exception( 'INCORRECT_HOST' );
+					}
+
+					/**
+					 * If its in our required format, double check that it works if we add https://
+					 */
+					if ( ! filter_var( 'https://' . $url, FILTER_VALIDATE_URL ) ) {
+						throw new TruEdit_Exception( 'INCORRECT_HOST' );
+					}
+				},
+			],
+		];
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -142,191 +142,188 @@ class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 	 */
 	public function load_dependencies() {}
 
-    /**
-     * Get/Set
-     * --------------------------------------------
-     */
-    public function get_route_version() {
-        return $this->route_version;
-    }
+	/**
+	 * Get/Set
+	 * --------------------------------------------
+	 */
+	public function get_route_version() {
+		return $this->route_version;
+	}
 
-    public function get_routes() {
-        return $this->routes;
-    }
+	public function get_routes() {
+		return $this->routes;
+	}
 
-    /**
-     * CRUD
-     * --------------------------------------------
-     */
-    public function read( WP_REST_Request $request ) {
+	/**
+	 * CRUD
+	 * --------------------------------------------
+	 */
+	public function read( WP_REST_Request $request ) {
 
-        $opts = $this->get_opts();
-        return new WP_REST_Response($opts, 200);
-        
-    }
+		$opts = $this->get_opts();
+		return new WP_REST_Response( $opts, 200 );
 
-    public function create( WP_REST_Request $request ) {
+	}
 
-        try {
+	public function create( WP_REST_Request $request ) {
 
-            $this->save_opts(json_decode($request->get_body()));
+		try {
 
-            $opts = $this->get_opts();
+			$this->save_opts( json_decode( $request->get_body() ) );
 
-            return new WP_REST_Response($opts, 200);
+			$opts = $this->get_opts();
 
-        } catch (TruEdit_Exception $e) {
-            
-            return TruEdit_Handle::truedit_exception($e);
-            
-        } catch (Exception $e) {
+			return new WP_REST_Response( $opts, 200 );
 
-            return TruEdit_Handle::exception($e);
+		} catch ( TruEdit_Exception $e ) {
 
-        }
+			return TruEdit_Handle::truedit_exception( $e );
 
-    }
+		} catch ( Exception $e ) {
 
-    public function update( WP_REST_Request $request ) {
-        
-        return $this->create($request);
+			return TruEdit_Handle::exception( $e );
 
-    }
-    
-    public function delete( WP_REST_Request $request ) {
+		}
 
-    }
+	}
 
-    /**
-     * Privates
-     * --------------------------------------------
-     */
+	public function update( WP_REST_Request $request ) {
 
-    private function get_opts() {
+		return $this->create( $request );
 
-        $opts = new stdClass();
+	}
 
-        foreach ($this->valid_opts as $opt => $settings) {
-            // check for read === true
+	public function delete( WP_REST_Request $request ) {
 
-            if (isset($settings['default'])) {
-                $opts->{$opt} = $this->get_opt($opt, $settings['default']);
-            } else {
-                $opts->{$opt} = $this->get_opt($opt);
-            }
-            
-        }
+	}
 
-        return $opts;
+	/**
+	 * Privates
+	 * --------------------------------------------
+	 */
 
-    }
+	private function get_opts() {
 
-    private function get_opt($key, $default = null) {
+		$opts = new stdClass();
 
-        $value = '';
+		foreach ( $this->valid_opts as $opt => $settings ) {
+			// check for read === true
 
-        if (!empty($this->valid_opts[$key]['read'])) {
-            $value = TruEdit_Option::get($key);
-        }
+			if ( isset( $settings['default'] ) ) {
+				$opts->{$opt} = $this->get_opt( $opt, $settings['default'] );
+			} else {
+				$opts->{$opt} = $this->get_opt( $opt );
+			}
+		}
 
-        if (!$value && !is_null($default)) {
-            $value = $default;
-        }
+		return $opts;
 
-        return $value;
+	}
 
-    }
+	private function get_opt( $key, $default = null ) {
 
-    /**
-     * Save the body
-     */
-    private function save_opts($list) {
+		$value = '';
 
-        if (!TruEdit_Has::https()) {
-            throw new TruEdit_Exception('NO_HTTPS');
-        }
+		if ( ! empty( $this->valid_opts[ $key ]['read'] ) ) {
+			$value = TruEdit_Option::get( $key );
+		}
 
-        if (!TruEdit_Has::zipArchive()) {
-            throw new TruEdit_Exception('NO_ZIP_ARCHIVE');
-        }
+		if ( ! $value && ! is_null( $default ) ) {
+			$value = $default;
+		}
 
-        if (!TruEdit_Has::json()) {
-            throw new TruEdit_Exception('NO_JSON');
-        }
+		return $value;
 
-        if (!TruEdit_Has::correctPhpVersion()) {
-            throw new TruEdit_Exception('INCORRECT_PHP_VERSION');
-        }
+	}
 
-        if (!TruEdit_Has::correctWpVersion()) {
-            throw new TruEdit_Exception('INCORRECT_WP_VERSION');
-        }
+	/**
+	 * Save the body
+	 */
+	private function save_opts( $list ) {
 
-        $opts = new stdClass();
+		if ( ! TruEdit_Has::https() ) {
+			throw new TruEdit_Exception( 'NO_HTTPS' );
+		}
 
-        foreach ($list as $key => $value) {
+		if ( ! TruEdit_Has::zipArchive() ) {
+			throw new TruEdit_Exception( 'NO_ZIP_ARCHIVE' );
+		}
 
-            if (isset($this->valid_opts[$key]) &&
-                !empty($this->valid_opts[$key]['write']) &&
-                $this->valid_opts[$key]['write']
-                ) {
+		if ( ! TruEdit_Has::json() ) {
+			throw new TruEdit_Exception( 'NO_JSON' );
+		}
 
-                if (isset($this->valid_opts[$key]['validate_callback'])) {
+		if ( ! TruEdit_Has::correctPhpVersion() ) {
+			throw new TruEdit_Exception( 'INCORRECT_PHP_VERSION' );
+		}
 
-                    call_user_func($this->valid_opts[$key]['validate_callback'], $value);
-                    $opts->{$key} = $this->save_opt($key, $value);
+		if ( ! TruEdit_Has::correctWpVersion() ) {
+			throw new TruEdit_Exception( 'INCORRECT_WP_VERSION' );
+		}
 
-                } else {
+		$opts = new stdClass();
 
-                    $opts->{$key} = $this->save_opt($key, $value);
+		foreach ( $list as $key => $value ) {
 
-                }
+			if ( isset( $this->valid_opts[ $key ] ) &&
+				! empty( $this->valid_opts[ $key ]['write'] ) &&
+				$this->valid_opts[ $key ]['write']
+				) {
 
-            } else {
-                $opts->{$key} = 'not_available';
-            }
+				if ( isset( $this->valid_opts[ $key ]['validate_callback'] ) ) {
 
-        }
+					call_user_func( $this->valid_opts[ $key ]['validate_callback'], $value );
+					$opts->{$key} = $this->save_opt( $key, $value );
 
-        return $opts;
+				} else {
 
-    }
+					$opts->{$key} = $this->save_opt( $key, $value );
 
-    /**
-     * Save a single option
-     */
-    private function save_opt($key, $value) {
+				}
+			} else {
+				$opts->{$key} = 'not_available';
+			}
+		}
 
-        if (
-            $key === 'api_key' &&
-            TruEdit_Option::get('api_key') !== $value
-            ) {
+		return $opts;
 
-            $this->save_opt('last_tested', -1);
-            TruEdit_Log::info('API key was updated.');
-            
-        }
+	}
 
-        if (
-            $key === 'app_api_key' &&
-            TruEdit_Option::get('app_api_key') !== $value
-            ) {
+	/**
+	 * Save a single option
+	 */
+	private function save_opt( $key, $value ) {
 
-            $this->save_opt('last_tested', -1);
-            TruEdit_Log::info('Application key was updated.');
-            
-        }
+		if (
+			$key === 'api_key' &&
+			TruEdit_Option::get( 'api_key' ) !== $value
+			) {
 
-        if ($key === 'host' &&
-            TruEdit_Option::get('host') !== $value) {
+			$this->save_opt( 'last_tested', -1 );
+			TruEdit_Log::info( 'API key was updated.' );
 
-            $this->save_opt('last_tested', -1);
-            TruEdit_Log::info('Host was updated.');
-            
-        }
+		}
 
-        return TruEdit_Option::save($key, $value);
+		if (
+			$key === 'app_api_key' &&
+			TruEdit_Option::get( 'app_api_key' ) !== $value
+			) {
 
-    }
+			$this->save_opt( 'last_tested', -1 );
+			TruEdit_Log::info( 'Application key was updated.' );
+
+		}
+
+		if ( $key === 'host' &&
+			TruEdit_Option::get( 'host' ) !== $value ) {
+
+			$this->save_opt( 'last_tested', -1 );
+			TruEdit_Log::info( 'Host was updated.' );
+
+		}
+
+		return TruEdit_Option::save( $key, $value );
+
+	}
 
 }

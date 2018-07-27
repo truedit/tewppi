@@ -2,36 +2,36 @@
 
 abstract class TruEdit_Resource {
 
-    private $client;
-    private $config;
-    
-    public $api;
+	private $client;
+	private $config;
 
-    protected $x_api_key;
-    protected $x_app_api_key;
-    protected $accept_language;
+	public $api;
 
-    public function __construct() {
+	protected $x_api_key;
+	protected $x_app_api_key;
+	protected $accept_language;
 
-        $this->client = new TruEdit_Client();
-        $this->config = new TruEdit_Configuration();
+	public function __construct() {
 
-        $this->x_api_key = $this->getConfig()->getApiKey('x_api_key');
-        $this->x_app_api_key = $this->getConfig()->getApiKey('x_app_api_key');
-        $this->accept_language = 'application/json';
-        
-    }
+		$this->client = new TruEdit_Client();
+		$this->config = new TruEdit_Configuration();
 
-    public function getClient() {
+		$this->x_api_key       = $this->getConfig()->getApiKey( 'x_api_key' );
+		$this->x_app_api_key   = $this->getConfig()->getApiKey( 'x_app_api_key' );
+		$this->accept_language = 'application/json';
 
-        return $this->client;
+	}
 
-    }
+	public function getClient() {
 
-    public function getConfig() {
+		return $this->client;
 
-        return $this->config;
+	}
 
-    }
+	public function getConfig() {
+
+		return $this->config;
+
+	}
 
 }
