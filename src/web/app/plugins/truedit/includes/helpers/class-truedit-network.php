@@ -15,7 +15,7 @@ class TruEditNetwork {
 	/**
 	 * Removes limitations on iframes while plugin is installed and activated
 	 */
-	public static function allowTruEditIframe() {
+	public static function allow_tru_edit_iframe() {
 		header_remove( 'X-Frame-Options' );
 		header( 'X-Frame-Options: *' );
 	}
@@ -25,9 +25,9 @@ class TruEditNetwork {
 	 * @param $url string
 	 * @return string
 	 */
-	private static function parseUrlForDomain( $url ) {
-		$urlParts = parse_url( $url );
-		return $urlParts['host'];
+	private static function parse_url_for_domain( $url ) {
+		$url_parts = wp_parse_url( $url );
+		return $url_parts['host'];
 	}
 
 	/**
@@ -35,9 +35,9 @@ class TruEditNetwork {
 	 * @param $url string
 	 * @return string
 	 */
-	private static function parseUrlForHost( $url ) {
-		$urlParts = parse_url( $url );
-		return $urlParts['scheme'] . '://' . $urlParts['host'] . '/';
+	private static function parse_url_for_host( $url ) {
+		$url_parts = wp_parse_url( $url );
+		return $url_parts['scheme'] . '://' . $url_parts['host'] . '/';
 	}
 
 }

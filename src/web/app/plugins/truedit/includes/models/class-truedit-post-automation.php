@@ -22,7 +22,7 @@ class TruEdit_Post_Automation {
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ 'create_update' ];
 
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 
@@ -36,20 +36,20 @@ class TruEdit_Post_Automation {
 					$public_values  = [ 'prompt_on_run', 'draft', 'pending', 'publish' ];
 					$private_values = [ 'private' ];
 
-					if ( $form->publish_visibility === 'prompt_on_run' ) {
-						if ( $value !== 'prompt_on_run' ) {
+					if ( 'prompt_on_run' === $form->publish_visibility ) {
+						if ( 'prompt_on_run' !== $value ) {
 							return false;
 						}
 					}
 
-					if ( $form->publish_visibility === 'public' ) {
-						if ( ! in_array( $value, $public_values ) ) {
+					if ( 'public' === $form->publish_visibility ) {
+						if ( ! in_array( $value, $public_values, true ) ) {
 							return false;
 						}
 					}
 
-					if ( $form->publish_visibility === 'private' ) {
-						if ( ! in_array( $value, $private_values ) ) {
+					if ( 'private' === $form->publish_visibility ) {
+						if ( ! in_array( $value, $private_values, true ) ) {
 							return false;
 						}
 					}
@@ -64,7 +64,7 @@ class TruEdit_Post_Automation {
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 
@@ -77,13 +77,13 @@ class TruEdit_Post_Automation {
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ '0', 'aside', 'image', 'video', 'quote', 'link', 'gallery', 'audio', 'chat', 'status' ];
 
-					if ( $form->publish_type === 'prompt_on_run' ) {
-						if ( $value !== 'prompt_on_run' ) {
+					if ( 'prompt_on_run' === $form->publish_type ) {
+						if ( 'prompt_on_run' !== $value ) {
 							return false;
 						}
 					}
 
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 
@@ -95,7 +95,7 @@ class TruEdit_Post_Automation {
 				'save_order'      => 2,
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ 'prompt_on_run', 'public', 'private' ];
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 					return true;
@@ -107,7 +107,7 @@ class TruEdit_Post_Automation {
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ 'current_user' ];
 
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 
@@ -120,7 +120,7 @@ class TruEdit_Post_Automation {
 				'validate'        => function( $value, $form = [] ) {
 					$values = [ 'prompt_on_run', 'post', 'page' ];
 
-					if ( ! in_array( $value, $values ) ) {
+					if ( ! in_array( $value, $values, true ) ) {
 						return false;
 					}
 
@@ -131,7 +131,7 @@ class TruEdit_Post_Automation {
 
 	}
 
-	public function setPost( $post_id ) {
+	public function set_post( $post_id ) {
 
 		$post = get_post( $post_id );
 
@@ -144,7 +144,7 @@ class TruEdit_Post_Automation {
 		$post_meta->json          = get_post_meta( $post_id, 'json', true );
 		$post_meta->automation_id = get_post_meta( $post_id, 'automation_id', true );
 
-		foreach ( $this->getPublishOpts() as $key => $opts ) {
+		foreach ( $this->get_publish_opts() as $key => $opts ) {
 			$post_meta->{$key} = get_post_meta( $post_id, $key, true );
 		}
 
@@ -160,7 +160,7 @@ class TruEdit_Post_Automation {
 
 	}
 
-	public function getPublishOpts() {
+	public function get_publish_opts() {
 
 		uasort(
 			$this->publish_opts, function( $a, $b ) {
@@ -182,25 +182,25 @@ class TruEdit_Post_Automation {
 
 	public function __toString() {
 
-		return json_encode( $this->post );
+		return wp_json_encode( $this->post );
 
 	}
 
-	public function saveAutomationId( $automation_id ) {
+	public function save_automationid( $automation_id ) {
 
 		update_post_meta( $this->post->ID, 'automation_id', $automation_id );
 		$this->post->post_meta->automation_id = $automation_id;
 
 	}
 
-	public function saveJson( $json ) {
+	public function save_json( $json ) {
 
 		update_post_meta( $this->post->ID, 'json', $json );
 		$this->post->post_meta->json = $json;
 
 	}
 
-	public function saveMeta( $key, $value ) {
+	public function save_meta( $key, $value ) {
 
 		update_post_meta( $this->post->ID, $key, $value );
 		$this->post->post_meta->{$key} = $value;
@@ -210,7 +210,7 @@ class TruEdit_Post_Automation {
 	public function validate( $key, $value, $form ) {
 
 		call_user_func_array(
-			$this->getPublishOpts()[ $key ]['validate'], [
+			$this->get_publish_opts()[ $key ]['validate'], [
 				'value' => $value,
 				'form'  => $form,
 			]

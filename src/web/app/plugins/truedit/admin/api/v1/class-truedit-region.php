@@ -85,13 +85,13 @@ class TruEdit_ApiRoute_Region implements TruEdit_ApiRoute {
 		try {
 
 			$xml  = simplexml_load_file( $this->link );
-			$json = json_encode( $xml );
+			$json = wp_json_encode( $xml );
 
 			$regions = [];
 
 			foreach ( json_decode( $json, true )['region'] as $region ) {
 				$regions[] = [
-					'domain' => parse_url( $region['domain'] )['host'],
+					'domain' => wp_parse_url( $region['domain'] )['host'],
 					'label'  => $region['label']['en'],
 				];
 			}

@@ -7,8 +7,8 @@ class TruEdit_Has {
 
 	private static $ignore = [
 		'__construct',
-		'passedAllRequirements',
-		'debugOn',
+		'passed_all_requirements',
+		'debug_on',
 	];
 
 	public function __construct( $plugin_name, $version ) {
@@ -23,7 +23,7 @@ class TruEdit_Has {
 		$methods = [];
 
 		foreach ( get_class_methods( __CLASS__ ) as $method ) {
-			if ( ! in_array( $method, self::$ignore ) ) {
+			if ( ! in_array( $method, self::$ignore, true ) ) {
 				$methods[] = $method;
 			}
 		}
@@ -32,10 +32,10 @@ class TruEdit_Has {
 
 	}
 
-	public static function passedAllRequirements() {
+	public static function passed_all_requirements() {
 
 		$tis_good = false;
-		$methods = self::methods();
+		$methods  = self::methods();
 
 		foreach ( $methods as $method ) {
 			$tis_good = call_user_func( 'self::' . $method );
@@ -45,7 +45,7 @@ class TruEdit_Has {
 
 	}
 
-	public static function debugOn() {
+	public static function debug_on() {
 
 		if ( getenv( 'WP_ENV' ) === 'development' ) {
 			return true;
@@ -54,11 +54,11 @@ class TruEdit_Has {
 
 	}
 
-	public static function writableFolder() {
+	public static function writable_folder() {
 		return ! wp_upload_dir()['error'];
 	}
 
-	public static function correctPhpVersion() {
+	public static function correct_php_version() {
 
 		$current  = phpversion();
 		$required = '5.5';
@@ -71,7 +71,7 @@ class TruEdit_Has {
 
 	}
 
-	public static function correctWpVersion() {
+	public static function correct_wp_version() {
 
 		global $wp_version;
 		$required = '4.7';
@@ -98,7 +98,7 @@ class TruEdit_Has {
 		}
 	}
 
-	public static function userLoggedIn() {
+	public static function user_logged_in() {
 		return is_user_logged_in();
 	}
 
@@ -115,13 +115,13 @@ class TruEdit_Has {
 
 	}
 
-	public static function apiKey() {
+	public static function api_key() {
 
 		return ! empty( TruEdit_Option::get( 'api_key' ) );
 
 	}
 
-	public static function appApiKey() {
+	public static function app_api_key() {
 
 		return ! empty( TruEdit_Option::get( 'app_api_key' ) );
 
@@ -129,11 +129,11 @@ class TruEdit_Has {
 
 	public static function https() {
 
-		if ( self::debugOn() ) {
+		if ( self::debug_on() ) {
 			return true;
 		}
 
-		if ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) {
+		if ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) {
 			return true;
 		} else {
 			return false;
