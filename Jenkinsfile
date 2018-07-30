@@ -1,5 +1,4 @@
-pipeline {
-  agent any
+try {
   stages {
     stage('Checkout') {
       steps {
@@ -16,9 +15,14 @@ pipeline {
         sh '${WORKSPACE}/src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/tests/*,*/node_modules/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
       }
     }
-    stage('Build Plugin') {
+    stage('Build TruEdit Plugin') {
       steps {
         sh 'cd ${WORKSPACE} && npm run build '
+      }
+    }
+    stage('Build getNEXT Plugin') {
+      steps {
+        sh 'cd ${WORKSPACE} && npm run buildgn'
       }
     }
     stage('Archive Artifacts') {
@@ -27,4 +31,19 @@ pipeline {
       }
     }
   }
+}
+catch (caughtError) {
+    err = caughtError
+    currentBuild.result = "FAILURE"
+
+    mail body: "${env.JOB_NAME}: ${err}",
+    from: 'jenkins@maned.com',
+    replyTo: 'mmiehling@maned.com',
+    subject: 'Jenkins build failed',
+    to: 'mmiehling@maned.com'
+
+    throw err
+}
+finally {
+    //Currently empty
 }
