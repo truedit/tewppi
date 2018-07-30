@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_i18n {
+class TruEdit_I18n {
 
 
 	/**

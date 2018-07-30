@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -102,7 +102,7 @@ class TruEdit_Loader {
 			'component'     => $component,
 			'callback'      => $callback,
 			'priority'      => $priority,
-			'accepted_args' => $accepted_args
+			'accepted_args' => $accepted_args,
 		);
 
 		return $hooks;
@@ -117,17 +117,21 @@ class TruEdit_Loader {
 	public function run() {
 
 		foreach ( $this->filters as $hook ) {
-			add_filter( $hook['hook'], array(
-				$hook['component'],
-				$hook['callback']
-			), $hook['priority'], $hook['accepted_args'] );
+			add_filter(
+				$hook['hook'], array(
+					$hook['component'],
+					$hook['callback'],
+				), $hook['priority'], $hook['accepted_args']
+			);
 		}
 
 		foreach ( $this->actions as $hook ) {
-			add_action( $hook['hook'], array( 
-				$hook['component'],
-				$hook['callback']
-			), $hook['priority'], $hook['accepted_args'] );
+			add_action(
+				$hook['hook'], array(
+					$hook['component'],
+					$hook['callback'],
+				), $hook['priority'], $hook['accepted_args']
+			);
 		}
 
 	}

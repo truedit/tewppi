@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://github.com/truedit/
+ * @link       https://truedit.github.com/
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -29,7 +29,7 @@
  */
 class TruEdit {
 
-    private $trueditAdmin;
+	private $truedit_admin;
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -85,13 +85,13 @@ class TruEdit {
 		$this->define_api();
 	}
 
-	public static function instance(){
-	    if(self::$instance == null){
-	        self::$instance = new TruEdit();
-        }
+	public static function instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new TruEdit();
+		}
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
 	/**
 	 * Load the required dependencies for this plugin.
@@ -116,25 +116,25 @@ class TruEdit {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-levels.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-exception.php';
-		
+
 		/**
 		 * Static helpers
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/helpers/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/helpers/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Interfaces
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/interfaces/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/interfaces/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Models
 		 */
-		foreach ( glob( dirname( __FILE__ ). "/models/*.php" ) as $filename ) {
+		foreach ( glob( dirname( __FILE__ ) . '/models/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
@@ -150,7 +150,7 @@ class TruEdit {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-truedit-publish.php';
-		
+
 		/**
 		 * Rest Api
 		 */
@@ -208,24 +208,26 @@ class TruEdit {
 	 */
 	private function define_admin_hooks() {
 
-		$this->trueditAdmin = new TruEdit_Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->truedit_admin = new TruEdit_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->trueditAdmin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->trueditAdmin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->truedit_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->truedit_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'post_types' );
-		$this->loader->add_action( 'admin_menu', $this->trueditAdmin, 'menu' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'post_types' );
+		$this->loader->add_action( 'admin_menu', $this->truedit_admin, 'menu' );
 
-		$this->loader->add_filter( 'query_vars', $this->trueditAdmin, 'query_vars' );
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'custom_template' );
-		$this->loader->add_action( 'tiny_mce_before_init', $this->trueditAdmin, 'tiny_mce_settings' );
+		$this->loader->add_filter( 'query_vars', $this->truedit_admin, 'query_vars' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'custom_template' );
+		$this->loader->add_action( 'tiny_mce_before_init', $this->truedit_admin, 'tiny_mce_settings' );
 
-		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
+		$this->loader->add_filter( 'comments_clauses', $this->truedit_admin, 'truedit_comments_clauses' );
 
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'admin_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'login_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		//$this->loader->add_filter( 'login_redirect ', $this->trueditAdmin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'admin_init', $this->truedit_admin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'login_init', $this->truedit_admin, 'truedit_modify_headers' );
+		/**
+		* $this->loader->add_filter( 'login_redirect ', $this->truedit_admin, 'truedit_modify_headers' );
+		*/
 
 	}
 
@@ -247,14 +249,14 @@ class TruEdit {
 
 	private function define_api() {
 
-		$plugin_api = new TruEdit_Api($this->get_plugin_name(), $this->get_version());
+		$plugin_api = new TruEdit_Api( $this->get_plugin_name(), $this->get_version() );
 
 		$apis = [
-			new TruEdit_Admin_Api($this->get_plugin_name(), $this->get_version())
+			new TruEdit_Admin_Api( $this->get_plugin_name(), $this->get_version() ),
 		];
-		
-		foreach($apis as $api) {
-			$plugin_api->add_apis($api->get_apis());
+
+		foreach ( $apis as $api ) {
+			$plugin_api->add_apis( $api->get_apis() );
 		}
 
 		$this->loader->add_action( 'init', $plugin_api, 'init' );
@@ -301,8 +303,8 @@ class TruEdit {
 		return $this->version;
 	}
 
-	public function getTrueditAdmin(){
-	    return $this->trueditAdmin;
-    }
+	public function getTrueditAdmin() {
+		return $this->truedit_admin;
+	}
 
 }
