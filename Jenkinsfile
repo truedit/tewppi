@@ -21,7 +21,7 @@ try {
     }
     stage('Build getNEXT Plugin') {
       node('Master') {
-        sh 'cd ${WORKSPACE} && npm run buildgn'
+        sh 'echo "Not currently building getNEXT version"'
       }
     }
     stage('Archive Artifacts') {
