@@ -34,14 +34,14 @@ class TruEdit_Has {
 
 	public static function passedAllRequirements() {
 
-		$tisGood = false;
+		$tis_good = false;
 		$methods = self::methods();
 
 		foreach ( $methods as $method ) {
-			$tisGood = call_user_func( 'self::' . $method );
+			$tis_good = call_user_func( 'self::' . $method );
 		}
 
-		return $tisGood;
+		return $tis_good;
 
 	}
 

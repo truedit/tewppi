@@ -34,7 +34,7 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 	private $routes;
 
 	// These are the comment types to filter exclusively to
-	private static $commentTypes = [
+	private static $comment_types = [
 		'TruEdit_log_info',
 		'TruEdit_log_error',
 	];
@@ -112,13 +112,13 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 				$comment->comment_type = str_replace( 'TruEdit_log_', '', $comment->comment_type );
 			}
 
-			$total      = $this->getTotal();
-			$totalPages = ceil( $total / $count ) ? ceil( $total / $count ) : 1;
+			$total       = $this->getTotal();
+			$total_pages = ceil( $total / $count ) ? ceil( $total / $count ) : 1;
 
 			return new WP_REST_Response(
 				$comments, 200, [
 					'X-WP-Total'      => $total,
-					'X-WP-TotalPages' => $totalPages,
+					'X-WP-TotalPages' => $total_pages,
 				]
 			);
 
@@ -144,7 +144,7 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 	private function getTotal() {
 		return get_comments(
 			[
-				'type'  => self::$commentTypes,
+				'type'  => self::$comment_types,
 				'count' => true,
 			]
 		);
@@ -161,7 +161,7 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 
 		return get_comments(
 			[
-				'type'   => self::$commentTypes,
+				'type'   => self::$comment_types,
 				'order'  => 'DESC',
 				'number' => $count,
 				'offset' => ( $page - 1 ) * $count,

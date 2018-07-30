@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_i18n {
+class TruEdit_I18n {
 
 
 	/**

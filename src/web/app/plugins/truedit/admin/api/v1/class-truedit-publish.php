@@ -74,15 +74,15 @@ class TruEdit_ApiRoute_Publish implements TruEdit_ApiRoute {
 					break;
 			}
 
-			if ( $post_id === -1 ) {
+			if ( -1 === $post_id ) {
 				throw new TruEdit_Exception( 'NOT_PUBLISHED' );
 			}
-
-			// TODO: Update to make it easier.
-			// $resource = new TruEdit_Resource_Automation();
-			// $res = $resource->read($automation_id);
-			// $automation->saveJson(json_decode($res->getResult()));
-
+			/*
+			* // TODO: Update to make it easier.
+			* // $resource = new TruEdit_Resource_Automation();
+			* // $res = $resource->read($automation_id);
+			* // $automation->saveJson(json_decode($res->getResult()));
+			*/
 			return new WP_REST_Response(
 				[
 					'post_id' => $post_id,

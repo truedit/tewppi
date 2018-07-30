@@ -295,7 +295,7 @@ class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 	private function save_opt( $key, $value ) {
 
 		if (
-			$key === 'api_key' &&
+			'api_key' === $key &&
 			TruEdit_Option::get( 'api_key' ) !== $value
 			) {
 
@@ -305,7 +305,7 @@ class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 		}
 
 		if (
-			$key === 'app_api_key' &&
+			'app_api_key' === $key &&
 			TruEdit_Option::get( 'app_api_key' ) !== $value
 			) {
 
@@ -314,7 +314,7 @@ class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 
 		}
 
-		if ( $key === 'host' &&
+		if ( 'host' === $key &&
 			TruEdit_Option::get( 'host' ) !== $value ) {
 
 			$this->save_opt( 'last_tested', -1 );

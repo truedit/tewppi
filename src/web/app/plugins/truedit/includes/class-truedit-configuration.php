@@ -16,7 +16,9 @@ class TruEdit_Configuration extends Configuration {
 
 		if ( TruEdit_Option::get( 'app_api_key' ) ) {
 			$this->setApiKey( 'x_app_api_key', TruEdit_Option::get( 'app_api_key' ) );
-			// if ($key === 'app_api_key') return fgets(fopen(realpath(dirname(__DIR__) . '/../x_app_api_key.txt'), 'r'));
+			/**
+			* if ($key === 'app_api_key') return fgets(fopen(realpath(dirname(__DIR__) . '/../x_app_api_key.txt'), 'r'));
+			*/	
 		}
 
 	}

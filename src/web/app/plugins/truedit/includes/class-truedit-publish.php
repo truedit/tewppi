@@ -215,13 +215,12 @@ class TruEdit_Publish {
 
 		$new_str = str_replace( '&#13;', '', $new_str );
 
-		// Add custom trims here
 		/**
+		 * // Add custom trims here
 		 * for loop
 		 * looop some potential replacements
+		 * // $new_str = str_replace($replacer, $replacement, $new_str)
 		 */
-		// $new_str = str_replace($replacer, $replacement, $new_str)
-
 		return $new_str;
 
 	}
@@ -249,11 +248,11 @@ class TruEdit_Publish {
 	 * Method to update all the media assets (img, video tags) and make them usable within WordPress
 	 * @param $doc DOMDocument
 	 * @param $media_type integer Should be an enum from MediaTypeEnum
-	 * @param $postId integer WordPress Post ID
+	 * @param $post_id integer WordPress Post ID
 	 * @param $zip_path string Absolute path to the zip content
 	 * @throws Exception
 	 */
-	private function update_media( $doc, $media_type, $postId, $zip_path ) {
+	private function update_media( $doc, $media_type, $post_id, $zip_path ) {
 		/**
 		 * We separated the loops because we didn't want to replace an image more than
 		 * once if it occurred in the document more than once.
@@ -276,9 +275,9 @@ class TruEdit_Publish {
 				throw new Exception( 'Unknown media type' );
 		}
 
-		$mediaElements = $doc->getElementsByTagName( $tag_name );
-		$media_items   = [];
-		foreach ( $mediaElements as $element ) {
+		$media_elements = $doc->getElementsByTagName( $tag_name );
+		$media_items    = [];
+		foreach ( $media_elements as $element ) {
 			if ( $element->getAttribute( $url_attribute ) !== 'null' ) {
 				$media_items[] = substr( $element->getAttribute( $url_attribute ), 2 );
 			}
@@ -294,13 +293,13 @@ class TruEdit_Publish {
 		foreach ( array_unique( $media_items ) as $media_item ) {
 			$file_id = pathinfo( $media_item, PATHINFO_FILENAME ); // 150
 
-			$attachment = $this->get_attachment( $postId, $file_id );
+			$attachment = $this->get_attachment( $post_id, $file_id );
 
 			if ( ! is_null( $attachment ) ) {
 
-				$dateTime = strtotime( $attachment->post_date );
-				$year     = date( 'Y', $dateTime );
-				$month    = date( 'm', $dateTime );
+				$date_time = strtotime( $attachment->post_date );
+				$year      = date( 'Y', $date_time );
+				$month     = date( 'm', $date_time );
 
 				// Get the absolute path of the exiting file
 				$dir                 = wp_upload_dir()['basedir'] . '/' . $year . '/' . $month;
@@ -310,7 +309,7 @@ class TruEdit_Publish {
 
 				$media_id = $attachment->ID;
 
-				if ( $media_type == MediaTypeEnum::Image ) {
+				if ( MediaTypeEnum::Image === $media_type ) {
 					$attach_data = wp_generate_attachment_metadata( $media_id, $absolute_path_in_wp );
 					wp_update_attachment_metadata( $media_id, $attach_data );
 				}
@@ -334,9 +333,9 @@ class TruEdit_Publish {
 				);
 
 				// Generate the metadata for the attachment, and update the database record.
-				$media_id = wp_insert_attachment( $attachment, $absolute_path_in_wp, $postId );
+				$media_id = wp_insert_attachment( $attachment, $absolute_path_in_wp, $post_id );
 
-				if ( $media_type == MediaTypeEnum::Image ) {
+				if ( MediaTypeEnum::Image === $media_type ) {
 					$attach_data = wp_generate_attachment_metadata( $media_id, $absolute_path_in_wp );
 					wp_update_attachment_metadata( $media_id, $attach_data );
 				}
@@ -350,14 +349,14 @@ class TruEdit_Publish {
 		 * Replace the image into the html
 		 * with any empty src to be #
 		 */
-		foreach ( $mediaElements as $element ) {
+		foreach ( $media_elements as $element ) {
 			$parent = $element->parentNode;
 			$parent->removeChild( $element );
 
 			$new_el = $element;
 
 			$file_id = pathinfo( $new_el->getAttribute( $url_attribute ), PATHINFO_FILENAME );
-			if ( $file_id !== 'null' ) {
+			if ( 'null' !== $file_id ) {
 				$new_el->setAttribute( $url_attribute, $urls[ $file_id ] );
 				$parent->appendChild( $new_el );
 			} else {
@@ -380,8 +379,8 @@ class TruEdit_Publish {
  * This is basic PHP enum object. This and the other media stuff should be refactored into a separate class
  */
 abstract class MediaTypeEnum {
-	const Image = 0;
-	const Video = 1;
+	const IMAGE = 0;
+	const VIDEO = 1;
 
 
 }

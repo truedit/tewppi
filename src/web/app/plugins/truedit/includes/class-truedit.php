@@ -29,7 +29,7 @@
  */
 class TruEdit {
 
-	private $trueditAdmin;
+	private $truedit_admin;
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -86,7 +86,7 @@ class TruEdit {
 	}
 
 	public static function instance() {
-		if ( self::$instance == null ) {
+		if ( null === self::$instance ) {
 			self::$instance = new TruEdit();
 		}
 
@@ -208,24 +208,26 @@ class TruEdit {
 	 */
 	private function define_admin_hooks() {
 
-		$this->trueditAdmin = new TruEdit_Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->truedit_admin = new TruEdit_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->trueditAdmin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $this->trueditAdmin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->truedit_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $this->truedit_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'post_types' );
-		$this->loader->add_action( 'admin_menu', $this->trueditAdmin, 'menu' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'post_types' );
+		$this->loader->add_action( 'admin_menu', $this->truedit_admin, 'menu' );
 
-		$this->loader->add_filter( 'query_vars', $this->trueditAdmin, 'query_vars' );
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'custom_template' );
-		$this->loader->add_action( 'tiny_mce_before_init', $this->trueditAdmin, 'tiny_mce_settings' );
+		$this->loader->add_filter( 'query_vars', $this->truedit_admin, 'query_vars' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'custom_template' );
+		$this->loader->add_action( 'tiny_mce_before_init', $this->truedit_admin, 'tiny_mce_settings' );
 
-		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
+		$this->loader->add_filter( 'comments_clauses', $this->truedit_admin, 'truedit_comments_clauses' );
 
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'admin_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'login_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		//$this->loader->add_filter( 'login_redirect ', $this->trueditAdmin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'init', $this->truedit_admin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'admin_init', $this->truedit_admin, 'truedit_modify_headers' );
+		$this->loader->add_action( 'login_init', $this->truedit_admin, 'truedit_modify_headers' );
+		/**
+		* $this->loader->add_filter( 'login_redirect ', $this->truedit_admin, 'truedit_modify_headers' );
+		*/
 
 	}
 
@@ -302,7 +304,7 @@ class TruEdit {
 	}
 
 	public function getTrueditAdmin() {
-		return $this->trueditAdmin;
+		return $this->truedit_admin;
 	}
 
 }

@@ -221,7 +221,7 @@ class TruEdit_Admin {
 		if (
 			isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] &&
 			isset( $_GET['type'] ) && 'automation' === $_GET['type'] ) {
-			echo "Developer is tweaking";
+			echo 'Developer is tweaking';
 			exit;
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
