@@ -1,5 +1,4 @@
 try {
-  stages {
     stage('Checkout') {
       steps {
         git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
@@ -30,7 +29,6 @@ try {
         archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
       }
     }
-  }
 }
 catch (caughtError) {
     err = caughtError
