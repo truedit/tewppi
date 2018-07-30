@@ -11,6 +11,11 @@ pipeline {
         sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn && npm install && cd ${WORKSPACE}/src/web/app/plugins/truedit/ && composer install '
       }
     }
+    stage('Linting') {
+      steps {
+        sh '${WORKSPACE}/src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/tests/*,*/node_modules/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
+      }
+    }
     stage('Build Plugin') {
       steps {
         sh 'cd ${WORKSPACE} && npm run build '
