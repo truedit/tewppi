@@ -7,7 +7,11 @@
 <html>
 
 <head>
-	<?php show_admin_bar( false ); ?>
+	<?php
+	/**
+	* show_admin_bar( false );
+	*/
+	?>
 	<?php wp_admin_bar_render(); ?>
 </head>
 <body <?php body_class( 'wp-core-ui' ); ?>>

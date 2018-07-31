@@ -56,7 +56,7 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 
 	public function create( $name = '', $profile_name = '' ) {
 
-		$apiInstance = new Swagger\Client\Api\AutomationApi(
+		$api_instance = new Swagger\Client\Api\AutomationApi(
 			// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
 			// This is optional, `GuzzleHttp\Client` will be used as default.
 			new GuzzleHttp\Client()
@@ -68,7 +68,7 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 
 		try {
 
-			return $apiInstance->saveUsingPOST( $automations, $x_api_key, $accept_language );
+			return $api_instance->saveUsingPOST( $automations, $x_api_key, $accept_language );
 
 		} catch ( Exception $e ) {
 

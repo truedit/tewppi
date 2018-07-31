@@ -248,13 +248,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 				unset( $form->{$key} );
 			}
 
-			$form_url                    = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
-			$form->config                = [
+			$form_url                     = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
+			$form->config                 = [
 				'formUrl'        => $form_url,
 				'formRemote'     => true,
 				'externalConfig' => true,
 			];
-			$form->integrationIdentifier = $this->identifier;
+			$form->integration_identifier = $this->identifier;
 
 			$resource = new TruEdit_Resource_Automation();
 			$res      = $resource->create(
@@ -346,7 +346,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$form->config                 = $automation->json->config;
 			$form->config->formRemote     = true;
 			$form->config->externalConfig = true;
-			$form->integrationIdentifier  = $this->identifier;
+			$form->integration_identifier = $this->identifier;
 
 			$auto_id = $automation->post_meta->automation_id;
 
