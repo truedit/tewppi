@@ -24,6 +24,9 @@ try {
         sh 'echo "Not currently building getNEXT version"'
       }
     }
+    stage('Publish Linting Results') {
+      checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: ''
+    }
     stage('Archive Artifacts') {
       node('Master') {
         sh 'echo "Not currently archiving this build."'
