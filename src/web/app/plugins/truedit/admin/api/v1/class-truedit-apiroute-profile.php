@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
+class TruEdit_ApiRoute_Profile implements TruEdit_ApiRoute {
 
 	private $plugin_name;
 	private $version;
@@ -38,27 +38,17 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->route         = 'option/test';
+		$this->route         = 'profile';
 		$this->route_version = 1;
 
 		$this->routes = [
-			'read'   => [
+			'read' => [
 				'route'   => $this->route,
 				'options' => [
 					'methods'  => WP_REST_Server::READABLE,
 					'callback' => [
 						$this,
 						'read',
-					],
-				],
-			],
-			'create' => [
-				'route'   => $this->route,
-				'options' => [
-					'methods'  => WP_REST_Server::CREATABLE,
-					'callback' => [
-						$this,
-						'create',
 					],
 				],
 			],
@@ -74,7 +64,6 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * Get/Set
-	 * --------------------------------------------
 	 */
 	public function get_route_version() {
 		return $this->route_version;
@@ -86,31 +75,23 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * CRUD
-	 * --------------------------------------------
 	 */
 	public function read( WP_REST_Request $request ) {
 
-	}
-
-	public function create( WP_REST_Request $request ) {
-
 		try {
 
-			$resource = new TruEdit_Resource_Check();
-			$res      = $resource->check();
+			$resource = new TruEdit_Resource_Profile( $this->version, $this->plugin_name );
+			$res      = $resource->read();
 
-			$session_info = json_decode( $res->getResult() );
+			$profiles = [];
+			foreach ( $res->getResults() as $profile ) {
+				// We only want HTML type Profiles
+				if ( $profile->getTruAuthor() ) {
+					$profiles[] = json_decode( $profile->__toString() );
+				}
+			}
 
-			TruEdit_Option::save( 'verified', 1 );
-
-			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenant_name . '.' );
-
-			return new WP_REST_Response(
-				[
-					'verified'     => 1,
-					'session_info' => $session_info,
-				], 200
-			);
+			return new WP_REST_Response( $profiles, 200 );
 
 		} catch ( \Swagger\Client\ApiException $e ) {
 
@@ -125,20 +106,20 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 			return TruEdit_Handle::exception( $e );
 
 		}
+	}
+
+	public function create( WP_REST_Request $request ) {
 
 	}
 
 	public function update( WP_REST_Request $request ) {
 
+		return store( $request );
+
 	}
 
 	public function delete( WP_REST_Request $request ) {
 
-	}
-
-	private function error( $message ) {
-		TruEdit_Option::save( 'verified', -1 );
-		TruEdit_Log::error( $message );
 	}
 
 }

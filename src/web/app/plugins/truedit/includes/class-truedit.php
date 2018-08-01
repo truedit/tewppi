@@ -303,7 +303,7 @@ class TruEdit {
 		return $this->version;
 	}
 
-	public function getTrueditAdmin() {
+	public function get_truedit_admin() {
 		return $this->truedit_admin;
 	}
 

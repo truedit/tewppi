@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
+class TruEdit_ApiRoute_Dashboard implements TruEdit_ApiRoute {
 
 	private $plugin_name;
 	private $version;
@@ -38,12 +38,12 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->route         = 'option/test';
+		$this->route         = 'dashboard';
 		$this->route_version = 1;
 
 		$this->routes = [
-			'read'   => [
-				'route'   => $this->route,
+			'read' => [
+				'route'   => $this->route . '/(?P<type>\d+)',
 				'options' => [
 					'methods'  => WP_REST_Server::READABLE,
 					'callback' => [
@@ -52,13 +52,13 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 					],
 				],
 			],
-			'create' => [
+			'read' => [
 				'route'   => $this->route,
 				'options' => [
-					'methods'  => WP_REST_Server::CREATABLE,
+					'methods'  => WP_REST_Server::READABLE,
 					'callback' => [
 						$this,
-						'create',
+						'read',
 					],
 				],
 			],
@@ -74,7 +74,6 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * Get/Set
-	 * --------------------------------------------
 	 */
 	public function get_route_version() {
 		return $this->route_version;
@@ -86,45 +85,30 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * CRUD
-	 * --------------------------------------------
 	 */
 	public function read( WP_REST_Request $request ) {
 
-	}
-
-	public function create( WP_REST_Request $request ) {
-
 		try {
 
-			$resource = new TruEdit_Resource_Check();
-			$res      = $resource->check();
+			$dashboard = [
+				'has'         => [
+					'verified' => TruEdit_Has::verified(),
+				],
+				'automations' => $this->getAutos( 5 ),
+				'logs'        => $this->getLogs(),
+			];
 
-			$session_info = json_decode( $res->getResult() );
-
-			TruEdit_Option::save( 'verified', 1 );
-
-			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenant_name . '.' );
-
-			return new WP_REST_Response(
-				[
-					'verified'     => 1,
-					'session_info' => $session_info,
-				], 200
-			);
-
-		} catch ( \Swagger\Client\ApiException $e ) {
-
-			return TruEdit_Handle::swagger_exception( $e );
-
-		} catch ( TruEdit_Exception $e ) {
-
-			return TruEdit_Handle::truedit_exception( $e );
+			return new WP_REST_Response( $dashboard, 200 );
 
 		} catch ( Exception $e ) {
 
 			return TruEdit_Handle::exception( $e );
 
 		}
+
+	}
+
+	public function create( WP_REST_Request $request ) {
 
 	}
 
@@ -136,9 +120,34 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	}
 
-	private function error( $message ) {
-		TruEdit_Option::save( 'verified', -1 );
-		TruEdit_Log::error( $message );
+	private function getLogs() {
+		return TruEdit_ApiRoute_Log::getComments( 1, 5 );
+	}
+
+	private function getAutos( $count = 5 ) {
+
+		$posts = get_posts(
+			[
+				'post_type'   => 'automation',
+				'post_status' => 'draft',
+				'numberposts' => $count,
+			/**
+			* 'order'    => 'ASC'
+			*/
+			]
+		);
+
+		foreach ( $posts as $post ) {
+			$post_id                  = $post->ID;
+			$post_meta                = new stdClass();
+			$post_meta->json          = get_post_meta( $post_id, 'json', true );
+			$post_meta->automation_id = get_post_meta( $post_id, 'automation_id', true );
+
+			$post->post_meta = $post_meta;
+		}
+
+		return $posts;
+
 	}
 
 }

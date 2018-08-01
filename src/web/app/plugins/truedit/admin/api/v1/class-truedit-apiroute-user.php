@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
+class TruEdit_ApiRoute_User implements TruEdit_ApiRoute {
 
 	private $plugin_name;
 	private $version;
@@ -38,27 +38,17 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->route         = 'option/test';
+		$this->route         = 'user/sessionInfo';
 		$this->route_version = 1;
 
 		$this->routes = [
-			'read'   => [
+			'read' => [
 				'route'   => $this->route,
 				'options' => [
 					'methods'  => WP_REST_Server::READABLE,
 					'callback' => [
 						$this,
 						'read',
-					],
-				],
-			],
-			'create' => [
-				'route'   => $this->route,
-				'options' => [
-					'methods'  => WP_REST_Server::CREATABLE,
-					'callback' => [
-						$this,
-						'create',
 					],
 				],
 			],
@@ -90,10 +80,6 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 	 */
 	public function read( WP_REST_Request $request ) {
 
-	}
-
-	public function create( WP_REST_Request $request ) {
-
 		try {
 
 			$resource = new TruEdit_Resource_Check();
@@ -101,16 +87,7 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 			$session_info = json_decode( $res->getResult() );
 
-			TruEdit_Option::save( 'verified', 1 );
-
-			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenant_name . '.' );
-
-			return new WP_REST_Response(
-				[
-					'verified'     => 1,
-					'session_info' => $session_info,
-				], 200
-			);
+			return new WP_REST_Response( $session_info, 200 );
 
 		} catch ( \Swagger\Client\ApiException $e ) {
 
@@ -128,17 +105,16 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	}
 
+	public function create( WP_REST_Request $request ) {
+
+	}
+
 	public function update( WP_REST_Request $request ) {
 
 	}
 
 	public function delete( WP_REST_Request $request ) {
 
-	}
-
-	private function error( $message ) {
-		TruEdit_Option::save( 'verified', -1 );
-		TruEdit_Log::error( $message );
 	}
 
 }

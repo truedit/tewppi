@@ -24,7 +24,7 @@
  * @subpackage TruEdit/includes
  * @author     TruEdit <test@test.com>
  */
-class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
+class TruEdit_ApiRoute_Region implements TruEdit_ApiRoute {
 
 	private $plugin_name;
 	private $version;
@@ -33,16 +33,18 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 	private $route;
 	private $routes;
 
+	private $link;
+
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->route         = 'option/test';
+		$this->route         = 'region';
 		$this->route_version = 1;
 
 		$this->routes = [
-			'read'   => [
+			'read' => [
 				'route'   => $this->route,
 				'options' => [
 					'methods'  => WP_REST_Server::READABLE,
@@ -52,17 +54,9 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 					],
 				],
 			],
-			'create' => [
-				'route'   => $this->route,
-				'options' => [
-					'methods'  => WP_REST_Server::CREATABLE,
-					'callback' => [
-						$this,
-						'create',
-					],
-				],
-			],
 		];
+
+		$this->link = 'https://s3.amazonaws.com/TruEdit-plugin/TruEditRegions.xml';
 	}
 
 	/**
@@ -74,7 +68,6 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * Get/Set
-	 * --------------------------------------------
 	 */
 	public function get_route_version() {
 		return $this->route_version;
@@ -86,31 +79,29 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	/**
 	 * CRUD
-	 * --------------------------------------------
 	 */
 	public function read( WP_REST_Request $request ) {
 
-	}
-
-	public function create( WP_REST_Request $request ) {
-
 		try {
 
-			$resource = new TruEdit_Resource_Check();
-			$res      = $resource->check();
+			$xml  = simplexml_load_file( $this->link );
+			$json = wp_json_encode( $xml );
 
-			$session_info = json_decode( $res->getResult() );
+			$regions = [];
 
-			TruEdit_Option::save( 'verified', 1 );
+			foreach ( json_decode( $json, true )['region'] as $region ) {
+				$regions[] = [
+					'domain' => wp_parse_url( $region['domain'] )['host'],
+					'label'  => $region['label']['en'],
+				];
+			}
 
-			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenant_name . '.' );
+			$regions[] = [
+				'domain' => 'Other',
+				'label'  => 'Other',
+			];
 
-			return new WP_REST_Response(
-				[
-					'verified'     => 1,
-					'session_info' => $session_info,
-				], 200
-			);
+			return new WP_REST_Response( $regions, 200 );
 
 		} catch ( \Swagger\Client\ApiException $e ) {
 
@@ -128,6 +119,10 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	}
 
+	public function create( WP_REST_Request $request ) {
+
+	}
+
 	public function update( WP_REST_Request $request ) {
 
 	}
@@ -136,9 +131,6 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 	}
 
-	private function error( $message ) {
-		TruEdit_Option::save( 'verified', -1 );
-		TruEdit_Log::error( $message );
-	}
-
 }
+
+

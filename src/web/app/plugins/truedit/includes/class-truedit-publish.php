@@ -86,7 +86,7 @@ class TruEdit_Publish {
 
 		$html = $zip->getFromName( 'index.html' );
 		$doc  = new DOMDocument();
-		@$doc->loadHTML( $html, LIBXML_NOWARNING );
+		$doc->loadHTML( $html, LIBXML_NOWARNING );
 
 		$post = $this->postify( $this->opts->publish_type );
 

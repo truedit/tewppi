@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Define the internationalization functionality
+ * Define the internationalization  functionality
  *
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
@@ -75,7 +75,7 @@ class TruEdit_Resource_Automation extends TruEdit_Resource {
 		$accept_language = 'application/json';
 
 		try {
-			if ( $id === -1 ) {
+			if ( -1 === $id ) {
 				return $this->api->fetchAllUsingGET( $minimal, $page_number, $page_size, $order_by, null, $this->x_api_key, $this->x_app_api_key, $accept_language );
 			} else {
 				return $this->api->fetchUsingGET( $id, $this->x_api_key, $this->x_app_api_key, $accept_language );
@@ -88,9 +88,11 @@ class TruEdit_Resource_Automation extends TruEdit_Resource {
 
 	public function create( $automations ) {
 
-		// $automations = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_([
-		//     'automations' => $list
-		// ]); // \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations
+		/**
+		* // $automations = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_([
+		* //     'automations' => $list
+		* // ]); // \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations
+		*/
 		$accept_language = 'application/json';
 
 		try {
@@ -103,7 +105,9 @@ class TruEdit_Resource_Automation extends TruEdit_Resource {
 
 	public function update( $id, $automation ) {
 
-		// $automation = new \Swagger\Client\Model\AutomationV1TO(); // \Swagger\Client\Model\AutomationV1TO | automationV1TO
+		/**
+		* // $automation = new \Swagger\Client\Model\AutomationV1TO(); // \Swagger\Client\Model\AutomationV1TO | automationV1TO
+		*/
 		$accept_language = 'application/json'; // string |
 
 		try {

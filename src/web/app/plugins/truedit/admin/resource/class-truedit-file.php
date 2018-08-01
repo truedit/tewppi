@@ -1,6 +1,6 @@
 <?php
 
-
+/**
 // class TruEdit_Resource_File extends TruEdit_Resource {
 
 //     $apiInstance = new Swagger\Client\Api\FileApi(
@@ -19,3 +19,4 @@
 //         echo 'Exception when calling FileApi->retrieveFileUsingGET: ', $e->getMessage(), PHP_EOL;
 //     }
 // }
+*/
