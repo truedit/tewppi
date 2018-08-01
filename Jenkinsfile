@@ -26,7 +26,7 @@ try {
   }
   stage('Publish Linting Results') {
     node('Master') {
-      checkstyle defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
+      checkstyle defaultEncoding: '', healthy: '', pattern: 'phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
     }
   }
   stage('Archive Artifacts') {
