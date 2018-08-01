@@ -25,7 +25,9 @@ try {
     }
   }
   stage('Publish Linting Results') {
-    checkstyle defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
+    node('Master') {
+      checkstyle defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
+    }
   }
   stage('Archive Artifacts') {
     node('Master') {
