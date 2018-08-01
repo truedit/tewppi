@@ -1,1 +1,3 @@
 src/composer.lock
+dist
+phpcs_checkstyle.xml
