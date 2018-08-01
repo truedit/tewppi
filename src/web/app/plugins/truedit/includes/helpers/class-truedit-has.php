@@ -109,7 +109,7 @@ class TruEdit_Has {
 
 	}
 
-	public static function zipArchive() {
+	public static function zip_archive() {
 
 		return class_exists( 'ZipArchive' );
 
@@ -133,7 +133,7 @@ class TruEdit_Has {
 			return true;
 		}
 
-		if ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) {
+		if ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) { // Input var okay.
 			return true;
 		} else {
 			return false;

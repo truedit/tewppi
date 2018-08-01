@@ -24,11 +24,17 @@ class TruEdit_Log extends TruEdit_Levels {
 		if ( ! self::should_handle( $level ) ) {
 			// A config option with log levels selected.
 		}
+		if ( isset( $_SERVER['HTTP_HOST'] ) ) {
 
+			$server_http_host = filter_var( wp_unslash( $_SERVER['HTTP_HOST'] ), FILTER_SANITIZE_STRING ); // Input var okay.
+			; // Input var okay.
+		} else {
+			$server_http_host = '';
+		}
 		wp_insert_comment(
 			[
 				'comment_author'       => 'TruEdit',
-				'comment_author_email' => 'truedit@' . $_SERVER['HTTP_HOST'],
+				'comment_author_email' => 'truedit@' . $server_http_host,
 				'comment_author_url'   => '',
 				'comment_content'      => $message,
 				'comment_type'         => 'TruEdit_log_' . $level,

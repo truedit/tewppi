@@ -219,10 +219,9 @@ class TruEdit_Admin {
 	public function custom_template() {
 
 		if (
-			isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] &&
-			isset( $_GET['type'] ) && 'automation' === $_GET['type'] ) {
-			echo 'Developer is tweaking';
-			exit;
+			isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] && // Input var okay.
+			isset( $_GET['type'] ) && 'automation' === $_GET['type'] ) { // Input var okay.
+
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
 
@@ -252,7 +251,7 @@ class TruEdit_Admin {
 	 */
 	public function tiny_mce_settings( $in ) {
 
-		if ( isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] ) {
+		if ( isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] ) { // Input var okay.
 			$in['wpautop'] = false;
 		}
 
