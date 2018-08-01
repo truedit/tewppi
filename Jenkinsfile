@@ -11,7 +11,7 @@ try {
     }
     stage('Linting') {
       node('Master') {
-        sh '${WORKSPACE}/src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/tests/*,*/node_modules/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
+        sh '${WORKSPACE}/src/vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/test*/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
       }
     }
     stage('Build TruEdit Plugin') {
@@ -25,7 +25,7 @@ try {
       }
     }
     stage('Publish Linting Results') {
-      checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: ''
+      checkstyle defaultEncoding: '', healthy: '', pattern: '${WORKSPACE}/phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
     }
     stage('Archive Artifacts') {
       node('Master') {
@@ -35,7 +35,7 @@ try {
     }
 }
 catch (caughtError) {
-    err = caughtError
+    err = caughtError`
     currentBuild.result = "FAILURE"
 
     mail body: "${env.JOB_NAME}: ${err}",
