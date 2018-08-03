@@ -129,7 +129,7 @@ class TruEdit_Publish {
 			'post_type'    => $this->opts->publish_type,
 			'post_status'  => $this->opts->publish_status,
 		];
-		$success  = wp_update_post( $new_post, true );
+		wp_update_post( $new_post, true );
 
 		if ( 'post' === $this->opts->publish_type ) {
 			wp_set_post_terms( $post->ID, 'post-format-' . $this->opts->publish_format, 'post_format' );

@@ -39,11 +39,18 @@ class TruEdit_Resource_Automation extends TruEdit_Resource {
 
 	public function getFiltered() {
 
-		$automations     = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_(); // \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations
+		$automations     = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_(); 
+		
+		/**
+		* \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations
+		*/
 		$minimal         = false; // bool | minimal
 		$page_number     = 1; // int | pageNumber
 		$page_size       = 100; // int | pageSize
-		$order_by        = array( 'name asc' ); // string[] | orderBy
+		$order_by        = array( 'name asc' ); 
+		/**
+		* string[] | orderBy 
+		*/
 		$accept_language = 'accept_language_example'; // string |
 
 		try {
@@ -71,7 +78,10 @@ class TruEdit_Resource_Automation extends TruEdit_Resource {
 		$minimal         = false; // bool | minimal
 		$page_number     = 1; // int | pageNumber
 		$page_size       = 100; // int | pageSize
-		$order_by        = array( 'name asc' ); // string[] | orderBy
+		$order_by        = array( 'name asc' ); 
+		/*/
+		* string[] | orderBy
+		*/
 		$accept_language = 'application/json';
 
 		try {

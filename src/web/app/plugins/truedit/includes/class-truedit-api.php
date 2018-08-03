@@ -47,8 +47,9 @@ class TruEdit_Api {
 	public function load_dependencies() {
 
 	}
-
-	// Type class for arg[0]
+	/**
+	* Type class for arg[0]
+	*/
 	public function add_apis( $apis ) {
 
 		$this->apis = array_merge( $this->apis, $apis );

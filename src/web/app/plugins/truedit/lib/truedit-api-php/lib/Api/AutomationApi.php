@@ -115,8 +115,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1ResponseMessage, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function deleteUsingDELETEWithHttpInfo( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResponseMessage';
-		$request    = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResponseMessage';
+		$request     = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -131,33 +131,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -213,39 +213,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function deleteUsingDELETEAsyncWithHttpInfo( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResponseMessage';
-		$request    = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResponseMessage';
+		$request     = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -266,7 +266,7 @@ class AutomationApi {
 	 */
 	protected function deleteUsingDELETERequest( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 		// verify the required parameter 'id' is set
-		if ( $id === null ) {
+		if ( null === $id ) {
 			throw new \InvalidArgumentException(
 				'Missing the required parameter $id when calling deleteUsingDELETE'
 			);
@@ -280,20 +280,20 @@ class AutomationApi {
 		$multipart     = false;
 
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// path params
-		if ( $id !== null ) {
+		if ( null !== $id ) {
 			$resource_path = str_replace(
 				'{' . 'id' . '}',
 				ObjectSerializer::toPathValue( $id ),
@@ -302,7 +302,7 @@ class AutomationApi {
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 
 		if ( $multipart ) {
 			$headers = $this->headerSelector->selectHeadersForMultipart(
@@ -316,11 +316,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -335,7 +335,7 @@ class AutomationApi {
 				// for HTTP post (form)
 				$http_body = new MultipartStream( $multipart_contents );
 
-			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+			} elseif ( 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $form_params );
 
 			} else {
@@ -396,8 +396,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1ResultListResponseReferenceV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function fetchActionsUsingGETWithHttpInfo( $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseReferenceV1TO_';
-		$request    = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseReferenceV1TO_';
+		$request     = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -412,33 +412,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -492,39 +492,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function fetchActionsUsingGETAsyncWithHttpInfo( $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseReferenceV1TO_';
-		$request    = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseReferenceV1TO_';
+		$request     = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -552,20 +552,20 @@ class AutomationApi {
 		$multipart     = false;
 
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 
 		if ( $multipart ) {
 			$headers = $this->headerSelector->selectHeadersForMultipart(
@@ -579,11 +579,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -598,7 +598,7 @@ class AutomationApi {
 				// for HTTP post (form)
 				$http_body = new MultipartStream( $multipart_contents );
 
-			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+			} elseif ( 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $form_params );
 
 			} else {
@@ -669,8 +669,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1ResultListResponseAutomationV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function fetchAllUsingGETWithHttpInfo( $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $if_modified_since = null, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -685,33 +685,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -775,39 +775,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function fetchAllUsingGETAsyncWithHttpInfo( $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $if_modified_since = null, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -840,43 +840,43 @@ class AutomationApi {
 		$multipart     = false;
 
 		// query params
-		if ( $minimal !== null ) {
+		if ( null !== $minimal ) {
 			$query_params['minimal'] = ObjectSerializer::toQueryValue( $minimal );
 		}
 		// query params
-		if ( $page_number !== null ) {
+		if ( null !== $page_number ) {
 			$query_params['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
 		}
 		// query params
-		if ( $page_size !== null ) {
+		if ( null !== $page_size ) {
 			$query_params['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
 		}
 		// query params
 		if ( is_array( $order_by ) ) {
 			$order_by = ObjectSerializer::serializeCollection( $order_by, 'multi', true );
 		}
-		if ( $order_by !== null ) {
+		if ( null !== $order_by ) {
 			$query_params['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
 		}
 		// header params
-		if ( $if_modified_since !== null ) {
+		if ( null !== $if_modified_since ) {
 			$header_params['If-Modified-Since'] = ObjectSerializer::toHeaderValue( $if_modified_since );
 		}
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 
 		if ( $multipart ) {
 			$headers = $this->headerSelector->selectHeadersForMultipart(
@@ -890,11 +890,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -972,8 +972,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function fetchUsingGETWithHttpInfo( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
-		$request    = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
+		$request     = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -988,33 +988,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -1070,39 +1070,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function fetchUsingGETAsyncWithHttpInfo( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
-		$request    = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
+		$request     = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -1123,7 +1123,7 @@ class AutomationApi {
 	 */
 	protected function fetchUsingGETRequest( $id, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 		// verify the required parameter 'id' is set
-		if ( $id === null ) {
+		if ( null === $id ) {
 			throw new \InvalidArgumentException(
 				'Missing the required parameter $id when calling fetchUsingGET'
 			);
@@ -1137,20 +1137,20 @@ class AutomationApi {
 		$multipart     = false;
 
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// path params
-		if ( $id !== null ) {
+		if ( null !== $id ) {
 			$resource_path = str_replace(
 				'{' . 'id' . '}',
 				ObjectSerializer::toPathValue( $id ),
@@ -1159,7 +1159,7 @@ class AutomationApi {
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 
 		if ( $multipart ) {
 			$headers = $this->headerSelector->selectHeadersForMultipart(
@@ -1173,11 +1173,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -1192,7 +1192,7 @@ class AutomationApi {
 				// for HTTP post (form)
 				$http_body = new MultipartStream( $multipart_contents );
 
-			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+			} elseif ( 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $form_params );
 
 			} else {
@@ -1263,8 +1263,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1ResultListResponseAutomationV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function fetchWithCriteriaUsingPOSTWithHttpInfo( $automations, $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -1279,33 +1279,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -1369,39 +1369,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function fetchWithCriteriaUsingPOSTAsyncWithHttpInfo( $automations, $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -1426,7 +1426,7 @@ class AutomationApi {
 	 */
 	protected function fetchWithCriteriaUsingPOSTRequest( $automations, $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 		// verify the required parameter 'automations' is set
-		if ( $automations === null ) {
+		if ( null === $automations ) {
 			throw new \InvalidArgumentException(
 				'Missing the required parameter $automations when calling fetchWithCriteriaUsingPOST'
 			);
@@ -1440,41 +1440,41 @@ class AutomationApi {
 		$multipart     = false;
 
 		// query params
-		if ( $minimal !== null ) {
+		if ( null !== $minimal ) {
 			$query_params['minimal'] = ObjectSerializer::toQueryValue( $minimal );
 		}
 		// query params
-		if ( $page_number !== null ) {
+		if ( null !== $page_number ) {
 			$query_params['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
 		}
 		// query params
-		if ( $page_size !== null ) {
+		if ( null !== $page_size ) {
 			$query_params['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
 		}
 		// query params
 		if ( is_array( $order_by ) ) {
 			$order_by = ObjectSerializer::serializeCollection( $order_by, 'multi', true );
 		}
-		if ( $order_by !== null ) {
+		if ( null !== $order_by ) {
 			$query_params['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
 		}
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 		if ( isset( $automations ) ) {
-			$_tempBody = $automations;
+			$_temp_body = $automations;
 		}
 
 		if ( $multipart ) {
@@ -1489,11 +1489,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -1508,7 +1508,7 @@ class AutomationApi {
 				// for HTTP post (form)
 				$http_body = new MultipartStream( $multipart_contents );
 
-			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+			} elseif ( 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $form_params );
 
 			} else {
@@ -1571,8 +1571,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1ResultListResponseAutomationV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function saveUsingPOSTWithHttpInfo( $automations, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -1587,33 +1587,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -1669,39 +1669,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function saveUsingPOSTAsyncWithHttpInfo( $automations, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
-		$request    = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1ResultListResponseAutomationV1TO_';
+		$request     = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -1736,22 +1736,22 @@ class AutomationApi {
 		$multipart     = false;
 
 		// header params
-		if ( $x_api_key !== null ) {
+		if ( null !== $x_api_key ) {
 			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( $x_app_api_key !== null ) {
+		if ( null !== $x_app_api_key ) {
 			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( $accept_language !== null ) {
+		if ( null !== $accept_language ) {
 			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 		if ( isset( $automations ) ) {
-			$_tempBody = $automations;
+			$_temp_body = $automations;
 		}
 
 		if ( $multipart ) {
@@ -1766,11 +1766,11 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+			if ( $http_body instanceof \stdClass && 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );
 			}
 		} elseif ( count( $form_params ) > 0 ) {
@@ -1785,7 +1785,7 @@ class AutomationApi {
 				// for HTTP post (form)
 				$http_body = new MultipartStream( $multipart_contents );
 
-			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+			} elseif ( 'application/json' === $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $form_params );
 
 			} else {
@@ -1850,8 +1850,8 @@ class AutomationApi {
 	 * @return array of \Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function updateUsingPUTWithHttpInfo( $id, $automation_v1_to, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
-		$request    = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
+		$request     = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->create_http_client_option();
@@ -1866,33 +1866,33 @@ class AutomationApi {
 				);
 			}
 
-			$statusCode = $response->getStatusCode();
+			$status_code = $response->getStatusCode();
 
-			if ( $statusCode < 200 || $statusCode > 299 ) {
+			if ( $status_code < 200 || $status_code > 299 ) {
 				throw new ApiException(
 					sprintf(
 						'[%d] Error connecting to the API (%s)',
-						$statusCode,
+						$status_code,
 						$request->getUri()
 					),
-					$statusCode,
+					$status_code,
 					$response->getHeaders(),
 					$response->getBody()
 				);
 			}
 
-			$responseBody = $response->getBody();
-			if ( $returnType === '\SplFileObject' ) {
-				$content = $responseBody; //stream goes to serializer
+			$response_body = $response->getBody();
+			if ( '\SplFileObject' === $return_type ) {
+				$content = $response_body; //stream goes to serializer
 			} else {
-				$content = $responseBody->getContents();
-				if ( $returnType !== 'string' ) {
+				$content = $response_body->getContents();
+				if ( 'string' !== $return_type ) {
 					$content = json_decode( $content );
 				}
 			}
 
 			return [
-				ObjectSerializer::deserialize( $content, $returnType, [] ),
+				ObjectSerializer::deserialize( $content, $return_type, [] ),
 				$response->getStatusCode(),
 				$response->getHeaders(),
 			];
@@ -1950,39 +1950,39 @@ class AutomationApi {
 	 * @return \GuzzleHttp\Promise\PromiseInterface
 	 */
 	public function updateUsingPUTAsyncWithHttpInfo( $id, $automation_v1_to, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
-		$request    = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
+		$return_type = '\Swagger\Client\Model\API1SingleResultResponseAutomationV1TO_';
+		$request     = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
 			->sendAsync( $request, $this->create_http_client_option() )
 			->then(
-				function ( $response ) use ( $returnType ) {
-					$responseBody = $response->getBody();
-					if ( $returnType === '\SplFileObject' ) {
-						$content = $responseBody; //stream goes to serializer
+				function ( $response ) use ( $return_type ) {
+					$response_body = $response->getBody();
+					if ( '\SplFileObject' === $return_type ) {
+						$content = $response_body; //stream goes to serializer
 					} else {
-						$content = $responseBody->getContents();
-						if ( $returnType !== 'string' ) {
+						$content = $response_body->getContents();
+						if ( 'string' !== $return_type ) {
 							$content = json_decode( $content );
 						}
 					}
 
 					return [
-						ObjectSerializer::deserialize( $content, $returnType, [] ),
+						ObjectSerializer::deserialize( $content, $return_type, [] ),
 						$response->getStatusCode(),
 						$response->getHeaders(),
 					];
 				},
 				function ( $exception ) {
-					$response   = $exception->getResponse();
-					$statusCode = $response->getStatusCode();
+					$response    = $exception->getResponse();
+					$status_code = $response->getStatusCode();
 					throw new ApiException(
 						sprintf(
 							'[%d] Error connecting to the API (%s)',
-							$statusCode,
+							$status_code,
 							$exception->getRequest()->getUri()
 						),
-						$statusCode,
+						$status_code,
 						$response->getHeaders(),
 						$response->getBody()
 					);
@@ -2046,9 +2046,9 @@ class AutomationApi {
 		}
 
 		// body params
-		$_tempBody = null;
+		$_temp_body = null;
 		if ( isset( $automation_v1_to ) ) {
-			$_tempBody = $automation_v1_to;
+			$_temp_body = $automation_v1_to;
 		}
 
 		if ( $multipart ) {
@@ -2063,9 +2063,9 @@ class AutomationApi {
 		}
 
 		// for model (json/xml)
-		if ( isset( $_tempBody ) ) {
-			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+		if ( isset( $_temp_body ) ) {
+			// $_temp_body is the method argument, if present
+			$http_body = $_temp_body;
 			// \stdClass has no __toString(), so we should encode it manually
 			if ( 'application/json' === $http_body instanceof \stdClass && $headers['Content-Type'] ) {
 				$http_body = \GuzzleHttp\json_encode( $http_body );

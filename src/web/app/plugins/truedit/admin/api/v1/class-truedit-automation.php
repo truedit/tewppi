@@ -140,10 +140,10 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 	public function read( WP_REST_Request $request ) {
 
 		try {
-
-			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->read();
-
+			/**
+			* $resource = new TruEdit_Resource_Automation();			
+			* $res      = $resource->read();
+			*/
 			if ( $request['id'] ) {
 
 				$post = new TruEdit_Post_Automation();
@@ -192,9 +192,9 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 		$post_id = -1;
 
 		try {
-
-			$post_ids = [];
-
+			/**
+			* $post_ids = [];
+			*/
 			$form = json_decode( $request->get_body() );
 
 			$this->validate_name_length( $form->name );
@@ -406,7 +406,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			}
 
 			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->delete( $auto_id );
+			$resource->delete( $auto_id );
 
 			TruEdit_Log::info( 'Automation ' . $json->name . ' deleted.' );
 
