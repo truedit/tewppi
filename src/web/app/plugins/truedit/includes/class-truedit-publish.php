@@ -321,8 +321,9 @@ class TruEdit_Publish {
 				$absolute_path_in_wp = wp_upload_dir()['path'] . '/' . pathinfo( $media_item, PATHINFO_BASENAME );
 				copy( 'zip://' . $zip_path . '#' . $media_item, $absolute_path_in_wp );
 
-				$pathinfo = pathinfo( $media_item );
-
+				/**
+				* $pathinfo = pathinfo( $media_item );
+				*/
 				$url        = wp_upload_dir()['url'] . '/' . pathinfo( $media_item, PATHINFO_BASENAME );
 				$attachment = array(
 					'guid'           => $url,

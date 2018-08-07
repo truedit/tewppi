@@ -2,42 +2,42 @@
 
 class TruEditNetwork {
 
-	private static $version;
-	private static $plugin_name;
+    private static $version;
+    private static $plugin_name;
 
-	public function __construct( $plugin_name, $version ) {
+    public function __construct($plugin_name, $version) {
 
-		self::$plugin_name = $plugin_name;
-		self::$version     = $version;
+        self::$plugin_name 		= $plugin_name;
+        self::$version 			= $version;
 
-	}
+    }
 
-	/**
-	 * Removes limitations on iframes while plugin is installed and activated
-	 */
-	public static function allow_tru_edit_iframe() {
-		header_remove( 'X-Frame-Options' );
-		header( 'X-Frame-Options: *' );
-	}
+    /**
+     * Removes limitations on iframes while plugin is installed and activated
+     */
+    public static function allowTruEditIframe() {
+        header_remove('X-Frame-Options');
+        header("X-Frame-Options: *");
+    }
 
-	/**
-	 * Parses a URL and returns just the domain
-	 * @param $url string
-	 * @return string
-	 */
-	private static function parse_url_for_domain( $url ) {
-		$url_parts = wp_parse_url( $url );
-		return $url_parts['host'];
-	}
+    /**
+     * Parses a URL and returns just the domain
+     * @param $url string
+     * @return string
+     */
+    private static function parseUrlForDomain($url){
+        $urlParts = wp_parse_url($url);
+        return $urlParts['host'];
+    }
 
-	/**
-	 * Parses a URL and returns just the domain
-	 * @param $url string
-	 * @return string
-	 */
-	private static function parse_url_for_host( $url ) {
-		$url_parts = wp_parse_url( $url );
-		return $url_parts['scheme'] . '://' . $url_parts['host'] . '/';
-	}
+    /**
+     * Parses a URL and returns just the domain
+     * @param $url string
+     * @return string
+     */
+    private static function parseUrlForHost($url){
+        $urlParts = wp_parse_url($url);
+        return $urlParts['scheme'] . '://' . $urlParts['host'] . '/';
+    }
 
 }

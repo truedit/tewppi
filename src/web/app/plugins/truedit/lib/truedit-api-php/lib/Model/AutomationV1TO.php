@@ -309,7 +309,7 @@ class AutomationV1TO implements ModelInterface, ArrayAccess {
 	 *
 	 * @return int
 	 */
-	public function getId() {
+	public function getId() { 
 		return $this->container['id'];
 	}
 

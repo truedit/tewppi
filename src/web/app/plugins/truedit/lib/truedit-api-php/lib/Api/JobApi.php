@@ -742,7 +742,9 @@ class JobApi {
 	 * @return array of null, HTTP status code, HTTP response headers (array of strings)
 	 */
 	public function retrieveJobWorkingFileUsingGET1WithHttpInfo( $job_id, $dl = 'false', $version = null, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
-		$returnType = '';
+		/**
+		* $returnType = '';
+		*/
 		$request    = $this->retrieveJobWorkingFileUsingGET1Request( $job_id, $dl, $version, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
