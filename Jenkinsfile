@@ -1,6 +1,10 @@
 try {
   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
-
+  stage ('Pre-flight') {
+    node('Master') {
+      sh 'echo Branch is $BRANCH_NAME'
+    }
+  }
   stage('Checkout') {
     node('Master') {
       git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
