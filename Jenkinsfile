@@ -7,7 +7,8 @@ try {
   }
   stage('Checkout') {
     node('Master') {
-      git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
+      checkout scm
+//      git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
     }
   }
   stage('Setup Environment') {
