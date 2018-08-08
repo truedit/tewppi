@@ -1,4 +1,4 @@
-[![Build Status](http://jenkins.maned.com/job/WPP_Pipeline/job/feature%252Fvip/badge/icon)](http://jenkins.maned.com/job/WPP_Pipeline/job/feature%252Fvip/)
+[![Build Status](http://jenkins.maned.com/buildStatus/icon?job=TruEdit_Github/tewppi/PR-11)](http://jenkins.maned.com/job/TruEdit_Github/tewppi/PR-11)
 
 # Truedit Wordpress Plugin
 
