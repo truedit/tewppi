@@ -145,7 +145,9 @@ class TruEdit_Post_Automation {
 		$post_meta->automation_id = get_post_meta( $post_id, 'automation_id', true );
 
 		foreach ( $this->get_publish_opts() as $key => $opts ) {
+
 			$post_meta->{$key} = get_post_meta( $post_id, $key, true );
+			unset( $opts );
 		}
 
 		$post->post_meta = $post_meta;

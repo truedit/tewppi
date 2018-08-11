@@ -204,6 +204,7 @@ class FileApi {
 			->then(
 				function ( $response ) use ( $returnType ) {
 					return [ null, $response->getStatusCode(), $response->getHeaders() ];
+					unset( $returnType );
 				},
 				function ( $exception ) {
 					$response   = $exception->getResponse();
@@ -465,6 +466,7 @@ class FileApi {
 			->then(
 				function ( $response ) use ( $returnType ) {
 					return [ null, $response->getStatusCode(), $response->getHeaders() ];
+					unset( $returnType );
 				},
 				function ( $exception ) {
 					$response   = $exception->getResponse();
@@ -741,6 +743,7 @@ class FileApi {
 			->then(
 				function ( $response ) use ( $returnType ) {
 					return [ null, $response->getStatusCode(), $response->getHeaders() ];
+					unset( $returnType );
 				},
 				function ( $exception ) {
 					$response   = $exception->getResponse();

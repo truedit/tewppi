@@ -211,11 +211,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$errors = [];
 
 			foreach ( $automation->getPublishOpts() as $key => $settings ) {
+				
 				try {
 					$automation->validate( $key, $form->{$key}, $form );
 				} catch ( TruEdit_Exception $e ) {
 					$errors[ $key ] = $e->getMessage();
 				}
+				unset( $settings );
 			}
 
 			if ( count( $errors ) ) {
@@ -318,11 +320,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$errors = [];
 
 			foreach ( $automation->getPublishOpts() as $key => $settings ) {
+				
 				try {
 					$automation->validate( $key, $body->{$key}, $body );
 				} catch ( TruEdit_Exception $e ) {
 					$errors[ $key ] = $e->getMessage();
 				}
+				unset( $settings );
 			}
 
 			if ( count( $errors ) ) {

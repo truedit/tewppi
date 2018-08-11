@@ -37,6 +37,7 @@ class TruEdit_Publish {
 		$post_meta  = $this->automation->post_meta;
 
 		foreach ( $this->automation->getPublishOpts() as $key => $settings ) {
+		         	Unused($settings);
 
 			if ( 'prompt_on_run' === $post_meta->{$key} ) {
 				$this->opts->{$key} = $opts->{$key};
@@ -51,7 +52,8 @@ class TruEdit_Publish {
 
 		global $wp_rewrite;
 		if ( is_null( $wp_rewrite ) ) {
-			$wp_rewrite = new wp_rewrite;
+			$wp_rewrites = new wp_rewrite;
+			Unused($wp_rewrites);
 		}
 
 		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
@@ -70,6 +72,7 @@ class TruEdit_Publish {
 			$resource     = new TruEdit_Resource_Job();
 			$zip_abs_path = $resource->read( $this->job_id, $this->output_type_id );
 		} catch ( \Swagger\Client\ApiException $e ) {
+			   Unused($e);
 			throw new TruEdit_Exception( 'ZIP_DOES_NOT_EXIST' );
 		}
 
