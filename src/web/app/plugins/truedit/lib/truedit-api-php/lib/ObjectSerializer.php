@@ -264,15 +264,30 @@ class ObjectSerializer {
 				preg_match( '/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match ) ) {
 				$filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . self::sanitizeFilename( $match[1] );
 			} else {
-				$filename = tempnam( Configuration::getDefaultConfiguration()->getTempFolderPath(), '' );
+				/**
+				*$filename = tempnam( Configuration::getDefaultConfiguration()->getTempFolderPath(), '' );
+				*/
+				$filename = wp_tempnam( '', Configuration::getDefaultConfiguration()->getTempFolderPath() );
 			}
 
+			 global $wp_filesystem;
+			if ( empty( $wp_filesystem ) ) {
+				require_once( ABSPATH . '/wp-admin/includes/file.php' );
+				WP_Filesystem();
+			}
+			$chunk = $data->read( 200 );
+			while ( $chunk ) {
+				$wp_filesystem->put_contents( $filename, $chunk, FS_CHMOD_FILE );
+				$chunk = $data->read( 200 );
+			}
+
+			/**
 			$file = fopen( $filename, 'w' );
 			while ( $chunk = $data->read( 200 ) ) {
 				fwrite( $file, $chunk );
 			}
 			fclose( $file );
-
+			*/
 			return new \SplFileObject( $filename, 'r' );
 		} elseif ( method_exists( $class, 'getAllowableEnumValues' ) ) {
 			if ( ! in_array( $data, $class::getAllowableEnumValues(), true ) ) {

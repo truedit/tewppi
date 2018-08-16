@@ -144,8 +144,15 @@ class TruEdit_Publish {
 		 * Remove the tempoary zip file.
 		 * --------------------------------------------------
 		 */
-		unlink( $zip_abs_path );
-
+		  global $wp_filesystem;
+	  if (empty($wp_filesystem)) {
+    require_once (ABSPATH . '/wp-admin/includes/file.php');
+    WP_Filesystem();
+}
+		$wp_filesystem->delete( $zip_abs_path , true);
+		/**
+		*unlink( $zip_abs_path );
+		*/
 		TruEdit_Log::info(
 			'Succesfully published and ' . $this->log_info['method_type'] .
 			' ' . $this->log_info['post_type'] . ' ' . $this->log_info['title'] . '.'
