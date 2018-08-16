@@ -32,7 +32,7 @@ class TruEdit_Resource_Job extends TruEdit_Resource {
 
 		try {
 			$this->api->retrieveJobOutputFileUsingGET( $job_id, $output_type_id, $dl, $this->x_api_key, $this->x_app_api_key, $this->accept_language );
-			fclose( $this->handle );
+			@fclose( $this->handle );
 			return $this->tmp_filename;
 
 		} catch ( Exception $e ) {

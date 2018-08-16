@@ -42,10 +42,7 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 		$minimal         = false; // bool | minimal
 		$page_number     = 1; // int | pageNumber
 		$page_size       = 100; // int | pageSize
-		$order_by        = array( 'name asc' ); 
-		/**
-		* string[] | orderBy
-		*/
+		$order_by        = array( 'name asc' ); /** string[] | orderBy */
 		$accept_language = 'application/json'; // string |
 
 		try {
@@ -59,23 +56,19 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 
 	public function create( $name = '', $profile_name = '' ) {
 
-		$api_instance = new Swagger\Client\Api\AutomationApi(
+		$apiInstance = new Swagger\Client\Api\AutomationApi(
 			// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
 			// This is optional, `GuzzleHttp\Client` will be used as default.
 			new GuzzleHttp\Client()
 		);
 
-		$automations     = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_();
-		/**
-		* \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations
-		*/
-		
+		$automations     = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_(); /** \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations */
 		$x_api_key       = TruEdit_Option::get( 'truedit_apiKey' );
 		$accept_language = 'application/json';
 
 		try {
 
-			return $api_instance->saveUsingPOST( $automations, $x_api_key, $accept_language );
+			return $apiInstance->saveUsingPOST( $automations, $x_api_key, $accept_language );
 
 		} catch ( Exception $e ) {
 

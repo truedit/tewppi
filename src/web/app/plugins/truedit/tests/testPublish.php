@@ -1,6 +1,6 @@
 <?php
 
-class TestPublish extends WP_UnitTestCase {
+class testPublish extends WP_UnitTestCase {
 
 	protected $database;
 

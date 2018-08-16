@@ -7,8 +7,8 @@ class TruEdit_Has {
 
 	private static $ignore = [
 		'__construct',
-		'passed_all_requirements',
-		'debug_on',
+		'passedAllRequirements',
+		'debugOn',
 	];
 
 	public function __construct( $plugin_name, $version ) {
@@ -32,20 +32,20 @@ class TruEdit_Has {
 
 	}
 
-	public static function passed_all_requirements() {
+	public static function passedAllRequirements() {
 
-		$tis_good = false;
-		$methods  = self::methods();
+		$tisGood = false;
+		$methods = self::methods();
 
 		foreach ( $methods as $method ) {
-			$tis_good = call_user_func( 'self::' . $method );
+			$tisGood = call_user_func( 'self::' . $method );
 		}
 
-		return $tis_good;
+		return $tisGood;
 
 	}
 
-	public static function debug_on() {
+	public static function debugOn() {
 
 		if ( getenv( 'WP_ENV' ) === 'development' ) {
 			return true;
@@ -54,11 +54,11 @@ class TruEdit_Has {
 
 	}
 
-	public static function writable_folder() {
+	public static function writableFolder() {
 		return ! wp_upload_dir()['error'];
 	}
 
-	public static function correct_php_version() {
+	public static function correctPhpVersion() {
 
 		$current  = phpversion();
 		$required = '5.5';
@@ -71,7 +71,7 @@ class TruEdit_Has {
 
 	}
 
-	public static function correct_wp_version() {
+	public static function correctWpVersion() {
 
 		global $wp_version;
 		$required = '4.7';
@@ -98,7 +98,7 @@ class TruEdit_Has {
 		}
 	}
 
-	public static function user_logged_in() {
+	public static function userLoggedIn() {
 		return is_user_logged_in();
 	}
 
@@ -109,19 +109,19 @@ class TruEdit_Has {
 
 	}
 
-	public static function zip_archive() {
+	public static function zipArchive() {
 
 		return class_exists( 'ZipArchive' );
 
 	}
 
-	public static function api_key() {
+	public static function apiKey() {
 
 		return ! empty( TruEdit_Option::get( 'api_key' ) );
 
 	}
 
-	public static function app_api_key() {
+	public static function appApiKey() {
 
 		return ! empty( TruEdit_Option::get( 'app_api_key' ) );
 
@@ -129,11 +129,11 @@ class TruEdit_Has {
 
 	public static function https() {
 
-		if ( self::debug_on() ) {
+		if ( self::debugOn() ) {
 			return true;
 		}
 
-		if ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) { // Input var okay.
+		if ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) { // Input var okay.
 			return true;
 		} else {
 			return false;

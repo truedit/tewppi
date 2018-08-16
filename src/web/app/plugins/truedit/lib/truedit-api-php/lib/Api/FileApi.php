@@ -119,7 +119,7 @@ class FileApi {
 		/**
 		* $returnType = '';
 		*/
-		$request    = $this->retrieveFileUsingGETRequest( $id, $dl, $x_api_key, $x_app_api_key, $accept_language );
+		$request = $this->retrieveFileUsingGETRequest( $id, $dl, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->createHttpClientOption();
@@ -379,7 +379,7 @@ class FileApi {
 		/**
 		* $returnType = '';
 		*/
-		$request    = $this->retrieveJobOutputFileUsingGETRequest( $job_id, $output_type_id, $dl, $x_api_key, $x_app_api_key, $accept_language );
+		$request = $this->retrieveJobOutputFileUsingGETRequest( $job_id, $output_type_id, $dl, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->createHttpClientOption();
@@ -656,7 +656,7 @@ class FileApi {
 		/**
 		* $returnType = '';
 		*/
-		$request    = $this->retrieveJobWorkingFileUsingGETRequest( $job_id, $dl, $version, $x_api_key, $x_app_api_key, $accept_language );
+		$request = $this->retrieveJobWorkingFileUsingGETRequest( $job_id, $dl, $version, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
 			$options = $this->createHttpClientOption();

@@ -496,6 +496,9 @@ class API1ResultListResponseString_ implements ModelInterface, ArrayAccess {
 	 * @return string
 	 */
 	public function __toString() {
+		if ( ! function_exists( 'wp_json_encode' ) ) {
+			require_once ABSPATH . WPINC . '/functions.php';
+		}
 		if ( defined( 'JSON_PRETTY_PRINT' ) ) { // use JSON pretty print
 			return wp_json_encode(
 				ObjectSerializer::sanitizeForSerialization( $this ),

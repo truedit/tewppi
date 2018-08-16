@@ -309,7 +309,7 @@ class AutomationV1TO implements ModelInterface, ArrayAccess {
 	 *
 	 * @return int
 	 */
-	public function getId() { 
+	public function getId() {
 		return $this->container['id'];
 	}
 
@@ -468,6 +468,9 @@ class AutomationV1TO implements ModelInterface, ArrayAccess {
 	 * @return string
 	 */
 	public function __toString() {
+		if ( ! function_exists( 'wp_json_encode' ) ) {
+			require_once ABSPATH . WPINC . '/functions.php';
+		}
 		if ( defined( 'JSON_PRETTY_PRINT' ) ) { // use JSON pretty print
 			return wp_json_encode(
 				ObjectSerializer::sanitizeForSerialization( $this ),

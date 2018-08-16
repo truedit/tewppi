@@ -140,10 +140,10 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 	public function read( WP_REST_Request $request ) {
 
 		try {
-			/**
-			* $resource = new TruEdit_Resource_Automation();			
-			* $res      = $resource->read();
-			*/
+
+			$resource = new TruEdit_Resource_Automation();
+			$resource->read();
+
 			if ( $request['id'] ) {
 
 				$post = new TruEdit_Post_Automation();
@@ -157,8 +157,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 					[
 						'post_type'   => 'automation',
 						'post_status' => 'draft',
-						'numberposts' => -1,
-
+						'numberposts' => 20,
 					]
 				);
 
@@ -192,9 +191,11 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 		$post_id = -1;
 
 		try {
+
 			/**
 			* $post_ids = [];
 			*/
+
 			$form = json_decode( $request->get_body() );
 
 			$this->validate_name_length( $form->name );
@@ -211,7 +212,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$errors = [];
 
 			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				
 				try {
 					$automation->validate( $key, $form->{$key}, $form );
 				} catch ( TruEdit_Exception $e ) {
@@ -250,13 +250,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 				unset( $form->{$key} );
 			}
 
-			$form_url                     = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
-			$form->config                 = [
+			$form_url                    = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
+			$form->config                = [
 				'formUrl'        => $form_url,
 				'formRemote'     => true,
 				'externalConfig' => true,
 			];
-			$form->integration_identifier = $this->identifier;
+			$form->integrationIdentifier = $this->identifier;
 
 			$resource = new TruEdit_Resource_Automation();
 			$res      = $resource->create(
@@ -320,7 +320,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$errors = [];
 
 			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				
 				try {
 					$automation->validate( $key, $body->{$key}, $body );
 				} catch ( TruEdit_Exception $e ) {
@@ -350,7 +349,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$form->config                 = $automation->json->config;
 			$form->config->formRemote     = true;
 			$form->config->externalConfig = true;
-			$form->integration_identifier = $this->identifier;
+			$form->integrationIdentifier  = $this->identifier;
 
 			$auto_id = $automation->post_meta->automation_id;
 
@@ -456,7 +455,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
 		foreach ( $res->getResults() as $auto ) {
 
-			if ( $auto->getName() === $name && $auto->getId() !== $id && -1 !== $id ) {
+			if ( $auto->getName() === $name && $auto->getId() !== $id && $id !== -1 ) {
 
 				throw new TruEdit_Exception(
 					'AUTOMATION_NAME_EXISTS', [
