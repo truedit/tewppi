@@ -157,18 +157,19 @@ class TruEdit_Admin {
 				'page_logs',
 			]
 		);
-		/*
+		/**
 		// add_submenu_page(
-		// 	'TruEdit',
-		// 	'Help',
-		// 	'Help',
-		// 	'manage_options',
-		// 	'TruEdit-options', [
-		// 		$this,
-		// 		'page_options'
-		// 	]
+		//  'TruEdit',
+		//  'Help',
+		//  'Help',
+		//  'manage_options',
+		//  'TruEdit-options', [
+		//      $this,
+		//      'page_options'
+		//  ]
 		// );
 		*/
+
 	}
 
 	/**
@@ -219,8 +220,8 @@ class TruEdit_Admin {
 	public function custom_template() {
 
 		if (
-			isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] && // Input var okay.
-			isset( $_GET['type'] ) && 'automation' === $_GET['type'] ) { // Input var okay.
+			isset( $_GET['truedit'] ) && $_GET['truedit'] === 'true' && // Input var okay.
+			isset( $_GET['type'] ) && $_GET['type'] === 'automation' ) { // Input var okay.
 
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
@@ -251,7 +252,7 @@ class TruEdit_Admin {
 	 */
 	public function tiny_mce_settings( $in ) {
 
-		if ( isset( $_GET['truedit'] ) && 'true' === $_GET['truedit'] ) { // Input var okay.
+		if ( isset( $_GET['truedit'] ) && $_GET['truedit'] === 'true' ) { // Input var okay.
 			$in['wpautop'] = false;
 		}
 

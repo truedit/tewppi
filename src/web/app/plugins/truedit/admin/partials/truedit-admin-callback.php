@@ -9,8 +9,8 @@
 <head>
 	<?php
 	/**
-	* show_admin_bar( false );
-	*/
+		  *show_admin_bar( false );
+		  */
 	?>
 	<?php wp_admin_bar_render(); ?>
 </head>

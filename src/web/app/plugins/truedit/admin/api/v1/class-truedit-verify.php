@@ -53,7 +53,7 @@ class TruEdit_ApiRoute_Verify implements TruEdit_ApiRoute {
 			$token = $request['token'];
 
 			$resource = new TruEdit_Resource_SystemInfo( $this->version, $this->plugin_name );
-			$res      = $resource->test( $token );
+			$resource->test( $token );
 
 			return new WP_REST_Response(
 				[

@@ -22,13 +22,13 @@ abstract class TruEdit_Resource {
 
 	}
 
-	public function get_client() {
+	public function getClient() {
 
 		return $this->client;
 
 	}
 
-	public function get_config() {
+	public function getConfig() {
 
 		return $this->config;
 

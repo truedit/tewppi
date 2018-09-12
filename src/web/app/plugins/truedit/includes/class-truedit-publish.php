@@ -38,22 +38,24 @@ class TruEdit_Publish {
 
 		foreach ( $this->automation->getPublishOpts() as $key => $settings ) {
 
-			if ( 'prompt_on_run' === $post_meta->{$key} ) {
+			if ( $post_meta->{$key} === 'prompt_on_run' ) {
 				$this->opts->{$key} = $opts->{$key};
 			} else {
 				$this->opts->{$key} = $post_meta->{$key};
 			}
+			unset( $settings );
 		}
 
 	}
 
 	private function load_dependencies() {
 
-		global $wp_rewrite;
-		if ( is_null( $wp_rewrite ) ) {
-			$wp_rewrite = new wp_rewrite;
-		}
-
+		/**
+			global $wp_rewrite;
+			if ( is_null( $wp_rewrite ) ) {
+				$wp_rewrite = new wp_rewrite;
+			}
+		*/
 		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
@@ -71,12 +73,13 @@ class TruEdit_Publish {
 			$zip_abs_path = $resource->read( $this->job_id, $this->output_type_id );
 		} catch ( \Swagger\Client\ApiException $e ) {
 			throw new TruEdit_Exception( 'ZIP_DOES_NOT_EXIST' );
+			unset( $e );
 		}
 
 		$zip = new ZipArchive;
 		$zip->open( $zip_abs_path );
 
-		if ( 0 === $zip->numFiles ) {
+		if ( $zip->numFiles === 0 ) {
 			throw new TruEdit_Exception( 'ZIP_NO_FILES' );
 		}
 
@@ -129,9 +132,9 @@ class TruEdit_Publish {
 			'post_type'    => $this->opts->publish_type,
 			'post_status'  => $this->opts->publish_status,
 		];
-		$success  = wp_update_post( $new_post, true );
+		wp_update_post( $new_post, true );
 
-		if ( 'post' === $this->opts->publish_type ) {
+		if ( $this->opts->publish_type === 'post' ) {
 			wp_set_post_terms( $post->ID, 'post-format-' . $this->opts->publish_format, 'post_format' );
 		}
 
@@ -141,8 +144,15 @@ class TruEdit_Publish {
 		 * Remove the tempoary zip file.
 		 * --------------------------------------------------
 		 */
-		unlink( $zip_abs_path );
-
+		  global $wp_filesystem;
+	  if (empty($wp_filesystem)) {
+    require_once (ABSPATH . '/wp-admin/includes/file.php');
+    WP_Filesystem();
+}
+		$wp_filesystem->delete( $zip_abs_path , true);
+		/**
+		*unlink( $zip_abs_path );
+		*/
 		TruEdit_Log::info(
 			'Succesfully published and ' . $this->log_info['method_type'] .
 			' ' . $this->log_info['post_type'] . ' ' . $this->log_info['title'] . '.'
@@ -199,6 +209,7 @@ class TruEdit_Publish {
 			], true
 		);
 
+		/** pdate_post_meta($this->automation->ID, 'post_id', $post_id); */
 		update_post_meta( $post_id, 'job_id', $job_id );
 
 		$this->add_to_log_info( 'method_type', 'created' );
@@ -215,12 +226,13 @@ class TruEdit_Publish {
 
 		$new_str = str_replace( '&#13;', '', $new_str );
 
+		// Add custom trims here
 		/**
-		 * // Add custom trims here
 		 * for loop
 		 * looop some potential replacements
-		 * // $new_str = str_replace($replacer, $replacement, $new_str)
-		 */
+
+		// $new_str = str_replace($replacer, $replacement, $new_str)
+		*/
 		return $new_str;
 
 	}
@@ -247,12 +259,12 @@ class TruEdit_Publish {
 	/**
 	 * Method to update all the media assets (img, video tags) and make them usable within WordPress
 	 * @param $doc DOMDocument
-	 * @param $media_type integer Should be an enum from MediaTypeEnum
-	 * @param $post_id integer WordPress Post ID
-	 * @param $zip_path string Absolute path to the zip content
+	 * @param $mediaType integer Should be an enum from MediaTypeEnum
+	 * @param $postId integer WordPress Post ID
+	 * @param $zipPath string Absolute path to the zip content
 	 * @throws Exception
 	 */
-	private function update_media( $doc, $media_type, $post_id, $zip_path ) {
+	private function update_media( $doc, $mediaType, $postId, $zipPath ) {
 		/**
 		 * We separated the loops because we didn't want to replace an image more than
 		 * once if it occurred in the document more than once.
@@ -260,26 +272,26 @@ class TruEdit_Publish {
 		 * the ID of the filename.
 		 */
 
-		switch ( $media_type ) {
+		switch ( $mediaType ) {
 			case MediaTypeEnum::Image:
-				$tag_name         = 'img';
-				$url_attribute    = 'src';
-				$mime_type_prefix = 'image';
+				$tagName        = 'img';
+				$urlAttribute   = 'src';
+				$mimeTypePrefix = 'image';
 				break;
 			case MediaTypeEnum::Video:
-				$tag_name         = 'video';
-				$url_attribute    = 'src';
-				$mime_type_prefix = 'video';
+				$tagName        = 'video';
+				$urlAttribute   = 'src';
+				$mimeTypePrefix = 'video';
 				break;
 			default:
 				throw new Exception( 'Unknown media type' );
 		}
 
-		$media_elements = $doc->getElementsByTagName( $tag_name );
-		$media_items    = [];
-		foreach ( $media_elements as $element ) {
-			if ( $element->getAttribute( $url_attribute ) !== 'null' ) {
-				$media_items[] = substr( $element->getAttribute( $url_attribute ), 2 );
+		$mediaElements = $doc->getElementsByTagName( $tagName );
+		$mediaItems    = [];
+		foreach ( $mediaElements as $element ) {
+			if ( $element->getAttribute( $urlAttribute ) !== 'null' ) {
+				$mediaItems[] = substr( $element->getAttribute( $urlAttribute ), 2 );
 			}
 		}
 
@@ -290,57 +302,59 @@ class TruEdit_Publish {
 		 * they create will be placed into the body.
 		 */
 		$urls = [];
-		foreach ( array_unique( $media_items ) as $media_item ) {
-			$file_id = pathinfo( $media_item, PATHINFO_FILENAME ); // 150
+		foreach ( array_unique( $mediaItems ) as $mediaItem ) {
+			$file_id = pathinfo( $mediaItem, PATHINFO_FILENAME ); // 150
 
-			$attachment = $this->get_attachment( $post_id, $file_id );
+			$attachment = $this->get_attachment( $postId, $file_id );
 
 			if ( ! is_null( $attachment ) ) {
 
-				$date_time = strtotime( $attachment->post_date );
-				$year      = date( 'Y', $date_time );
-				$month     = date( 'm', $date_time );
+				$dateTime = strtotime( $attachment->post_date );
+				$year     = date( 'Y', $dateTime );
+				$month    = date( 'm', $dateTime );
 
 				// Get the absolute path of the exiting file
 				$dir                 = wp_upload_dir()['basedir'] . '/' . $year . '/' . $month;
-				$absolute_path_in_wp = $dir . '/' . pathinfo( $media_item, PATHINFO_BASENAME );
+				$absolute_path_in_wp = $dir . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
 
-				copy( 'zip://' . $zip_path . '#' . $media_item, $absolute_path_in_wp );
+				copy( 'zip://' . $zipPath . '#' . $mediaItem, $absolute_path_in_wp );
 
-				$media_id = $attachment->ID;
+				$mediaId = $attachment->ID;
 
-				if ( MediaTypeEnum::Image === $media_type ) {
-					$attach_data = wp_generate_attachment_metadata( $media_id, $absolute_path_in_wp );
-					wp_update_attachment_metadata( $media_id, $attach_data );
+				if ( $mediaType === MediaTypeEnum::Image ) {
+					$attach_data = wp_generate_attachment_metadata( $mediaId, $absolute_path_in_wp );
+					wp_update_attachment_metadata( $mediaId, $attach_data );
 				}
 
-				$urls[ pathinfo( $media_item, PATHINFO_FILENAME ) ] = $attachment->guid;
+				$urls[ pathinfo( $mediaItem, PATHINFO_FILENAME ) ] = $attachment->guid;
 
 			} else {
 
-				$absolute_path_in_wp = wp_upload_dir()['path'] . '/' . pathinfo( $media_item, PATHINFO_BASENAME );
-				copy( 'zip://' . $zip_path . '#' . $media_item, $absolute_path_in_wp );
+				$absolute_path_in_wp = wp_upload_dir()['path'] . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
+				copy( 'zip://' . $zipPath . '#' . $mediaItem, $absolute_path_in_wp );
 
-				$pathinfo = pathinfo( $media_item );
+				/**
+				* $pathinfo = pathinfo( $media_item );
+				*/
 
-				$url        = wp_upload_dir()['url'] . '/' . pathinfo( $media_item, PATHINFO_BASENAME );
+				$url        = wp_upload_dir()['url'] . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
 				$attachment = array(
 					'guid'           => $url,
-					'post_mime_type' => $mime_type_prefix . '/' . pathinfo( $media_item, PATHINFO_EXTENSION ),
+					'post_mime_type' => $mimeTypePrefix . '/' . pathinfo( $mediaItem, PATHINFO_EXTENSION ),
 					'post_title'     => '',
 					'post_content'   => '',
 					'post_status'    => 'inherit',
 				);
 
 				// Generate the metadata for the attachment, and update the database record.
-				$media_id = wp_insert_attachment( $attachment, $absolute_path_in_wp, $post_id );
+				$mediaId = wp_insert_attachment( $attachment, $absolute_path_in_wp, $postId );
 
-				if ( MediaTypeEnum::Image === $media_type ) {
-					$attach_data = wp_generate_attachment_metadata( $media_id, $absolute_path_in_wp );
-					wp_update_attachment_metadata( $media_id, $attach_data );
+				if ( $mediaType === MediaTypeEnum::Image ) {
+					$attach_data = wp_generate_attachment_metadata( $mediaId, $absolute_path_in_wp );
+					wp_update_attachment_metadata( $mediaId, $attach_data );
 				}
 
-				$urls[ pathinfo( $media_item, PATHINFO_FILENAME ) ] = $url;
+				$urls[ pathinfo( $mediaItem, PATHINFO_FILENAME ) ] = $url;
 
 			}
 		}
@@ -349,18 +363,18 @@ class TruEdit_Publish {
 		 * Replace the image into the html
 		 * with any empty src to be #
 		 */
-		foreach ( $media_elements as $element ) {
+		foreach ( $mediaElements as $element ) {
 			$parent = $element->parentNode;
 			$parent->removeChild( $element );
 
 			$new_el = $element;
 
-			$file_id = pathinfo( $new_el->getAttribute( $url_attribute ), PATHINFO_FILENAME );
-			if ( 'null' !== $file_id ) {
-				$new_el->setAttribute( $url_attribute, $urls[ $file_id ] );
+			$file_id = pathinfo( $new_el->getAttribute( $urlAttribute ), PATHINFO_FILENAME );
+			if ( $file_id !== 'null' ) {
+				$new_el->setAttribute( $urlAttribute, $urls[ $file_id ] );
 				$parent->appendChild( $new_el );
 			} else {
-				$new_el->setAttribute( $url_attribute, '#' );
+				$new_el->setAttribute( $urlAttribute, '#' );
 				$parent->appendChild( $new_el );
 			}
 		}
@@ -379,8 +393,8 @@ class TruEdit_Publish {
  * This is basic PHP enum object. This and the other media stuff should be refactored into a separate class
  */
 abstract class MediaTypeEnum {
-	const IMAGE = 0;
-	const VIDEO = 1;
+	const Image = 0;
+	const Video = 1;
 
 
 }

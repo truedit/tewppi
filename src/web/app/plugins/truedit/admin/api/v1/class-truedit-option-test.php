@@ -103,7 +103,7 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 
 			TruEdit_Option::save( 'verified', 1 );
 
-			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenant_name . '.' );
+			TruEdit_Log::info( 'Verification successful! We were able to successfully connect to TruEdit\'s tenant ' . $session_info->tenantName . '.' );
 
 			return new WP_REST_Response(
 				[

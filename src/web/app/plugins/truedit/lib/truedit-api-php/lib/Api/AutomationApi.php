@@ -119,7 +119,7 @@ class AutomationApi {
 		$request    = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -217,7 +217,7 @@ class AutomationApi {
 		$request    = $this->deleteUsingDELETERequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -272,32 +272,32 @@ class AutomationApi {
 			);
 		}
 
-		$resource_path = '/1/automation/{id}';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation/{id}';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// path params
 		if ( $id !== null ) {
-			$resource_path = str_replace(
+			$resourcePath = str_replace(
 				'{' . 'id' . '}',
 				ObjectSerializer::toPathValue( $id ),
-				$resource_path
+				$resourcePath
 			);
 		}
 
@@ -318,49 +318,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'DELETE',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -400,7 +400,7 @@ class AutomationApi {
 		$request    = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -496,7 +496,7 @@ class AutomationApi {
 		$request    = $this->fetchActionsUsingGETRequest( $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -544,24 +544,24 @@ class AutomationApi {
 	 */
 	protected function fetchActionsUsingGETRequest( $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 
-		$resource_path = '/1/automation/action';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation/action';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
@@ -581,49 +581,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'GET',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -673,7 +673,7 @@ class AutomationApi {
 		$request    = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -779,7 +779,7 @@ class AutomationApi {
 		$request    = $this->fetchAllUsingGETRequest( $minimal, $page_number, $page_size, $order_by, $if_modified_since, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -832,47 +832,47 @@ class AutomationApi {
 	 */
 	protected function fetchAllUsingGETRequest( $minimal = 'false', $page_number = '1', $page_size = '100', $order_by = 'name asc', $if_modified_since = null, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 
-		$resource_path = '/1/automation';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// query params
 		if ( $minimal !== null ) {
-			$query_params['minimal'] = ObjectSerializer::toQueryValue( $minimal );
+			$queryParams['minimal'] = ObjectSerializer::toQueryValue( $minimal );
 		}
 		// query params
 		if ( $page_number !== null ) {
-			$query_params['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
+			$queryParams['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
 		}
 		// query params
 		if ( $page_size !== null ) {
-			$query_params['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
+			$queryParams['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
 		}
 		// query params
 		if ( is_array( $order_by ) ) {
 			$order_by = ObjectSerializer::serializeCollection( $order_by, 'multi', true );
 		}
 		if ( $order_by !== null ) {
-			$query_params['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
+			$queryParams['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
 		}
 		// header params
 		if ( $if_modified_since !== null ) {
-			$header_params['If-Modified-Since'] = ObjectSerializer::toHeaderValue( $if_modified_since );
+			$headerParams['If-Modified-Since'] = ObjectSerializer::toHeaderValue( $if_modified_since );
 		}
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
@@ -892,49 +892,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'GET',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -976,7 +976,7 @@ class AutomationApi {
 		$request    = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -1074,7 +1074,7 @@ class AutomationApi {
 		$request    = $this->fetchUsingGETRequest( $id, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -1129,32 +1129,32 @@ class AutomationApi {
 			);
 		}
 
-		$resource_path = '/1/automation/{id}';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation/{id}';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// path params
 		if ( $id !== null ) {
-			$resource_path = str_replace(
+			$resourcePath = str_replace(
 				'{' . 'id' . '}',
 				ObjectSerializer::toPathValue( $id ),
-				$resource_path
+				$resourcePath
 			);
 		}
 
@@ -1175,49 +1175,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'GET',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -1267,7 +1267,7 @@ class AutomationApi {
 		$request    = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -1373,7 +1373,7 @@ class AutomationApi {
 		$request    = $this->fetchWithCriteriaUsingPOSTRequest( $automations, $minimal, $page_number, $page_size, $order_by, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -1432,43 +1432,43 @@ class AutomationApi {
 			);
 		}
 
-		$resource_path = '/1/automation/filter';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation/filter';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// query params
 		if ( $minimal !== null ) {
-			$query_params['minimal'] = ObjectSerializer::toQueryValue( $minimal );
+			$queryParams['minimal'] = ObjectSerializer::toQueryValue( $minimal );
 		}
 		// query params
 		if ( $page_number !== null ) {
-			$query_params['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
+			$queryParams['pageNumber'] = ObjectSerializer::toQueryValue( $page_number );
 		}
 		// query params
 		if ( $page_size !== null ) {
-			$query_params['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
+			$queryParams['pageSize'] = ObjectSerializer::toQueryValue( $page_size );
 		}
 		// query params
 		if ( is_array( $order_by ) ) {
 			$order_by = ObjectSerializer::serializeCollection( $order_by, 'multi', true );
 		}
 		if ( $order_by !== null ) {
-			$query_params['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
+			$queryParams['orderBy'] = ObjectSerializer::toQueryValue( $order_by );
 		}
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
@@ -1491,49 +1491,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'POST',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -1575,7 +1575,7 @@ class AutomationApi {
 		$request    = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -1673,7 +1673,7 @@ class AutomationApi {
 		$request    = $this->saveUsingPOSTRequest( $automations, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -1728,24 +1728,24 @@ class AutomationApi {
 			);
 		}
 
-		$resource_path = '/1/automation';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// header params
 		if ( $x_api_key !== null ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
 		if ( $x_app_api_key !== null ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
 		if ( $accept_language !== null ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// body params
@@ -1768,49 +1768,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( $http_body instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
 			} elseif ( $headers['Content-Type'] === 'application/json' ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'POST',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -1854,7 +1854,7 @@ class AutomationApi {
 		$request    = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
 
 		try {
-			$options = $this->create_http_client_option();
+			$options = $this->createHttpClientOption();
 			try {
 				$response = $this->client->send( $request, $options );
 			} catch ( RequestException $e ) {
@@ -1954,7 +1954,7 @@ class AutomationApi {
 		$request    = $this->updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key, $x_app_api_key, $accept_language );
 
 		return $this->client
-			->sendAsync( $request, $this->create_http_client_option() )
+			->sendAsync( $request, $this->createHttpClientOption() )
 			->then(
 				function ( $response ) use ( $returnType ) {
 					$responseBody = $response->getBody();
@@ -2004,44 +2004,44 @@ class AutomationApi {
 	 */
 	protected function updateUsingPUTRequest( $id, $automation_v1_to, $x_api_key = null, $x_app_api_key = null, $accept_language = null ) {
 		// verify the required parameter 'id' is set
-		if ( null === $id ) {
+		if ( $id === null ) {
 			throw new \InvalidArgumentException(
 				'Missing the required parameter $id when calling updateUsingPUT'
 			);
 		}
 		// verify the required parameter 'automation_v1_to' is set
-		if ( null === $automation_v1_to ) {
+		if ( $automation_v1_to === null ) {
 			throw new \InvalidArgumentException(
 				'Missing the required parameter $automation_v1_to when calling updateUsingPUT'
 			);
 		}
 
-		$resource_path = '/1/automation/{id}';
-		$form_params   = [];
-		$query_params  = [];
-		$header_params = [];
-		$http_body     = '';
-		$multipart     = false;
+		$resourcePath = '/1/automation/{id}';
+		$formParams   = [];
+		$queryParams  = [];
+		$headerParams = [];
+		$httpBody     = '';
+		$multipart    = false;
 
 		// header params
-		if ( null !== $x_api_key ) {
-			$header_params['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
+		if ( $x_api_key !== null ) {
+			$headerParams['x-api-key'] = ObjectSerializer::toHeaderValue( $x_api_key );
 		}
 		// header params
-		if ( null !== $x_app_api_key ) {
-			$header_params['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
+		if ( $x_app_api_key !== null ) {
+			$headerParams['x-app-api-key'] = ObjectSerializer::toHeaderValue( $x_app_api_key );
 		}
 		// header params
-		if ( null !== $accept_language ) {
-			$header_params['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
+		if ( $accept_language !== null ) {
+			$headerParams['Accept-Language'] = ObjectSerializer::toHeaderValue( $accept_language );
 		}
 
 		// path params
-		if ( null !== $id ) {
-			$resource_path = str_replace(
+		if ( $id !== null ) {
+			$resourcePath = str_replace(
 				'{' . 'id' . '}',
 				ObjectSerializer::toPathValue( $id ),
-				$resource_path
+				$resourcePath
 			);
 		}
 
@@ -2065,49 +2065,49 @@ class AutomationApi {
 		// for model (json/xml)
 		if ( isset( $_tempBody ) ) {
 			// $_tempBody is the method argument, if present
-			$http_body = $_tempBody;
+			$httpBody = $_tempBody;
 			// \stdClass has no __toString(), so we should encode it manually
-			if ( 'application/json' === $http_body instanceof \stdClass && $headers['Content-Type'] ) {
-				$http_body = \GuzzleHttp\json_encode( $http_body );
+			if ( $httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $httpBody );
 			}
-		} elseif ( count( $form_params ) > 0 ) {
+		} elseif ( count( $formParams ) > 0 ) {
 			if ( $multipart ) {
-				$multipart_contents = [];
-				foreach ( $form_params as $form_param_name => $form_param_value ) {
-					$multipart_contents[] = [
-						'name'     => $form_param_name,
-						'contents' => $form_param_value,
+				$multipartContents = [];
+				foreach ( $formParams as $formParamName => $formParamValue ) {
+					$multipartContents[] = [
+						'name'     => $formParamName,
+						'contents' => $formParamValue,
 					];
 				}
 				// for HTTP post (form)
-				$http_body = new MultipartStream( $multipart_contents );
+				$httpBody = new MultipartStream( $multipartContents );
 
-			} elseif ( 'application/json' === $headers['Content-Type'] ) {
-				$http_body = \GuzzleHttp\json_encode( $form_params );
+			} elseif ( $headers['Content-Type'] === 'application/json' ) {
+				$httpBody = \GuzzleHttp\json_encode( $formParams );
 
 			} else {
 				// for HTTP post (form)
-				$http_body = \GuzzleHttp\Psr7\build_query( $form_params );
+				$httpBody = \GuzzleHttp\Psr7\build_query( $formParams );
 			}
 		}
 
-		$default_headers = [];
+		$defaultHeaders = [];
 		if ( $this->config->getUserAgent() ) {
-			$default_headers['User-Agent'] = $this->config->getUserAgent();
+			$defaultHeaders['User-Agent'] = $this->config->getUserAgent();
 		}
 
 		$headers = array_merge(
-			$default_headers,
-			$header_params,
+			$defaultHeaders,
+			$headerParams,
 			$headers
 		);
 
-		$query = \GuzzleHttp\Psr7\build_query( $query_params );
+		$query = \GuzzleHttp\Psr7\build_query( $queryParams );
 		return new Request(
 			'PUT',
-			$this->config->getHost() . $resource_path . ( $query ? "?{$query}" : '' ),
+			$this->config->getHost() . $resourcePath . ( $query ? "?{$query}" : '' ),
 			$headers,
-			$http_body
+			$httpBody
 		);
 	}
 
@@ -2117,7 +2117,7 @@ class AutomationApi {
 	 * @throws \RuntimeException on file opening failure
 	 * @return array of http client options
 	 */
-	protected function create_http_client_option() {
+	protected function createHttpClientOption() {
 		$options = [];
 		if ( $this->config->getDebug() ) {
 			$options[ RequestOptions::DEBUG ] = fopen( $this->config->getDebugFile(), 'a' );

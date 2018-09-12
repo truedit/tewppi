@@ -48,7 +48,7 @@ class TruEdit_Api {
 
 	}
 
-	// Type class for arg[0]
+	/** Type class for arg[0] */
 	public function add_apis( $apis ) {
 
 		$this->apis = array_merge( $this->apis, $apis );
@@ -63,9 +63,7 @@ class TruEdit_Api {
 			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
 			header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
 			header( 'Access-Control-Allow-Credentials: true' );
-			/**
-			* header("Access-Control-Expose-Headers: X-WP-Nonce" );
-			*/
+			/**  header("Access-Control-Expose-Headers: X-WP-Nonce" ); */
 		}
 
 	}

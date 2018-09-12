@@ -142,7 +142,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 		try {
 
 			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->read();
+			$resource->read();
 
 			if ( $request['id'] ) {
 
@@ -157,8 +157,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 					[
 						'post_type'   => 'automation',
 						'post_status' => 'draft',
-						'numberposts' => -1,
-
+						'numberposts' => 20,
 					]
 				);
 
@@ -193,7 +192,9 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
 		try {
 
-			$post_ids = [];
+			/**
+			* $post_ids = [];
+			*/
 
 			$form = json_decode( $request->get_body() );
 
@@ -216,6 +217,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 				} catch ( TruEdit_Exception $e ) {
 					$errors[ $key ] = $e->getMessage();
 				}
+				unset( $settings );
 			}
 
 			if ( count( $errors ) ) {
@@ -248,13 +250,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 				unset( $form->{$key} );
 			}
 
-			$form_url                     = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
-			$form->config                 = [
+			$form_url                    = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
+			$form->config                = [
 				'formUrl'        => $form_url,
 				'formRemote'     => true,
 				'externalConfig' => true,
 			];
-			$form->integration_identifier = $this->identifier;
+			$form->integrationIdentifier = $this->identifier;
 
 			$resource = new TruEdit_Resource_Automation();
 			$res      = $resource->create(
@@ -323,6 +325,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 				} catch ( TruEdit_Exception $e ) {
 					$errors[ $key ] = $e->getMessage();
 				}
+				unset( $settings );
 			}
 
 			if ( count( $errors ) ) {
@@ -346,7 +349,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			$form->config                 = $automation->json->config;
 			$form->config->formRemote     = true;
 			$form->config->externalConfig = true;
-			$form->integration_identifier = $this->identifier;
+			$form->integrationIdentifier  = $this->identifier;
 
 			$auto_id = $automation->post_meta->automation_id;
 
@@ -406,7 +409,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 			}
 
 			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->delete( $auto_id );
+			$resource->delete( $auto_id );
 
 			TruEdit_Log::info( 'Automation ' . $json->name . ' deleted.' );
 
@@ -452,7 +455,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
 		foreach ( $res->getResults() as $auto ) {
 
-			if ( $auto->getName() === $name && $auto->getId() !== $id && -1 !== $id ) {
+			if ( $auto->getName() === $name && $auto->getId() !== $id && $id !== -1 ) {
 
 				throw new TruEdit_Exception(
 					'AUTOMATION_NAME_EXISTS', [

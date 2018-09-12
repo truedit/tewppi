@@ -468,14 +468,17 @@ class AutomationV1TO implements ModelInterface, ArrayAccess {
 	 * @return string
 	 */
 	public function __toString() {
+		if ( ! function_exists( 'wp_json_encode' ) ) {
+			require_once ABSPATH . WPINC . '/functions.php';
+		}
 		if ( defined( 'JSON_PRETTY_PRINT' ) ) { // use JSON pretty print
-			return json_encode(
+			return wp_json_encode(
 				ObjectSerializer::sanitizeForSerialization( $this ),
 				JSON_PRETTY_PRINT
 			);
 		}
 
-		return json_encode( ObjectSerializer::sanitizeForSerialization( $this ) );
+		return wp_json_encode( ObjectSerializer::sanitizeForSerialization( $this ) );
 	}
 }
 
