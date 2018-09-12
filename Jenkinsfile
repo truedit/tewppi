@@ -38,8 +38,8 @@ try {
   }
   stage('Archive Artifacts') {
     node('Master') {
-      sh 'echo "Not currently archiving this build."'
-      //archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
+      //sh 'echo "Not currently archiving this build."'
+      archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
     }
   }
 }

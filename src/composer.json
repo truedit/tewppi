@@ -42,10 +42,8 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0.2",
-    "dealerdirect/phpcodesniffer-composer-installer": "*",
     "object-calisthenics/phpcs-calisthenics-rules": "*",
     "wimg/php-compatibility": "*",
-    "wp-coding-standards/wpcs": "*"
   },
   "extra": {
     "installer-paths": {
