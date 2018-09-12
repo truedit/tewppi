@@ -8,7 +8,6 @@ try {
   stage('Checkout') {
     node('Master') {
       checkout scm
-//      git(url: 'https://github.com/truedit/tewppi.git', poll: true, branch: '$BRANCH_NAME', changelog: true, credentialsId: 'TruEdit_Github')
     }
   }
   stage('Setup Environment') {
@@ -28,7 +27,8 @@ try {
   }
   stage('Build getNEXT Plugin') {
     node('Master') {
-      sh 'echo "Not currently building getNEXT version"'
+      git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
+      sh 'cd ${WORKSPACE} && npm run buildgn'
     }
   }
   stage('Publish Linting Results') {
