@@ -1,4 +1,6 @@
-[![Build Status](http://jenkins.maned.com/buildStatus/icon?job=TruEdit_Github/tewppi/PR-11)](http://jenkins.maned.com/job/TruEdit_Github/tewppi/PR-11)
+Master: [![Build Status](https://jenkins.maned.com/buildStatus/icon?job=WPPI_Pipeline/master)](http://jenkins.maned.com/job/WPPI_Pipeline/job/master)
+
+Develop: [![Build Status](https://jenkins.maned.com/buildStatus/icon?job=WPPI_Pipeline/develop)](http://jenkins.maned.com/job/WPPI_Pipeline/job/develop)
 
 # Truedit Wordpress Plugin
 
