@@ -43,7 +43,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0.2",
     "object-calisthenics/phpcs-calisthenics-rules": "*",
-    "wimg/php-compatibility": "*",
+    "wimg/php-compatibility": "*"
   },
   "extra": {
     "installer-paths": {
