@@ -27,8 +27,9 @@ try {
   }
   stage('Build getNEXT Plugin') {
     node('Master') {
-      git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
-      sh 'cd ${WORKSPACE} && npm run buildgn'
+      //git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
+      //sh 'cd ${WORKSPACE} && npm run buildgn'
+      sh 'echo "Not currently building gn version"'
     }
   }
   stage('Publish Linting Results') {
