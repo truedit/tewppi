@@ -15,11 +15,6 @@ try {
       sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn && npm install && cd ${WORKSPACE}/src/web/app/plugins/truedit/ && composer install '
     }
   }
-  stage('Linting') {
-    node('Master') {
-      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/test*/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
-    }
-  }
   stage('Build TruEdit Plugin') {
     node('Master') {
       sh 'cd ${WORKSPACE} && npm run build '
@@ -30,6 +25,11 @@ try {
       //git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
       //sh 'cd ${WORKSPACE} && npm run buildgn'
       sh 'echo "Not currently building gn version"'
+    }
+  }
+  stage('Checking PHP') {
+    node('Master') {
+      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
   }
   stage('Publish Linting Results') {
