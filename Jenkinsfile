@@ -17,7 +17,7 @@ try {
   }
   stage('Linting') {
     node('Master') {
-      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml --ignore=*/test*/*,*/vendor/* ${WORKSPACE}/src/web/app/plugins/truedit'
+      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
   }
   stage('Build TruEdit Plugin') {
