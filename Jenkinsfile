@@ -29,7 +29,7 @@ try {
   }
   stage('Checking PHP') {
     node('Master') {
-      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
+      sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go,WordPressVIPMinimum --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
   }
   stage('Publish Linting Results') {
