@@ -1,10 +1,5 @@
 try {
   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
-  stage ('Pre-flight') {
-    node('Linux') {
-      sh 'echo Branch is $BRANCH_NAME'
-    }
-  }
   stage('Checkout') {
     node('Linux') {
       checkout scm
@@ -20,15 +15,9 @@ try {
       sh 'cd ${WORKSPACE} && npm run build '
     }
   }
-  stage('Build getNEXT Plugin') {
-    node('Linux') {
-      //git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
-      //sh 'cd ${WORKSPACE} && npm run buildgn'
-      sh 'echo "Not currently building gn version"'
-    }
-  }
   stage('Checking PHP') {
     node('Linux') {
+      sh 'echo Path: $PATH'
       sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go,WordPressVIPMinimum --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
   }
