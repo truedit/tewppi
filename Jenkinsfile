@@ -1,44 +1,33 @@
 try {
   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
-  stage ('Pre-flight') {
-    node('Master') {
-      sh 'echo Branch is $BRANCH_NAME'
-    }
-  }
   stage('Checkout') {
-    node('Master') {
+    node('Linux') {
       checkout scm
     }
   }
   stage('Setup Environment') {
-    node('Master') {
+    node('Linux') {
       sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn && npm install && cd ${WORKSPACE}/src/web/app/plugins/truedit/ && composer install '
     }
   }
   stage('Build TruEdit Plugin') {
-    node('Master') {
+    node('Linux') {
       sh 'cd ${WORKSPACE} && npm run build '
     }
   }
-  stage('Build getNEXT Plugin') {
-    node('Master') {
-      //git branch: 'rebrand', credentialsId: 'jenkinsGitCCPI', url: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos/wordPressPluginFork'
-      //sh 'cd ${WORKSPACE} && npm run buildgn'
-      sh 'echo "Not currently building gn version"'
-    }
-  }
   stage('Checking PHP') {
-    node('Master') {
+    node('Linux') {
+      sh 'echo Path: $PATH'
       sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go,WordPressVIPMinimum --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
   }
   stage('Publish Linting Results') {
-    node('Master') {
+    node('Linux') {
       checkstyle defaultEncoding: '', healthy: '', pattern: 'phpcs_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
     }
   }
   stage('Archive Artifacts') {
-    node('Master') {
+    node('Linux') {
       //sh 'echo "Not currently archiving this build."'
       archiveArtifacts(artifacts: 'dist/*/*_wppi.zip', onlyIfSuccessful: true)
     }
