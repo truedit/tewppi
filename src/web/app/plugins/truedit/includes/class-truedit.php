@@ -120,21 +120,21 @@ class TruEdit {
 		/**
 		 * Static helpers
 		 */
-		foreach ( glob( dirname( __FILE__ ) . '/helpers/*.php' ) as $filename ) {
+		foreach ( glob( plugin_dir_path( __FILE__ ) . '/helpers/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Interfaces
 		 */
-		foreach ( glob( dirname( __FILE__ ) . '/interfaces/*.php' ) as $filename ) {
+		foreach ( glob( plugin_dir_path( __FILE__ ) . '/interfaces/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
 		/**
 		 * Models
 		 */
-		foreach ( glob( dirname( __FILE__ ) . '/models/*.php' ) as $filename ) {
+		foreach ( glob( plugin_dir_path( __FILE__ ) . '/models/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 

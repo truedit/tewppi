@@ -157,6 +157,7 @@ class TruEdit_ApiRoute_Prerequisites implements TruEdit_ApiRoute {
 			[
 				'post_type'   => 'automation',
 				'post_status' => 'draft',
+				'suppress_filters' => false,
 				'numberposts' => $count,
 			]
 		);

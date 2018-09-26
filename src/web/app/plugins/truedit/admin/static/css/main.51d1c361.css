@@ -1,2 +1,636 @@
-.flex{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row}.flex .flex-item{-ms-flex:1 1 auto;flex:1 1 auto;margin:0 12px}.flex .flex-item:first-child{margin-left:0}.flex .flex-item:last-child{margin-right:0}@media screen and (max-width:782px){.flex{-ms-flex-direction:column;flex-direction:column}.flex .flex-item{margin:0}}.c-green{color:green}.c-red{color:red}.TruEdit-app *{-webkit-box-sizing:border-box;box-sizing:border-box}.TruEdit-app p{margin-top:0;line-height:1.4}.TruEdit-app .wrap{margin:14px 17px 14px 3px}.TruEdit-app .wrap.wrap-publish{margin:8px}.TruEdit-app .wrap h1.wp-heading-inline{margin-bottom:1rem;padding:1rem;background:#2c333d;width:100%}.TruEdit-app .metabox-holder{padding-top:0!important}.TruEdit-app .flex-center{display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center}.TruEdit-app .flex-right{display:-ms-flexbox;display:flex;-ms-flex-pack:end;justify-content:flex-end}.TruEdit-app .actions{margin-bottom:1rem}.TruEdit-app .wp-core-ui .button:focus{outline:none}.TruEdit-app .button-group.button-group-margin .button{border-radius:3px;margin-right:8px}.TruEdit-app .button-group.button-group-margin .button:last-child{margin-right:0}.TruEdit-app .button-group .button{border-radius:3px;margin:0 4px}.TruEdit-app .button-group .button:first-child{margin-left:0}.TruEdit-app .button-group .button:last-child{margin-right:0}.TruEdit-app .pagination{display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center;-ms-flex-align:center;align-items:center}.TruEdit-app .pagination>div{display:inline-block}.TruEdit-app .pagination>div:nth-child(2){margin:0 .5rem}@media screen and (max-width:782px){.TruEdit-app .button-group.button-group-margin .button{display:block;width:100%;text-align:center;margin:0}}.TruEdit-app .page-container{width:100%}.TruEdit-app .page-container .page{-webkit-transition:opacity .2s ease-in;-o-transition:opacity .2s ease-in;transition:opacity .2s ease-in}.TruEdit-app .page-container .page.page-hide{display:none;opacity:0}.TruEdit-app .page-container .page.page-hide.page-show{display:block;opacity:1}.spinner-page{display:-ms-flexbox;display:flex;-webkit-transition:max-height .3s ease-out;-o-transition:max-height .3s ease-out;transition:max-height .3s ease-out;opacity:1;visibility:visible;max-height:100px;-ms-flex-pack:center;justify-content:center}.spinner-page.spinner-page-hide{opacity:0;visibility:hidden;max-height:0;margin-bottom:0}.spinner-page .spinner{max-height:100px;float:inherit;margin:auto}.button .spinner{float:none;margin:-3px 3px 0}.TruEdit-app #dashboard-widgets{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-pack:center;justify-content:center}.TruEdit-app #dashboard-widgets .dashboard-primary>div .postbox-container{width:100%!important;-ms-flex:1 1;flex:1 1;width:auto;float:none}.TruEdit-app #dashboard-widgets .dashboard-secondary{width:100%}.TruEdit-app #dashboard-widgets .dashboard-secondary>div{display:-ms-flexbox;display:flex}.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container{width:auto!important;float:none;-ms-flex:1 1;flex:1 1}.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container:first-child{margin-left:0}.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container:last-child{margin-right:0}.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container .postbox{min-width:auto}.TruEdit-app #dashboard-widgets .postbox .inside{margin-bottom:1rem}@media screen and (max-width:782px){.TruEdit-app #dashboard-widgets .dashboard-secondary>div{display:block}.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container{-ms-flex:1 1;flex:1 1}}.TruEdit-app .notice{-webkit-transition:all .25s ease-out;-o-transition:all .25s ease-out;transition:all .25s ease-out;opacity:0;visibility:hidden;max-height:0;overflow:hidden;margin:0;padding:0 10px}.TruEdit-app .notice.notice-show{visibility:visible;opacity:1;max-height:100px;margin:0 0 1rem}.TruEdit-app .notice p{margin:.5rem 0;font-weight:700}.TruEdit-app .notice .dashicons{padding-right:10px}.TruEdit-app .notice .dashicons.dashicon-close{float:right}.js .postbox .hndle,.js .widget .widget-top{cursor:auto}.postbox .inside{padding:0 12px}.table-container .table{width:100%;margin-bottom:1rem}.table-container .table tbody,.table-container .table thead{text-align:left}.table-container .table th{max-width:300px}.table-container .table td{max-width:300px;-webkit-hyphens:auto;-ms-hyphens:auto;hyphens:auto;word-wrap:break-word;overflow:hidden}@media screen and (max-width:782px){.table-container{margin-bottom:1rem}}.TruEdit-app .form-groups .form-group:last-child{margin-bottom:0}.TruEdit-app .form-groups-title{-webkit-box-shadow:0 4px 6px -6px #ddd;box-shadow:0 4px 6px -6px #ddd;padding-bottom:.5rem;border-bottom:1px solid #ddd}.TruEdit-app .form-group{-webkit-transition:all .25s ease-out,-webkit-transform .05s ease;transition:all .25s ease-out,-webkit-transform .05s ease;-o-transition:all .25s ease-out,transform .05s ease;transition:all .25s ease-out,transform .05s ease;transition:all .25s ease-out,transform .05s ease,-webkit-transform .05s ease;display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;font-size:14px;margin-top:0;margin-bottom:1rem}.TruEdit-app .form-group.form-group-hide{visibility:hidden;opacity:0;overflow:hidden;max-height:0;margin-bottom:0;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.TruEdit-app .form-group.form-group-hide.form-group-show{visibility:visible;opacity:1;max-height:112px;margin-bottom:1rem;-webkit-transform:translate(0);-ms-transform:translate(0);transform:translate(0)}.TruEdit-app .form-group>.button{margin-right:.5rem}.TruEdit-app .form-group>.button:last-child{margin-right:0}.TruEdit-app .form-group .dashicons{line-height:1.4;height:auto;width:auto;padding-left:.5rem}.TruEdit-app .form-group .form-label{-ms-flex-preferred-size:33%;flex-basis:33%;line-height:28px;font-weight:600;color:#23282d;padding-right:1rem;text-align:left}.TruEdit-app .form-group .form-label.t-c{text-align:center}.TruEdit-app .form-group .form-label.t-r{text-align:right}.TruEdit-app .form-group .form-item{-ms-flex:1 1;flex:1 1}.TruEdit-app .form-group .form-item>select{width:100%;border-radius:0;height:28px;margin:0}.TruEdit-app .form-group .form-item>select[multiple]{height:auto}.TruEdit-app .form-group .form-item>input{width:100%;line-height:28px;padding:0 1%;margin:0}.TruEdit-app .form-group .form-item>textarea{width:100%;min-height:100px;max-height:200px}.TruEdit-app .form-group .form-item .help-text{margin-top:.25rem;color:#a9a9a9;font-size:.75rem}.TruEdit-app .form-group .form-item .help-text:last-child{padding-bottom:0;margin-bottom:0}@media screen and (max-width:782px){.TruEdit-app .form-group .form-item>select[multiple]{height:auto}}.TruEdit-app .media-frame .spinner{float:none}.TruEdit-app .media-modal{-webkit-transition:visibility .1s ease-in-out,opacity .35s ease-in-out;-o-transition:visibility .1s ease-in-out,opacity .35s ease-in-out;transition:visibility .1s ease-in-out,opacity .35s ease-in-out}.TruEdit-app .media-modal-show{visibility:visible;opacity:1}.TruEdit-app .media-modal-hide{opacity:0;visibility:hidden}.TruEdit-app .media-frame-content{padding:12px}.TruEdit-app .media-frame-content .notice{margin:0}.TruEdit-app .media-modal-content{border-radius:2px;-webkit-box-shadow:0 5px 15px rgba(0,0,0,.25);box-shadow:0 5px 15px rgba(0,0,0,.25);border:1px solid #ccc}.TruEdit-app .media-modal-content .media-frame-content{bottom:0}.TruEdit-app .no-menu{left:0!important}.TruEdit-app .media-modal-close:active,.TruEdit-app .media-modal-close:focus{border:none;-webkit-box-shadow:none;box-shadow:none;outline:none}.TruEdit-app .media-modal-backdrop{-webkit-transition:opacity .45s ease-in-out;-o-transition:opacity .45s ease-in-out;transition:opacity .45s ease-in-out}.TruEdit-app .media-modal-backdrop.media-modal-backdrop-hide{opacity:0;position:unset}@media screen and (max-width:782px){.TruEdit-app .table.automations th{display:none}.TruEdit-app .table.automations td{display:block;max-width:500px}.TruEdit-app .table.automations td:before{position:absolute;font-weight:700;display:block;overflow:hidden;width:32%;content:attr(data-colname);white-space:nowrap;-o-text-overflow:ellipsis;text-overflow:ellipsis}.TruEdit-app .table.automations td .button-group,.TruEdit-app .table.automations td p{padding-left:50%;margin-bottom:.5rem}}.submit-group{-ms-flex-align:end;align-items:flex-end;-ms-flex-direction:column;flex-direction:column}.publish-state,.submit-group{display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center}.publish-state{-ms-flex-align:center;align-items:center;text-align:center;height:calc(100vh - 50px)}.publish-state p{font-weight:700}.publish-state>div{width:25%;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;-ms-flex-direction:column;flex-direction:column}.publish-state .state{width:100%;margin-top:1rem;margin-bottom:1rem}.publish-state .path{stroke-dasharray:1000px;stroke-dashoffset:0px}.publish-state .path.circle{-webkit-animation:dash 2s ease-out;animation:dash 2s ease-out}.publish-state .path.line{stroke-dashoffset:1000px;-webkit-animation:dash 2s .35s ease-out forwards;animation:dash 2s .35s ease-out forwards}.publish-state .path.check{stroke-dashoffset:-100px;-webkit-animation:dash-check 2s .35s ease-out forwards;animation:dash-check 2s .35s ease-out forwards}@-webkit-keyframes dash{0%{stroke-dashoffset:1000px}to{stroke-dashoffset:0px}}@keyframes dash{0%{stroke-dashoffset:1000px}to{stroke-dashoffset:0px}}@-webkit-keyframes dash-check{0%{stroke-dashoffset:-100px}to{stroke-dashoffset:900px}}@keyframes dash-check{0%{stroke-dashoffset:-100px}to{stroke-dashoffset:900px}}
+.flex {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row
+}
+
+.flex .flex-item {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin: 0 12px
+}
+
+.flex .flex-item:first-child {
+    margin-left: 0
+}
+
+.flex .flex-item:last-child {
+    margin-right: 0
+}
+
+@media screen and (max-width:782px) {
+    .flex {
+        -ms-flex-direction: column;
+        flex-direction: column
+    }
+    .flex .flex-item {
+        margin: 0
+    }
+}
+
+.c-green {
+    color: green
+}
+
+.c-red {
+    color: red
+}
+
+.TruEdit-app * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.TruEdit-app p {
+    margin-top: 0;
+    line-height: 1.4
+}
+
+.TruEdit-app .wrap {
+    margin: 14px 17px 14px 3px
+}
+
+.TruEdit-app .wrap.wrap-publish {
+    margin: 8px
+}
+
+.TruEdit-app .wrap h1.wp-heading-inline {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #2c333d;
+    width: 100%
+}
+
+.TruEdit-app .metabox-holder {
+    padding-top: 0!important
+}
+
+.TruEdit-app .flex-center {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.TruEdit-app .flex-right {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end
+}
+
+.TruEdit-app .actions {
+    margin-bottom: 1rem
+}
+
+.TruEdit-app .wp-core-ui .button:focus {
+    outline: none
+}
+
+.TruEdit-app .button-group.button-group-margin .button {
+    border-radius: 3px;
+    margin-right: 8px
+}
+
+.TruEdit-app .button-group.button-group-margin .button:last-child {
+    margin-right: 0
+}
+
+.TruEdit-app .button-group .button {
+    border-radius: 3px;
+    margin: 0 4px
+}
+
+.TruEdit-app .button-group .button:first-child {
+    margin-left: 0
+}
+
+.TruEdit-app .button-group .button:last-child {
+    margin-right: 0
+}
+
+.TruEdit-app .pagination {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.TruEdit-app .pagination>div {
+    display: inline-block
+}
+
+.TruEdit-app .pagination>div:nth-child(2) {
+    margin: 0 .5rem
+}
+
+@media screen and (max-width:782px) {
+    .TruEdit-app .button-group.button-group-margin .button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0
+    }
+}
+
+.TruEdit-app .page-container {
+    width: 100%
+}
+
+.TruEdit-app .page-container .page {
+    -webkit-transition: opacity .2s ease-in;
+    -o-transition: opacity .2s ease-in;
+    transition: opacity .2s ease-in
+}
+
+.TruEdit-app .page-container .page.page-hide {
+    display: none;
+    opacity: 0
+}
+
+.TruEdit-app .page-container .page.page-hide.page-show {
+    display: block;
+    opacity: 1
+}
+
+.spinner-page {
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition: max-height .3s ease-out;
+    -o-transition: max-height .3s ease-out;
+    transition: max-height .3s ease-out;
+    opacity: 1;
+    visibility: visible;
+    max-height: 100px;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.spinner-page.spinner-page-hide {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    margin-bottom: 0
+}
+
+.spinner-page .spinner {
+    max-height: 100px;
+    float: inherit;
+    margin: auto
+}
+
+.button .spinner {
+    float: none;
+    margin: -3px 3px 0
+}
+
+.TruEdit-app #dashboard-widgets {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-primary>div .postbox-container {
+    width: 100%!important;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    width: auto;
+    float: none
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary {
+    width: 100%
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary>div {
+    display: -ms-flexbox;
+    display: flex
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container {
+    width: auto!important;
+    float: none;
+    -ms-flex: 1 1;
+    flex: 1 1
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container:first-child {
+    margin-left: 0
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container:last-child {
+    margin-right: 0
+}
+
+.TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container .postbox {
+    min-width: auto
+}
+
+.TruEdit-app #dashboard-widgets .postbox .inside {
+    margin-bottom: 1rem
+}
+
+@media screen and (max-width:782px) {
+    .TruEdit-app #dashboard-widgets .dashboard-secondary>div {
+        display: block
+    }
+    .TruEdit-app #dashboard-widgets .dashboard-secondary>div .postbox-container {
+        -ms-flex: 1 1;
+        flex: 1 1
+    }
+}
+
+.TruEdit-app .notice {
+    -webkit-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 10px
+}
+
+.TruEdit-app .notice.notice-show {
+    visibility: visible;
+    opacity: 1;
+    max-height: 100px;
+    margin: 0 0 1rem
+}
+
+.TruEdit-app .notice p {
+    margin: .5rem 0;
+    font-weight: 700
+}
+
+.TruEdit-app .notice .dashicons {
+    padding-right: 10px
+}
+
+.TruEdit-app .notice .dashicons.dashicon-close {
+    float: right
+}
+
+.js .postbox .hndle,
+.js .widget .widget-top {
+    cursor: auto
+}
+
+.postbox .inside {
+    padding: 0 12px
+}
+
+.table-container .table {
+    width: 100%;
+    margin-bottom: 1rem
+}
+
+.table-container .table tbody,
+.table-container .table thead {
+    text-align: left
+}
+
+.table-container .table th {
+    max-width: 300px
+}
+
+.table-container .table td {
+    max-width: 300px;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow: hidden
+}
+
+@media screen and (max-width:782px) {
+    .table-container {
+        margin-bottom: 1rem
+    }
+}
+
+.TruEdit-app .form-groups .form-group:last-child {
+    margin-bottom: 0
+}
+
+.TruEdit-app .form-groups-title {
+    -webkit-box-shadow: 0 4px 6px -6px #ddd;
+    box-shadow: 0 4px 6px -6px #ddd;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #ddd
+}
+
+.TruEdit-app .form-group {
+    -webkit-transition: all .25s ease-out, -webkit-transform .05s ease;
+    transition: all .25s ease-out, -webkit-transform .05s ease;
+    -o-transition: all .25s ease-out, transform .05s ease;
+    transition: all .25s ease-out, transform .05s ease;
+    transition: all .25s ease-out, transform .05s ease, -webkit-transform .05s ease;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+
+.TruEdit-app .form-group.form-group-hide {
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    max-height: 0;
+    margin-bottom: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.TruEdit-app .form-group.form-group-hide.form-group-show {
+    visibility: visible;
+    opacity: 1;
+    max-height: 112px;
+    margin-bottom: 1rem;
+    -webkit-transform: translate(0);
+    -ms-transform: translate(0);
+    transform: translate(0)
+}
+
+.TruEdit-app .form-group>.button {
+    margin-right: .5rem
+}
+
+.TruEdit-app .form-group>.button:last-child {
+    margin-right: 0
+}
+
+.TruEdit-app .form-group .dashicons {
+    line-height: 1.4;
+    height: auto;
+    width: auto;
+    padding-left: .5rem
+}
+
+.TruEdit-app .form-group .form-label {
+    -ms-flex-preferred-size: 33%;
+    flex-basis: 33%;
+    line-height: 28px;
+    font-weight: 600;
+    color: #23282d;
+    padding-right: 1rem;
+    text-align: left
+}
+
+.TruEdit-app .form-group .form-label.t-c {
+    text-align: center
+}
+
+.TruEdit-app .form-group .form-label.t-r {
+    text-align: right
+}
+
+.TruEdit-app .form-group .form-item {
+    -ms-flex: 1 1;
+    flex: 1 1
+}
+
+.TruEdit-app .form-group .form-item>select {
+    width: 100%;
+    border-radius: 0;
+    height: 28px;
+    margin: 0
+}
+
+.TruEdit-app .form-group .form-item>select[multiple] {
+    height: auto
+}
+
+.TruEdit-app .form-group .form-item>input {
+    width: 100%;
+    line-height: 28px;
+    padding: 0 1%;
+    margin: 0
+}
+
+.TruEdit-app .form-group .form-item>textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 200px
+}
+
+.TruEdit-app .form-group .form-item .help-text {
+    margin-top: .25rem;
+    color: #a9a9a9;
+    font-size: .75rem
+}
+
+.TruEdit-app .form-group .form-item .help-text:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+@media screen and (max-width:782px) {
+    .TruEdit-app .form-group .form-item>select[multiple] {
+        height: auto
+    }
+}
+
+.TruEdit-app .media-frame .spinner {
+    float: none
+}
+
+.TruEdit-app .media-modal {
+    -webkit-transition: visibility .1s ease-in-out, opacity .35s ease-in-out;
+    -o-transition: visibility .1s ease-in-out, opacity .35s ease-in-out;
+    transition: visibility .1s ease-in-out, opacity .35s ease-in-out
+}
+
+.TruEdit-app .media-modal-show {
+    visibility: visible;
+    opacity: 1
+}
+
+.TruEdit-app .media-modal-hide {
+    opacity: 0;
+    visibility: hidden
+}
+
+.TruEdit-app .media-frame-content {
+    padding: 12px
+}
+
+.TruEdit-app .media-frame-content .notice {
+    margin: 0
+}
+
+.TruEdit-app .media-modal-content {
+    border-radius: 2px;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+    border: 1px solid #ccc
+}
+
+.TruEdit-app .media-modal-content .media-frame-content {
+    bottom: 0
+}
+
+.TruEdit-app .no-menu {
+    left: 0!important
+}
+
+.TruEdit-app .media-modal-close:active,
+.TruEdit-app .media-modal-close:focus {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none
+}
+
+.TruEdit-app .media-modal-backdrop {
+    -webkit-transition: opacity .45s ease-in-out;
+    -o-transition: opacity .45s ease-in-out;
+    transition: opacity .45s ease-in-out
+}
+
+.TruEdit-app .media-modal-backdrop.media-modal-backdrop-hide {
+    opacity: 0;
+    position: unset
+}
+
+@media screen and (max-width:782px) {
+    .TruEdit-app .table.automations th {
+        display: none
+    }
+    .TruEdit-app .table.automations td {
+        display: block;
+        max-width: 500px
+    }
+    .TruEdit-app .table.automations td:before {
+        position: absolute;
+        font-weight: 700;
+        display: block;
+        overflow: hidden;
+        width: 32%;
+        content: attr(data-colname);
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis
+    }
+    .TruEdit-app .table.automations td .button-group,
+    .TruEdit-app .table.automations td p {
+        padding-left: 50%;
+        margin-bottom: .5rem
+    }
+}
+
+.submit-group {
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+
+.publish-state,
+.submit-group {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.publish-state {
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    height: calc(100vh - 50px)
+}
+
+.publish-state p {
+    font-weight: 700
+}
+
+.publish-state>div {
+    width: 25%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+
+.publish-state .state {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem
+}
+
+.publish-state .path {
+    stroke-dasharray: 1000px;
+    stroke-dashoffset: 0px
+}
+
+.publish-state .path.circle {
+    -webkit-animation: dash 2s ease-out;
+    animation: dash 2s ease-out
+}
+
+.publish-state .path.line {
+    stroke-dashoffset: 1000px;
+    -webkit-animation: dash 2s .35s ease-out forwards;
+    animation: dash 2s .35s ease-out forwards
+}
+
+.publish-state .path.check {
+    stroke-dashoffset: -100px;
+    -webkit-animation: dash-check 2s .35s ease-out forwards;
+    animation: dash-check 2s .35s ease-out forwards
+}
+
+@-webkit-keyframes dash {
+    0% {
+        stroke-dashoffset: 1000px
+    }
+    to {
+        stroke-dashoffset: 0px
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000px
+    }
+    to {
+        stroke-dashoffset: 0px
+    }
+}
+
+@-webkit-keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100px
+    }
+    to {
+        stroke-dashoffset: 900px
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100px
+    }
+    to {
+        stroke-dashoffset: 900px
+    }
+}
+
+
 /*# sourceMappingURL=main.51d1c361.css.map*/

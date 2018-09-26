@@ -74,10 +74,10 @@ class TruEdit_Admin_Api {
 
 	public function load_dependencies() {
 
-		foreach ( glob( dirname( __FILE__ ) . '/api/**/*.php' ) as $filename ) {
+		foreach ( glob( plugin_dir_path( __FILE__ ) . '/api/**/*.php' ) as $filename ) {
 			require_once $filename;
 		}
-		foreach ( glob( dirname( __FILE__ ) . '/resource/*.php' ) as $filename ) {
+		foreach ( glob( plugin_dir_path( __FILE__ ) . '/resource/*.php' ) as $filename ) {
 			require_once $filename;
 		}
 
