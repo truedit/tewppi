@@ -18,7 +18,7 @@ try {
   stage('Checking PHP') {
     node('Linux') {
       sh 'echo Path: $PATH'
-      sh 'phpcs --standard=WordPress-VIP-Go,WordPressVIPMinimum --report=checkstyle --report-file=${WORKSPACE}/phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
+      sh 'phpcs --standard=WordPress-VIP-Go,WordPressVIPMinimum --report=summary --report-file=${WORKSPACE}/phpcs_summary.txt ${WORKSPACE}/dist/*/truedit'
     }
   }
   stage('Publish Linting Results') {
