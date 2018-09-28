@@ -17,7 +17,6 @@ try {
   }
   stage('Checking PHP') {
     node('Linux') {
-      sh 'echo Path: $PATH'
       sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPress-VIP-Go --report=checkstyle --report-file=${WORKSPACE}/vip_go_phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
       sh 'phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 --standard=WordPressVIPMinimum --report=checkstyle --report-file=${WORKSPACE}/vip_min_phpcs_checkstyle.xml ${WORKSPACE}/dist/*/truedit'
     }
