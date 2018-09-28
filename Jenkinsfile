@@ -23,13 +23,14 @@ try {
   }
   stage('Publish Linting Results') {
     node('Linux') {
-      //checkstyle defaultEncoding: '', healthy: '', pattern: '*_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
-      def checkstyle = scanForIssues tool: [$class: 'Checkstyle'], pattern: '**_checkstyle.xml'
+      checkstyle defaultEncoding: '', healthy: '', pattern: '*_checkstyle.xml', unHealthy: '', useStableBuildAsReference: true
+      /*def checkstyle = scanForIssues tool: [$class: 'Checkstyle'], pattern: '**_checkstyle.xml'
       publishIssues issues:[checkstyle]
-      
+
       publishIssues id:'analysis', name:'PHPCS Results', 
             issues:[checkstyle], 
             filters:[includePackage('io.jenkins.plugins.analysis.*')]
+      */
     }
   }
   stage('Archive Artifacts') {
