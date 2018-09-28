@@ -209,13 +209,13 @@ class TruEdit_Admin {
 	}
 
 	public function page_welcome() {
-		include_once( 'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 	public function page_automations() {
-		include_once( 'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 	public function page_options() {
-		include_once( 'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ).'partials/truedit-admin-display.php' ); }
 	public function page_logs() {
-		include_once( 'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ).'partials/truedit-admin-display.php' ); }
 
 	public function custom_template() {
 
@@ -226,7 +226,7 @@ class TruEdit_Admin {
 			$this->enqueue_styles();
 			$this->enqueue_scripts();
 
-			include_once( 'partials/truedit-admin-callback.php' );
+			include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-callback.php' );
 
 			exit();
 

@@ -126,14 +126,8 @@ class TruEdit_ApiRoute_Dashboard implements TruEdit_ApiRoute {
 
 	private function getAutos( $count = 5 ) {
 
-		$posts = get_posts(
-			[
-				'post_type'   => 'automation',
-				'post_status' => 'draft',
-				'suppress_filters' => false,
-				'numberposts' => $count,
-
-			]
+		$posts = get_posts( array(	'post_type'   => 'automation',	'post_status' => 'draft','suppress_filters' => false,		'numberposts' => $count,
+	)
 		);
 
 		foreach ( $posts as $post ) {
