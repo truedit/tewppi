@@ -213,9 +213,9 @@ class TruEdit_Admin {
 	public function page_automations() {
 		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 	public function page_options() {
-		include_once( plugin_dir_path( __FILE__ ).'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 	public function page_logs() {
-		include_once( plugin_dir_path( __FILE__ ).'partials/truedit-admin-display.php' ); }
+		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 
 	public function custom_template() {
 
