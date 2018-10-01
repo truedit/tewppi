@@ -1,8 +1,8 @@
-Feature/vip: Develop: [![Build Status](https://jenkins.maned.com/buildStatus/icon?job=WPPI_Pipeline/feature/vip)](http://jenkins.maned.com/job/WPPI_Pipeline/job/feature/vip)
+Feature/vip: Develop: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/feature/vip)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/feature/vip)
 
-Develop: [![Build Status](https://jenkins.maned.com/buildStatus/icon?job=WPPI_Pipeline/develop)](http://jenkins.maned.com/job/WPPI_Pipeline/job/develop)
+Develop: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/develop)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/develop)
 
-Master: [![Build Status](https://jenkins.maned.com/buildStatus/icon?job=WPPI_Pipeline/master)](http://jenkins.maned.com/job/WPPI_Pipeline/job/master)
+Master: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/master)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/master)
 
 # Truedit Wordpress Plugin
 
