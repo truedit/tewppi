@@ -162,8 +162,8 @@ class RequestException extends TransferException
     private static function obfuscateUri($uri)
     {
         $userInfo = $uri->getUserInfo();
-
-        if (false !== ($pos = strpos($userInfo, ':'))) {
+		$pos = strpos($userInfo, ':');
+        if (false !== $pos)) {
             return $uri->withUserInfo(substr($userInfo, 0, $pos), '***');
         }
 

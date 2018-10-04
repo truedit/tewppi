@@ -264,7 +264,7 @@ class StreamHandler
 
         // HTTP/1.1 streams using the PHP stream wrapper require a
         // Connection: close header
-        if ($request->getProtocolVersion() == '1.1'
+        if ($request->getProtocolVersion() === '1.1'
             && !$request->hasHeader('Connection')
         ) {
             $request = $request->withHeader('Connection', 'close');
@@ -305,7 +305,7 @@ class StreamHandler
         if (isset($options['auth'])
             && is_array($options['auth'])
             && isset($options['auth'][2])
-            && 'ntlm' == $options['auth'][2]
+            && 'ntlm' === $options['auth'][2]
         ) {
 
             throw new \InvalidArgumentException('Microsoft NTLM authentication only supported with curl handler');
@@ -464,7 +464,7 @@ class StreamHandler
         $this->addNotification(
             $params,
             function ($code, $a, $b, $c, $transferred, $total) use ($value) {
-                if ($code == STREAM_NOTIFY_PROGRESS) {
+                if ($code === STREAM_NOTIFY_PROGRESS) {
                     $value($total, $transferred, null, null);
                 }
             }

@@ -85,7 +85,7 @@ class RedirectMiddleware
         array $options,
         ResponseInterface $response
     ) {
-        if (substr($response->getStatusCode(), 0, 1) != '3'
+        if (substr($response->getStatusCode(), 0, 1) !== '3'
             || !$response->hasHeader('Location')
         ) {
             return $response;
@@ -171,7 +171,7 @@ class RedirectMiddleware
         // not forcing RFC compliance, but rather emulating what all browsers
         // would do.
         $statusCode = $response->getStatusCode();
-        if ($statusCode == 303 ||
+        if ($statusCode === 303 ||
             ($statusCode <= 302 && $request->getBody() && !$options['allow_redirects']['strict'])
         ) {
             $modify['method'] = 'GET';
@@ -220,7 +220,7 @@ class RedirectMiddleware
         );
 
         // Ensure that the redirect URI is allowed based on the protocols.
-        if (!in_array($location->getScheme(), $protocols)) {
+        if (!in_array($location->getScheme(), $protocols,true)) {
             throw new BadResponseException(
                 sprintf(
                     'Redirect URI, %s, does not use one of the allowed redirect protocols: %s',

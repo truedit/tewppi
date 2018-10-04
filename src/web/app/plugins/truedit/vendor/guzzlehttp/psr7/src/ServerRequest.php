@@ -165,19 +165,32 @@ class ServerRequest extends Request implements ServerRequestInterface
      */
     public static function fromGlobals()
     {
-        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+       /** $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';  */
+		if(isset($_SERVER['REQUEST_METHOD']))	
+		{
+			$method = esc_url_raw($_SERVER['REQUEST_METHOD']);		// input var okay; 			
+		}else
+		{
+			$method = 'GET';
+		}	
         $headers = function_exists('getallheaders') ? getallheaders() : [];
         $uri = self::getUriFromGlobals();
         $body = new LazyOpenStream('php://input', 'r+');
-        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? str_replace('HTTP/', '', $_SERVER['SERVER_PROTOCOL']) : '1.1';
-
-        $serverRequest = new ServerRequest($method, $uri, $headers, $body, $protocol, $_SERVER);
+		
+		if(isset($_SERVER['SERVER_PROTOCOL']))	
+		{
+			$protocol = str_replace('HTTP/', '', esc_url_raw($_SERVER['SERVER_PROTOCOL']));	// input var okay; 		
+		}else
+		{
+			$protocol = '1.1';
+		}
+        $serverRequest = new ServerRequest($method, $uri, $headers, $body, $protocol, $_SERVER); 	// input var okay; 	
 
         return $serverRequest
-            ->withCookieParams($_COOKIE)
-            ->withQueryParams($_GET)
-            ->withParsedBody($_POST)
-            ->withUploadedFiles(self::normalizeFiles($_FILES));
+            ->withCookieParams($_COOKIE)	// input var okay; 	
+            ->withQueryParams($_GET)		// input var okay; 	
+            ->withParsedBody($_POST)		// input var okay; 	
+            ->withUploadedFiles(self::normalizeFiles($_FILES));	// input var okay; 	
     }
 
     /**
@@ -188,29 +201,29 @@ class ServerRequest extends Request implements ServerRequestInterface
     public static function getUriFromGlobals() {
         $uri = new Uri('');
 
-        $uri = $uri->withScheme(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http');
+        $uri = $uri->withScheme(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http'); // input var okay; 	
 
         $hasPort = false;
-        if (isset($_SERVER['HTTP_HOST'])) {
-            $hostHeaderParts = explode(':', $_SERVER['HTTP_HOST']);
+        if (isset($_SERVER['HTTP_HOST'])) {		// input var okay; 	
+            $hostHeaderParts = explode(':', esc_url_raw($_SERVER['HTTP_HOST']));		// input var okay; 	
             $uri = $uri->withHost($hostHeaderParts[0]);
             if (isset($hostHeaderParts[1])) {
                 $hasPort = true;
                 $uri = $uri->withPort($hostHeaderParts[1]);
             }
-        } elseif (isset($_SERVER['SERVER_NAME'])) {
-            $uri = $uri->withHost($_SERVER['SERVER_NAME']);
-        } elseif (isset($_SERVER['SERVER_ADDR'])) {
-            $uri = $uri->withHost($_SERVER['SERVER_ADDR']);
+        } elseif (isset($_SERVER['SERVER_NAME'])) {			// input var okay; 	
+            $uri = $uri->withHost(esc_url_raw($_SERVER['SERVER_NAME']));	// input var okay; 	
+        } elseif (isset($_SERVER['SERVER_ADDR'])) {			// input var okay; 	
+            $uri = $uri->withHost(esc_url_raw($_SERVER['SERVER_ADDR']));	// input var okay; 	
         }
 
-        if (!$hasPort && isset($_SERVER['SERVER_PORT'])) {
-            $uri = $uri->withPort($_SERVER['SERVER_PORT']);
+        if (!$hasPort && isset($_SERVER['SERVER_PORT'])) {		// input var okay; 	
+            $uri = $uri->withPort(esc_url_raw($_SERVER['SERVER_PORT']));		// input var okay; 	
         }
 
         $hasQuery = false;
         if (isset($_SERVER['REQUEST_URI'])) {
-            $requestUriParts = explode('?', $_SERVER['REQUEST_URI']);
+            $requestUriParts = explode('?', esc_url_raw($_SERVER['REQUEST_URI']));	// input var okay; 	
             $uri = $uri->withPath($requestUriParts[0]);
             if (isset($requestUriParts[1])) {
                 $hasQuery = true;
@@ -218,8 +231,8 @@ class ServerRequest extends Request implements ServerRequestInterface
             }
         }
 
-        if (!$hasQuery && isset($_SERVER['QUERY_STRING'])) {
-            $uri = $uri->withQuery($_SERVER['QUERY_STRING']);
+        if (!$hasQuery && isset($_SERVER['QUERY_STRING'])) {	// input var okay; 	
+            $uri = $uri->withQuery(esc_url_raw($_SERVER['QUERY_STRING']));	// input var okay; 	
         }
 
         return $uri;

@@ -47,7 +47,7 @@ function describe_type($input)
             return 'array(' . count($input) . ')';
         default:
             ob_start();
-            var_dump($input);
+            // var_dump($input);
             // normalize float vs double
             return str_replace('double(', 'float(', rtrim(ob_get_clean()));
     }
@@ -181,12 +181,12 @@ function default_ca_bundle()
     if ($cached) {
         return $cached;
     }
-
-    if ($ca = ini_get('openssl.cafile')) {
+	$ca = ini_get('openssl.cafile');
+    if ($ca) {
         return $cached = $ca;
     }
-
-    if ($ca = ini_get('curl.cainfo')) {
+	$ca = ini_get('curl.cainfo');
+    if ($ca) {
         return $cached = $ca;
     }
 
@@ -321,7 +321,7 @@ function json_decode($json, $assoc = false, $depth = 512, $options = 0)
  */
 function json_encode($value, $options = 0, $depth = 512)
 {
-    $json = \json_encode($value, $options, $depth);
+    $json = \wp_json_encode($value, $options, $depth);
     if (JSON_ERROR_NONE !== json_last_error()) {
         throw new \InvalidArgumentException(
             'json_encode error: ' . json_last_error_msg());

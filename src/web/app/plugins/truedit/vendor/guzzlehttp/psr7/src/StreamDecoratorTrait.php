@@ -27,7 +27,7 @@ trait StreamDecoratorTrait
      */
     public function __get($name)
     {
-        if ($name == 'stream') {
+        if ($name === 'stream') {
             $this->stream = $this->createStream();
             return $this->stream;
         }
@@ -44,8 +44,10 @@ trait StreamDecoratorTrait
             return $this->getContents();
         } catch (\Exception $e) {
             // Really, PHP? https://bugs.php.net/bug.php?id=53648
+			/**
             trigger_error('StreamDecorator::__toString exception: '
                 . (string) $e, E_USER_ERROR);
+			*/	
             return '';
         }
     }

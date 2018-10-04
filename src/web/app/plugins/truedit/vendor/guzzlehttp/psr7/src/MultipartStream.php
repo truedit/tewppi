@@ -123,7 +123,8 @@ class MultipartStream implements StreamInterface
         // Set a default content-length header if one was no provided
         $length = $this->getHeader($headers, 'content-length');
         if (!$length) {
-            if ($length = $stream->getSize()) {
+			$length = $stream->getSize();
+            if ($length) {
                 $headers['Content-Length'] = (string) $length;
             }
         }
@@ -131,7 +132,8 @@ class MultipartStream implements StreamInterface
         // Set a default Content-Type if one was not supplied
         $type = $this->getHeader($headers, 'content-type');
         if (!$type && ($filename === '0' || $filename)) {
-            if ($type = mimetype_from_filename($filename)) {
+			$type = mimetype_from_filename($filename);
+            if ($type) {
                 $headers['Content-Type'] = $type;
             }
         }

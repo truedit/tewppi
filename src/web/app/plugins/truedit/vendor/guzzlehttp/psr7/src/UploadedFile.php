@@ -114,7 +114,7 @@ class UploadedFile implements UploadedFileInterface
             );
         }
 
-        if (false === in_array($error, UploadedFile::$errors)) {
+        if (false === in_array($error, UploadedFile::$errors,true)) {
             throw new InvalidArgumentException(
                 'Invalid error status for UploadedFile'
             );
@@ -144,7 +144,7 @@ class UploadedFile implements UploadedFileInterface
      */
     private function isStringOrNull($param)
     {
-        return in_array(gettype($param), ['string', 'NULL']);
+        return in_array(gettype($param), ['string', 'NULL'],true);
     }
 
     /**
@@ -255,7 +255,7 @@ class UploadedFile implements UploadedFileInterface
         }
 
         if ($this->file) {
-            $this->moved = php_sapi_name() == 'cli'
+            $this->moved = php_sapi_name() === 'cli'
                 ? rename($this->file, $targetPath)
                 : move_uploaded_file($this->file, $targetPath);
         } else {

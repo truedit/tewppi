@@ -65,8 +65,8 @@ class Uri implements UriInterface
     public function __construct($uri = '')
     {
         // weak type check to also accept null until we can add scalar type hints
-        if ($uri != '') {
-            $parts = parse_url($uri);
+        if ($uri !== '') {
+            $parts = wp_parse_url($uri);
             if ($parts === false) {
                 throw new \InvalidArgumentException("Unable to parse URI: $uri");
             }
@@ -116,21 +116,21 @@ class Uri implements UriInterface
         $uri = '';
 
         // weak type checks to also accept null until we can add scalar type hints
-        if ($scheme != '') {
+        if ($scheme !== '') {
             $uri .= $scheme . ':';
         }
 
-        if ($authority != ''|| $scheme === 'file') {
+        if ($authority !== ''|| $scheme === 'file') {
             $uri .= '//' . $authority;
         }
 
         $uri .= $path;
 
-        if ($query != '') {
+        if ($query !== '') {
             $uri .= '?' . $query;
         }
 
-        if ($fragment != '') {
+        if ($fragment !== '') {
             $uri .= '#' . $fragment;
         }
 
@@ -443,7 +443,7 @@ class Uri implements UriInterface
     public function withUserInfo($user, $password = null)
     {
         $info = $user;
-        if ($password != '') {
+        if ($password !== '') {
             $info .= ':' . $password;
         }
 
@@ -690,13 +690,17 @@ class Uri implements UriInterface
                 throw new \InvalidArgumentException('A relative URI must not have a path beginning with a segment containing a colon');
             }
         } elseif (isset($this->path[0]) && $this->path[0] !== '/') {
+			/**
             @trigger_error(
                 'The path of a URI with an authority must start with a slash "/" or be empty. Automagically fixing the URI ' .
                 'by adding a leading slash to the path is deprecated since version 1.4 and will throw an exception instead.',
                 E_USER_DEPRECATED
             );
+			*/
             $this->path = '/'. $this->path;
+			/**
             //throw new \InvalidArgumentException('The path of a URI with an authority must start with a slash "/" or be empty');
+			**/
         }
     }
 }

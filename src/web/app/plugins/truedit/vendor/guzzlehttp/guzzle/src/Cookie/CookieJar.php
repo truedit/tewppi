@@ -136,7 +136,7 @@ class CookieJar implements CookieJarInterface
             $this->cookies = array_filter(
                 $this->cookies,
                 function (SetCookie $cookie) use ($path, $domain, $name) {
-                    return !($cookie->getName() == $name &&
+                    return !($cookie->getName() === $name &&
                         $cookie->matchesPath($path) &&
                         $cookie->matchesDomain($domain));
                 }
@@ -179,9 +179,9 @@ class CookieJar implements CookieJarInterface
 
             // Two cookies are identical, when their path, and domain are
             // identical.
-            if ($c->getPath() != $cookie->getPath() ||
-                $c->getDomain() != $cookie->getDomain() ||
-                $c->getName() != $cookie->getName()
+            if ($c->getPath() !== $cookie->getPath() ||
+                $c->getDomain() !== $cookie->getDomain() ||
+                $c->getName() !== $cookie->getName()
             ) {
                 continue;
             }
@@ -229,7 +229,8 @@ class CookieJar implements CookieJarInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        if ($cookieHeader = $response->getHeader('Set-Cookie')) {
+		$cookieHeader = $response->getHeader('Set-Cookie');
+        if ($cookieHeader) {
             foreach ($cookieHeader as $cookie) {
                 $sc = SetCookie::fromString($cookie);
                 if (!$sc->getDomain()) {
@@ -263,7 +264,8 @@ class CookieJar implements CookieJarInterface
         if ('/' === $uriPath) {
             return '/';
         }
-        if (0 === $lastSlashPos = strrpos($uriPath, '/')) {
+		$lastSlashPos = strrpos($uriPath, '/');
+        if (0 === $lastSlashPos) {
             return '/';
         }
 

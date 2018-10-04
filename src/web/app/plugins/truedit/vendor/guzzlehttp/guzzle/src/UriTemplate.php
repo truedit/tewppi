@@ -15,7 +15,7 @@ class UriTemplate
     private $variables;
 
     /** @var array Hash for quick operator lookups */
-    private static $operatorHash = [
+    private static $operatorHash = [	
         ''  => ['prefix' => '',  'joiner' => ',', 'query' => false],
         '+' => ['prefix' => '',  'joiner' => ',', 'query' => false],
         '#' => ['prefix' => '#', 'joiner' => ',', 'query' => false],
@@ -72,7 +72,8 @@ class UriTemplate
         foreach (explode(',', $expression) as $value) {
             $value = trim($value);
             $varspec = [];
-            if ($colonPos = strpos($value, ':')) {
+			$colonPos = strpos($value, ':');
+            if ($colonPos) {
                 $varspec['value'] = substr($value, 0, $colonPos);
                 $varspec['modifier'] = ':';
                 $varspec['position'] = (int) substr($value, $colonPos + 1);

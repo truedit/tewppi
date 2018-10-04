@@ -210,13 +210,14 @@ function modify_request(RequestInterface $request, array $changes)
         $uri = $request->getUri();
     } else {
         // Remove the host header if one is on the URI
-        if ($host = $changes['uri']->getHost()) {
+		$host = $changes['uri']->getHost();
+        if ($host) {
             $changes['set_headers']['Host'] = $host;
-
-            if ($port = $changes['uri']->getPort()) {
+			$port = $changes['uri']->getPort();
+            if ($port) {
                 $standardPorts = ['http' => 80, 'https' => 443];
                 $scheme = $changes['uri']->getScheme();
-                if (isset($standardPorts[$scheme]) && $port != $standardPorts[$scheme]) {
+                if (isset($standardPorts[$scheme]) && $port !== $standardPorts[$scheme]) {
                     $changes['set_headers']['Host'] .= ':'.$port;
                 }
             }
@@ -295,6 +296,7 @@ function rewind_body(MessageInterface $message)
 function try_fopen($filename, $mode)
 {
     $ex = null;
+	/**
     set_error_handler(function () use ($filename, $mode, &$ex) {
         $ex = new \RuntimeException(sprintf(
             'Unable to open %s using mode %s: %s',
@@ -303,7 +305,7 @@ function try_fopen($filename, $mode)
             func_get_args()[1]
         ));
     });
-
+	*/
     $handle = fopen($filename, $mode);
     restore_error_handler();
 
@@ -333,7 +335,7 @@ function copy_to_string(StreamInterface $stream, $maxLen = -1)
         while (!$stream->eof()) {
             $buf = $stream->read(1048576);
             // Using a loose equality here to match on '' and false.
-            if ($buf == null) {
+            if ($buf === null) {
                 break;
             }
             $buffer .= $buf;
@@ -345,7 +347,7 @@ function copy_to_string(StreamInterface $stream, $maxLen = -1)
     while (!$stream->eof() && $len < $maxLen) {
         $buf = $stream->read($maxLen - $len);
         // Using a loose equality here to match on '' and false.
-        if ($buf == null) {
+        if ($buf === null) {
             break;
         }
         $buffer .= $buf;
@@ -440,7 +442,8 @@ function readline(StreamInterface $stream, $maxLength = null)
 
     while (!$stream->eof()) {
         // Using a loose equality here to match on '' and false.
-        if (null == ($byte = $stream->read(1))) {
+		$byte = $stream->read(1);
+        if (null === $byte) {
             return $buffer;
         }
         $buffer .= $byte;
@@ -533,9 +536,9 @@ function parse_query($str, $urlEncoding = true)
         $decoder = function ($value) {
             return rawurldecode(str_replace('+', ' ', $value));
         };
-    } elseif ($urlEncoding == PHP_QUERY_RFC3986) {
+    } elseif ($urlEncoding === PHP_QUERY_RFC3986) {
         $decoder = 'rawurldecode';
-    } elseif ($urlEncoding == PHP_QUERY_RFC1738) {
+    } elseif ($urlEncoding === PHP_QUERY_RFC1738) {
         $decoder = 'urldecode';
     } else {
         $decoder = function ($str) { return $str; };
@@ -819,7 +822,7 @@ function _caseless_remove($keys, array $data)
     }
 
     foreach ($data as $k => $v) {
-        if (!in_array(strtolower($k), $keys)) {
+        if (!in_array(strtolower($k), $keys,true)) {
             $result[$k] = $v;
         }
     }

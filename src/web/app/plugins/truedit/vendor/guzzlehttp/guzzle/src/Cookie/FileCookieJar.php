@@ -54,9 +54,13 @@ class FileCookieJar extends CookieJar
                 $json[] = $cookie->toArray();
             }
         }
+		/** Code Start for Using WP File system */
+		require_once ( ABSPATH.'/wp-admin/includes/file.php');
+		WP_Filesystem();
+		global $wp_filesystem;
 
         $jsonStr = \GuzzleHttp\json_encode($json);
-        if (false === file_put_contents($filename, $jsonStr)) {
+        if (false === $wp_filesystem->put_contents($filename, $jsonStr)) {
             throw new \RuntimeException("Unable to save file {$filename}");
         }
     }
@@ -71,7 +75,10 @@ class FileCookieJar extends CookieJar
      */
     public function load($filename)
     {
+		/**
         $json = file_get_contents($filename);
+		*/
+		$json = vip_safe_wp_remote_get($filename);
         if (false === $json) {
             throw new \RuntimeException("Unable to load file {$filename}");
         } elseif ($json === '') {

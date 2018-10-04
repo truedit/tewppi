@@ -142,7 +142,7 @@ class CurlFactory implements CurlFactoryInterface
 
         // Retry when nothing is present or when curl failed to rewind.
         if (empty($easy->options['_err_message'])
-            && (!$easy->errno || $easy->errno == 65)
+            && (!$easy->errno || $easy->errno === 65)
         ) {
             return self::retryFailedRewind($handler, $easy, $ctx);
         }
@@ -205,9 +205,9 @@ class CurlFactory implements CurlFactoryInterface
         }
 
         $version = $easy->request->getProtocolVersion();
-        if ($version == 1.1) {
+        if ($version === 1.1) {
             $conf[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
-        } elseif ($version == 2.0) {
+        } elseif ($version === 2.0) {
             $conf[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_2_0;
         } else {
             $conf[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
@@ -501,7 +501,7 @@ class CurlFactory implements CurlFactoryInterface
         // Retry no more than 3 times before giving up.
         if (!isset($easy->options['_curl_retries'])) {
             $easy->options['_curl_retries'] = 1;
-        } elseif ($easy->options['_curl_retries'] == 2) {
+        } elseif ($easy->options['_curl_retries'] === 2) {
             $ctx['error'] = 'The cURL request was retried 3 times '
                 . 'and did not succeed. The most likely reason for the failure '
                 . 'is that cURL was unable to rewind the body of the request '

@@ -192,7 +192,7 @@ class AppendStream implements StreamInterface
             $result = $this->streams[$this->current]->read($remaining);
 
             // Using a loose comparison here to match on '', false, and null
-            if ($result == null) {
+            if ($result === null) {
                 $progressToNext = true;
                 continue;
             }

@@ -191,7 +191,8 @@ class HandlerStack
     public function resolve()
     {
         if (!$this->cached) {
-            if (!($prev = $this->handler)) {
+			$prev = $this->handler;
+            if (!($prev)) {
                 throw new \LogicException('No handler has been specified');
             }
 

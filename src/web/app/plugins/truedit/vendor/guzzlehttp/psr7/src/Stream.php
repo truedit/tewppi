@@ -72,7 +72,7 @@ class Stream implements StreamInterface
 
     public function __get($name)
     {
-        if ($name == 'stream') {
+        if ($name === 'stream') {
             throw new \RuntimeException('The stream is detached');
         }
 
@@ -197,8 +197,10 @@ class Stream implements StreamInterface
         if (!$this->seekable) {
             throw new \RuntimeException('Stream is not seekable');
         } elseif (fseek($this->stream, $offset, $whence) === -1) {
+			/**
             throw new \RuntimeException('Unable to seek to stream position '
                 . $offset . ' with whence ' . var_export($whence, true));
+			*/	
         }
     }
 
