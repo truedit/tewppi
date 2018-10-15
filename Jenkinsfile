@@ -40,7 +40,7 @@ try {
   }
   stage('Publish Artifacts') {
     node('Linux') {
-      s3Upload consoleLogLevel: 'INFO', dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 's3nvcodevit02-public/downloads/vipGo', excludedFile: '', flatten: true, gzipFiles: true, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '*_checkstyle.xml,dist/*/*_wppi.zip', storageClass: 'REDUCED_REDUNDANCY', uploadFromSlave: true, useServerSideEncryption: true]], pluginFailureResultConstraint: 'UNSTABLE', profileName: 'TruEdit S3 Profile', userMetadata: []
+      s3Upload consoleLogLevel: 'INFO', dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: "s3nvcodevit02-public/downloads/vipGo/${env.BRANCH_NAME}", excludedFile: '', flatten: true, gzipFiles: true, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '*_checkstyle.xml,dist/*/*_wppi.zip', storageClass: 'REDUCED_REDUNDANCY', uploadFromSlave: true, useServerSideEncryption: true]], pluginFailureResultConstraint: 'UNSTABLE', profileName: 'TruEdit S3 Profile', userMetadata: []
     }
   }
 }
