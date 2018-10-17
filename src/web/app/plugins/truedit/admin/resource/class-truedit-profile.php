@@ -46,7 +46,7 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 		$accept_language = 'application/json'; // string |
 
 		try {
-			return $this->api->fetchAllUsingGET4( $minimal, $page_number, $page_size, $order_by, null, $this->x_api_key, $this->x_app_api_key, $accept_language );
+			return $this->api->fetchAllUsingGET8( $minimal, $page_number, $page_size, $order_by, null, $this->x_api_key, $this->x_app_api_key, $accept_language );
 
 		} catch ( Exception $e ) {
 			throw $e;
@@ -59,7 +59,7 @@ class TruEdit_Resource_Profile extends TruEdit_Resource {
 		$apiInstance = new Swagger\Client\Api\AutomationApi(
 			// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
 			// This is optional, `GuzzleHttp\Client` will be used as default.
-			new GuzzleHttp\Client()
+			new \Swagger\Client\ApiClient()
 		);
 
 		$automations     = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_(); /** \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_ | automations */

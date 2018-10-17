@@ -1,7 +1,5 @@
 <?php
 
-use GuzzleHttp\Client;
-
 class TruEdit_Resource_Check {
 
 	private $x_api_key;
@@ -15,7 +13,7 @@ class TruEdit_Resource_Check {
 			$configuration->setApiKey( 'x_app_api_key', TruEdit_Option::get( 'app_api_key' ) );
 
 		$this->api = new Swagger\Client\Api\UserApi(
-			new Client(),
+			new Swagger\Client\ApiClient(),
 			$configuration
 		);
 

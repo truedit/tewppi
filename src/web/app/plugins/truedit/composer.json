@@ -1,14 +1,20 @@
 {
     "name": "truedit/wordpress",
     "type": "project",
-    "require": {
-        "masterminds/html5": "^2.3",
-        "truedit/api-php": "@dev"
-    },
-    "repositories": [
+	"repositories": [
         {
             "type": "path",
-            "url": "./lib/truedit-api-php"
+            "url": "./lib/truedit-api-php",
+			"options": {
+                "symlink": false
+            }
         }
-    ]
+    ],
+    "require": {
+        "truedit/truedit-api-php": "@dev",
+		"ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    } 
+    
 }

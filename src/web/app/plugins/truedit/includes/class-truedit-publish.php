@@ -88,8 +88,11 @@ class TruEdit_Publish {
 		}
 
 		$html = $zip->getFromName( 'index.html' );
-		$doc  = new DOMDocument();
+
+        $doc  = new DOMDocument();
+        libxml_use_internal_errors(true);
 		$doc->loadHTML( $html, LIBXML_NOWARNING );
+        libxml_clear_errors();
 
 		$post = $this->postify( $this->opts->publish_type );
 

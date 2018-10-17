@@ -26,447 +26,469 @@
  */
 class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
-	private $plugin_name;
-	private $version;
-
-	private $route_version;
-	private $route;
-	private $routes;
-	private $identifier = 'com.truedit.WordPress';
-
-	public function __construct( $plugin_name, $version ) {
-
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-
-		$this->route         = 'automation';
-		$this->route_version = 1;
-
-		$this->routes = [
-			'read'   => [
-				'route'   => $this->route . '/(?P<id>\d+)',
-				'options' => [
-					'methods'  => WP_REST_Server::READABLE,
-					'callback' => [
-						$this,
-						'read',
-					],
-					'args'     => [
-						'id' => [
-							'validate_callback' => function( $param, $request, $key ) {
-								return is_numeric( $param );
-							},
-						],
-					],
-				],
-			],
-			'create' => [
-				'route'   => $this->route,
-				'options' => [
-					[
-						'methods'  => WP_REST_Server::CREATABLE,
-						'callback' => [
-							$this,
-							'create',
-						],
-					],
-					[
-						'methods'  => WP_REST_Server::READABLE,
-						'callback' => [
-							$this,
-							'read',
-						],
-					],
-				],
-			],
-			'update' => [
-				'route'   => $this->route . '/(?P<id>\d+)',
-				'options' => [
-					'methods'  => WP_REST_Server::EDITABLE,
-					'callback' => [
-						$this,
-						'update',
-					],
-					'args'     => [
-						'id' => [
-							'validate_callback' => function( $param, $request, $key ) {
-								return is_numeric( $param );
-							},
-						],
-					],
-				],
-			],
-			'delete' => [
-				'route'   => $this->route . '/(?P<id>\d+)',
-				'options' => [
-					'methods'  => WP_REST_Server::DELETABLE,
-					'callback' => [
-						$this,
-						'delete',
-					],
-					'args'     => [
-						'id' => [
-							'validate_callback' => function( $param, $request, $key ) {
-								return is_numeric( $param );
-							},
-						],
-					],
-				],
-			],
-		];
-	}
-
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_dependencies() {}
-
-	/**
-	 * Get/Set
-	 */
-	public function get_route_version() {
-		return $this->route_version;
-	}
+    private $plugin_name;
+    private $version;
+
+    private $route_version;
+    private $route;
+    private $routes;
+    private $identifier = 'com.truedit.WordPress';
+
+    public function __construct( $plugin_name, $version ) {
+
+        $this->plugin_name = $plugin_name;
+        $this->version     = $version;
+
+        $this->route         = 'automation';
+        $this->route_version = 1;
+
+        $this->routes = [
+            'read'   => [
+                'route'   => $this->route . '/(?P<id>\d+)',
+                'options' => [
+                    'methods'  => WP_REST_Server::READABLE,
+                    'callback' => [
+                        $this,
+                        'read',
+                    ],
+                    'args'     => [
+                        'id' => [
+                            'validate_callback' => function( $param, $request, $key ) {
+                                return is_numeric( $param );
+                            },
+                        ],
+                    ],
+                ],
+            ],
+            'create' => [
+                'route'   => $this->route,
+                'options' => [
+                    [
+                        'methods'  => WP_REST_Server::CREATABLE,
+                        'callback' => [
+                            $this,
+                            'create',
+                        ],
+                    ],
+                    [
+                        'methods'  => WP_REST_Server::READABLE,
+                        'callback' => [
+                            $this,
+                            'read',
+                        ],
+                    ],
+                ],
+            ],
+            'update' => [
+                'route'   => $this->route . '/(?P<id>\d+)',
+                'options' => [
+                    'methods'  => WP_REST_Server::EDITABLE,
+                    'callback' => [
+                        $this,
+                        'update',
+                    ],
+                    'args'     => [
+                        'id' => [
+                            'validate_callback' => function( $param, $request, $key ) {
+                                return is_numeric( $param );
+                            },
+                        ],
+                    ],
+                ],
+            ],
+            'delete' => [
+                'route'   => $this->route . '/(?P<id>\d+)',
+                'options' => [
+                    'methods'  => WP_REST_Server::DELETABLE,
+                    'callback' => [
+                        $this,
+                        'delete',
+                    ],
+                    'args'     => [
+                        'id' => [
+                            'validate_callback' => function( $param, $request, $key ) {
+                                return is_numeric( $param );
+                            },
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Load the plugin text domain for translation.
+     *
+     * @since    1.0.0
+     */
+    public function load_dependencies() {}
+
+    /**
+     * Get/Set
+     */
+    public function get_route_version() {
+        return $this->route_version;
+    }
 
-	public function get_routes() {
-		return $this->routes;
-	}
+    public function get_routes() {
+        return $this->routes;
+    }
 
-	/**
-	 * CRUD
-	 */
-	public function read( WP_REST_Request $request ) {
+    /**
+     * CRUD
+     */
+    public function read( WP_REST_Request $request ) {
 
-		try {
+        try {
 
-			$resource = new TruEdit_Resource_Automation();
-			$resource->read();
+            $resource = new TruEdit_Resource_Automation();
+            $resource->read();
 
-			if ( $request['id'] ) {
+            if ( $request['id'] ) {
 
-				$post = new TruEdit_Post_Automation();
-				$post->setPost( $request['id'] );
-				return new WP_REST_Response( $post->getPost(), 200 );
+                $post = new TruEdit_Post_Automation();
+                $post->setPost( $request['id'] );
+                return new WP_REST_Response( $post->getPost(), 200 );
 
-			} else {
+            } else {
 
-				$automations = [];
-				$posts       = get_posts(
-					[
-						'post_type'   => 'automation',
-						'post_status' => 'draft',
-						'suppress_filters' => false,
-						'numberposts' => 20,
-					]
-				);
-
-				foreach ( $posts as $post ) {
-					$automation = new TruEdit_Post_Automation();
-					$automation->setPost( $post->ID );
-					$automations[] = $automation->getPost();
-				}
-
-				return new WP_REST_Response( $automations, 200 );
-
-			}
-		} catch ( \Swagger\Client\ApiException $e ) {
-
-			return TruEdit_Handle::swagger_exception( $e );
-
-		} catch ( TruEdit_Exception $e ) {
-
-			return TruEdit_Handle::truedit_exception( $e );
-
-		} catch ( Exception $e ) {
-
-			return TruEdit_Handle::exception( $e );
-
-		}
-
-	}
+                $automations = [];
+                $posts       = get_posts(
+                    [
+                        'post_type'   => 'automation',
+                        'post_status' => 'draft',
+                        'suppress_filters' => false,
+                        'numberposts' => 20,
+                    ]
+                );
 
-	public function create( WP_REST_Request $request ) {
-
-		$post_id = -1;
+                foreach ( $posts as $post ) {
+                    $automation = new TruEdit_Post_Automation();
+                    $automation->setPost( $post->ID );
+                    $automations[] = $automation->getPost();
+                }
+
+                return new WP_REST_Response( $automations, 200 );
 
-		try {
+            }
+        } catch ( \Swagger\Client\ApiException $e ) {
 
-			/**
-			* $post_ids = [];
-			*/
+            return TruEdit_Handle::swagger_exception( $e );
 
-			$form = json_decode( $request->get_body() );
+        } catch ( TruEdit_Exception $e ) {
 
-			$this->validate_name_length( $form->name );
-			$this->validate_if_exists( $form->name );
+            return TruEdit_Handle::truedit_exception( $e );
 
-			$automation = new TruEdit_Post_Automation();
+        } catch ( Exception $e ) {
 
-			/**
-			 * Validate the inputs and if succesfully check.
-			 * We just want to save the details if all passes.
-			 * --------------------------------------------------
-			 */
+            return TruEdit_Handle::exception( $e );
 
-			$errors = [];
+        }
 
-			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				try {
-					$automation->validate( $key, $form->{$key}, $form );
-				} catch ( TruEdit_Exception $e ) {
-					$errors[ $key ] = $e->getMessage();
-				}
-				unset( $settings );
-			}
+    }
 
-			if ( count( $errors ) ) {
-				return new WP_Error(
-					'TR_ERROR', 'There were errors saving the automation.', [
-						'status'   => 400,
-						'warnings' => $errors,
-					]
-				);
-			}
+    public function create( WP_REST_Request $request ) {
 
-			/**
-			 * Lets add a post so we can have an id
-			 * --------------------------------------------------
-			 */
-			$post_id = wp_insert_post(
-				[
-					'title'     => $form->name,
-					'post_type' => 'automation',
-				]
-			);
-			$automation->setPost( $post_id );
+        $post_id = -1;
 
-			/**
-			 * If the errors above passed, then we can safely proceeed ot save.
-			 * --------------------------------------------------
-			 */
-			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				$automation->saveMeta( $key, $form->{$key} );
-				unset( $form->{$key} );
-			}
-
-			$form_url                    = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
-			$form->config                = [
-				'formUrl'        => $form_url,
-				'formRemote'     => true,
-				'externalConfig' => true,
-			];
-			$form->integrationIdentifier = $this->identifier;
+        try {
 
-			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->create(
-				(object) [
-					'automations' => [ $form ],
-				]
-			);
-
-			/**
-			 * Get the id from the url in the reponses
-			 * --------------------------------------------------
-			 */
-			$result = $res->getResults()[0];
-			$automation->saveAutomationId( $result->getId() );
-			$automation->saveJson( json_decode( $result->__toString() ) );
-
-			TruEdit_Log::info( 'Automation ' . $result->getName() . ' created.' );
-
-			return new WP_REST_Response( $automation->getPost(), 200 );
+            /**
+             * $post_ids = [];
+             */
 
-		} catch ( \Swagger\Client\ApiException $e ) {
+            $form = json_decode( $request->get_body() );
 
-			// Clear the post
-			wp_delete_post( $post_id );
-			return TruEdit_Handle::swagger_exception( $e );
+            $this->validate_name_length( $form->name );
+            $this->validate_if_exists( $form->name );
 
-		} catch ( TruEdit_Exception $e ) {
+            $automation = new TruEdit_Post_Automation();
 
-			// Clear the post
-			wp_delete_post( $post_id );
-			return TruEdit_Handle::truedit_exception( $e );
+            /**
+             * Validate the inputs and if successfully check.
+             * We just want to save the details if all passes.
+             * --------------------------------------------------
+             */
 
-		} catch ( Exception $e ) {
+            $errors = [];
 
-			// Clear the post
-			wp_delete_post( $post_id );
-			return TruEdit_Handle::exception( $e );
+            foreach ( $automation->getPublishOpts() as $key => $settings ) {
+                try {
+                    $automation->validate( $key, $form->{$key}, $form );
+                } catch ( TruEdit_Exception $e ) {
+                    $errors[ $key ] = $e->getMessage();
+                }
+                unset( $settings );
+            }
 
-		}
+            if ( count( $errors ) ) {
+                return new WP_Error(
+                    'TR_ERROR', 'There were errors saving the automation.', [
+                        'status'   => 400,
+                        'warnings' => $errors,
+                    ]
+                );
+            }
 
-	}
+            /**
+             * Lets add a post so we can have an id
+             * --------------------------------------------------
+             */
+            $post_id = wp_insert_post(
+                [
+                    'title'     => $form->name,
+                    'post_type' => 'automation',
+                ]
+            );
+            $automation->setPost( $post_id );
 
-	public function update( WP_REST_Request $request ) {
+            /**
+             * If the errors above passed, then we can safely proceed ot save.
+             * --------------------------------------------------
+             */
+            foreach ( $automation->getPublishOpts() as $key => $settings ) {
+                $automation->saveMeta( $key, $form->{$key} );
+                unset( $form->{$key} );
+            }
 
-		try {
+            $form->url = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
 
-			$body = json_decode( $request->get_body() );
+            $automationForm = $this->convertFormIntoApiForm($form);
 
-			$automation = new TruEdit_Post_Automation();
-			$automation->setPost( $request['id'] );
+            $resource = new TruEdit_Resource_Automation();
+            $automationList = new \Swagger\Client\Model\AutomationV1ListTOAutomationV1TO_();
+            $automationList->setAutomations([$automationForm]);
+            $res = $resource->create($automationList);
 
-			$this->validate_name_length( $body->name );
-			$this->validate_if_exists( $body->name, $automation->json->id );
+            /**
+             * Get the id from the url in the reponses
+             * --------------------------------------------------
+             */
+            $result = $res->getResults()[0];
+            $automation->saveAutomationId( $result->getId() );
+            $automation->saveJson( json_decode( $result->__toString() ) );
 
-			/**
-			 * Validate the inputs and if succesfully check.
-			 * We just want to save the details if all passes.
-			 * --------------------------------------------------
-			 */
+            TruEdit_Log::info( 'Automation ' . $result->getName() . ' created.' );
 
-			$errors = [];
+            return new WP_REST_Response( $automation->getPost(), 200 );
 
-			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				try {
-					$automation->validate( $key, $body->{$key}, $body );
-				} catch ( TruEdit_Exception $e ) {
-					$errors[ $key ] = $e->getMessage();
-				}
-				unset( $settings );
-			}
+        } catch ( \Swagger\Client\ApiException $e ) {
 
-			if ( count( $errors ) ) {
-				return new WP_Error(
-					'TR_ERROR', 'There were errors saving the automation.', [
-						'status'   => 400,
-						'warnings' => $errors,
-					]
-				);
-			}
+            // Clear the post
+            wp_delete_post( $post_id );
+            return TruEdit_Handle::swagger_exception( $e );
 
-			/**
-			 * Prepare form
-			 * --------------------------------------------------
-			 */
+        } catch ( TruEdit_Exception $e ) {
 
-			$form                         = new stdClass();
-			$form->name                   = $body->name;
-			$form->action                 = $body->action;
-			$form->profiles               = $body->profiles;
-			$form->config                 = $automation->json->config;
-			$form->config->formRemote     = true;
-			$form->config->externalConfig = true;
-			$form->integrationIdentifier  = $this->identifier;
+            // Clear the post
+            wp_delete_post( $post_id );
+            return TruEdit_Handle::truedit_exception( $e );
 
-			$auto_id = $automation->post_meta->automation_id;
+        } catch ( Exception $e ) {
 
-			$resource = new TruEdit_Resource_Automation();
-			$res      = $resource->update( $auto_id, $form );
+            // Clear the post
+            wp_delete_post( $post_id );
+            return TruEdit_Handle::exception( $e );
 
-			/**
-			 * Success
-			 * --------------------------------------------------
-			 */
-			$automation->saveJson( json_decode( $res->getResult() ) );
+        }
 
-			/**
-			 * Loop through and save the values now because we know it good with TruEdit.
-			 * --------------------------------------------------
-			 */
-			foreach ( $automation->getPublishOpts() as $key => $settings ) {
-				$automation->saveMeta( $key, $body->{$key} );
-			}
+    }
 
-			TruEdit_Log::info( 'Automation ' . $automation->post_meta->json->name . ' updated.' );
+    public function update( WP_REST_Request $request ) {
 
-			return new WP_REST_Response( $automation->getPost(), 200 );
+        try {
 
-		} catch ( \Swagger\Client\ApiException $e ) {
+            $body = json_decode( $request->get_body() );
 
-			return TruEdit_Handle::swagger_exception( $e );
+            $automation = new TruEdit_Post_Automation();
+            $automation->setPost( $request['id'] );
 
-		} catch ( TruEdit_Exception $e ) {
+            $this->validate_name_length( $body->name );
+            $this->validate_if_exists( $body->name, $automation->json->id );
 
-			return TruEdit_Handle::truedit_exception( $e );
+            /**
+             * Validate the inputs and if succesfully check.
+             * We just want to save the details if all passes.
+             * --------------------------------------------------
+             */
 
-		} catch ( Exception $e ) {
+            $errors = [];
 
-			return TruEdit_Handle::exception( $e );
+            foreach ( $automation->getPublishOpts() as $key => $settings ) {
+                try {
+                    $automation->validate( $key, $body->{$key}, $body );
+                } catch ( TruEdit_Exception $e ) {
+                    $errors[ $key ] = $e->getMessage();
+                }
+                unset( $settings );
+            }
 
-		}
+            if ( count( $errors ) ) {
+                return new WP_Error(
+                    'TR_ERROR', 'There were errors saving the automation.', [
+                        'status'   => 400,
+                        'warnings' => $errors,
+                    ]
+                );
+            }
 
-	}
+            /**
+             * Prepare form
+             * --------------------------------------------------
+             */
 
-	public function delete( WP_REST_Request $request ) {
+            $form                         = new stdClass();
+            $form->name                   = $body->name;
+            $form->action                 = $body->action;
+            $form->profiles               = $body->profiles;
+            $form->config                 = $automation->json->config;
+            $form->config->formRemote     = true;
+            $form->config->externalConfig = true;
+            $form->integrationIdentifier  = $this->identifier;
 
-		try {
+            $automationForm = $this->convertFormIntoApiForm($form);
 
-			$params  = $request->get_params();
-			$id      = $params['id'];
-			$post    = get_post( $id );
-			$auto_id = get_post_meta( $id, 'automation_id', true );
-			$json    = get_post_meta( $id, 'json', true );
+            $auto_id = $automation->post_meta->automation_id;
 
-			if ( ! $post ) {
-				throw new TruEdit_Exception( 'AUTOMATION_DOES_NOT_EXIST' );
-			}
+            $resource = new TruEdit_Resource_Automation();
+            $res      = $resource->update( $auto_id, $automationForm );
 
-			if ( ! wp_delete_post( $id ) || empty( $auto_id ) ) {
-				throw new TruEdit_Exception( 'AUTOMATION_COULD_NOT_BE_DELETE' );
-			}
+            /**
+             * Success
+             * --------------------------------------------------
+             */
+            $automation->saveJson( json_decode( $res->getResult() ) );
 
-			$resource = new TruEdit_Resource_Automation();
-			$resource->delete( $auto_id );
+            /**
+             * Loop through and save the values now because we know it good with TruEdit.
+             * --------------------------------------------------
+             */
+            foreach ( $automation->getPublishOpts() as $key => $settings ) {
+                $automation->saveMeta( $key, $body->{$key} );
+            }
 
-			TruEdit_Log::info( 'Automation ' . $json->name . ' deleted.' );
+            TruEdit_Log::info( 'Automation ' . $automation->post_meta->json->name . ' updated.' );
 
-			return new WP_REST_Response(
-				[
-					'success' => true,
-				], 200
-			);
+            return new WP_REST_Response( $automation->getPost(), 200 );
 
-		} catch ( \Swagger\Client\ApiException $e ) {
+        } catch ( \Swagger\Client\ApiException $e ) {
 
-			return TruEdit_Handle::swagger_exception( $e );
+            return TruEdit_Handle::swagger_exception( $e );
 
-		} catch ( TruEdit_Exception $e ) {
+        } catch ( TruEdit_Exception $e ) {
 
-			return TruEdit_Handle::truedit_exception( $e );
+            return TruEdit_Handle::truedit_exception( $e );
 
-		} catch ( Exception $e ) {
+        } catch ( Exception $e ) {
 
-			return TruEdit_Handle::exception( $e );
+            return TruEdit_Handle::exception( $e );
 
-		}
+        }
 
-	}
+    }
 
-	private function validate_name_length( $name ) {
+    public function delete( WP_REST_Request $request ) {
 
-		// TODO: add it to a list instead.
-		if ( strlen( $name ) < 1 ) {
-			throw new TruEdit_Exception( 'AUTOMATION_NAME_GREATER_1' );
-		}
+        try {
 
-		// TODO: add it to a list instead.
-		if ( strlen( $name ) > 255 ) {
-			throw new TruEdit_Exception( 'AUTOMATION_NAME_TOO_LONG' );
-		}
+            $params  = $request->get_params();
+            $id      = $params['id'];
+            $post    = get_post( $id );
+            $auto_id = get_post_meta( $id, 'automation_id', true );
+            $json    = get_post_meta( $id, 'json', true );
 
-	}
+            if ( ! $post ) {
+                throw new TruEdit_Exception( 'AUTOMATION_DOES_NOT_EXIST' );
+            }
 
-	private function validate_if_exists( $name, $id = -1 ) {
-		$resource = new TruEdit_Resource_Automation();
-		$res      = $resource->read();
+            if ( ! wp_delete_post( $id ) || empty( $auto_id ) ) {
+                throw new TruEdit_Exception( 'AUTOMATION_COULD_NOT_BE_DELETE' );
+            }
 
-		foreach ( $res->getResults() as $auto ) {
+            $resource = new TruEdit_Resource_Automation();
+            $resource->delete( $auto_id );
 
-			if ( $auto->getName() === $name && $auto->getId() !== $id && $id !== -1 ) {
+            TruEdit_Log::info( 'Automation ' . $json->name . ' deleted.' );
 
-				throw new TruEdit_Exception(
-					'AUTOMATION_NAME_EXISTS', [
-						'name' => $name,
-					]
-				);
+            return new WP_REST_Response(
+                [
+                    'success' => true,
+                ], 200
+            );
 
-			}
-		}
+        } catch ( \Swagger\Client\ApiException $e ) {
 
-	}
+            return TruEdit_Handle::swagger_exception( $e );
+
+        } catch ( TruEdit_Exception $e ) {
+
+            return TruEdit_Handle::truedit_exception( $e );
+
+        } catch ( Exception $e ) {
+
+            return TruEdit_Handle::exception( $e );
+
+        }
+
+    }
+
+    private function validate_name_length( $name ) {
+
+        // TODO: add it to a list instead.
+        if ( strlen( $name ) < 1 ) {
+            throw new TruEdit_Exception( 'AUTOMATION_NAME_GREATER_1' );
+        }
+
+        // TODO: add it to a list instead.
+        if ( strlen( $name ) > 255 ) {
+            throw new TruEdit_Exception( 'AUTOMATION_NAME_TOO_LONG' );
+        }
+
+    }
+
+    private function validate_if_exists( $name, $id = -1 ) {
+        $resource = new TruEdit_Resource_Automation();
+        $res      = $resource->read();
+
+        foreach ( $res->getResults() as $auto ) {
+
+            if ( $auto->getName() === $name && $auto->getId() !== $id && $id !== -1 ) {
+
+                throw new TruEdit_Exception(
+                    'AUTOMATION_NAME_EXISTS', [
+                        'name' => $name,
+                    ]
+                );
+
+            }
+        }
+
+    }
+
+    /**
+     * @param stdClass $form
+     * @return \Swagger\Client\Model\AutomationV1TO
+     */
+    private function convertFormIntoApiForm($form) {
+        $automationConfig = new \Swagger\Client\Model\Config();
+        $automationConfig->setFormUrl($form->url);
+        $automationConfig->setFormRemote(true);
+        $automationConfig->setExternalConfig(true);
+
+        $automationProfiles = [];
+
+        foreach($form->profiles as $profile) {
+            $automationProfile = new \Swagger\Client\Model\ReferenceV1TO();
+            $automationProfile->setId($profile->id);
+            $automationProfiles[] = $automationProfile;
+        }
+
+        $automationForm = new \Swagger\Client\Model\AutomationV1TO();
+        $automationForm->setName($form->name);
+        $automationForm->setConfig($automationConfig);
+        $automationForm->setIntegrationIdentifier($this->identifier);
+        $automationForm->setProfiles($automationProfiles);
+        return $automationForm;
+    }
 
 }

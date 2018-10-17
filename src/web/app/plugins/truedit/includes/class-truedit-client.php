@@ -1,10 +1,10 @@
 <?php
 
-use GuzzleHttp\Client;
+use Swagger\Client\ApiClient;
 
-class TruEdit_Client extends Client implements GuzzleHttp\ClientInterface {
+class TruEdit_Client extends ApiClient {
 
-	public function __construct( array $config = [] ) {
+	public function __construct(\Swagger\Client\Configuration $config = null ) {
 
 		parent::__construct( $config );
 

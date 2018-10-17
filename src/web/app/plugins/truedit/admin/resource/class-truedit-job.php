@@ -2,27 +2,12 @@
 
 class TruEdit_Resource_Job extends TruEdit_Resource {
 
-	private $tmp_filename;
-	private $handle;
 	private $client;
 
 	public function __construct() {
 
 		parent::__construct();
-		global $wp_filesystem;
-	  if (empty($wp_filesystem)) {
-    require_once (ABSPATH . '/wp-admin/includes/file.php');
-    WP_Filesystem();
-}
-		$folder = wp_upload_dir()['basedir'] . '/TruEdit/';
-		if ( ! file_exists( $folder ) ) {
-			$wp_filesystem->mkdir( $folder, 0777, true );
-		}
-
-		
-		$this->tmp_filename = wp_tempnam();
-		$this->handle       = fopen( $this->tmp_filename, 'w' );
-		$this->client       = new TruEdit_Client( [ 'sink' => $this->handle ] );
+		$this->client = new TruEdit_Client();
 
 		$this->api = new Swagger\Client\Api\FileApi(
 			$this->client,
@@ -35,25 +20,24 @@ class TruEdit_Resource_Job extends TruEdit_Resource {
 
 		$dl = true; // bool | dl
 
+
+
 		try {
-			$this->api->retrieveJobOutputFileUsingGET( $job_id, $output_type_id, $dl, $this->x_api_key, $this->x_app_api_key, $this->accept_language );
-			
-			 global $wp_filesystem;
-	  if (empty($wp_filesystem)) {
-    require_once (ABSPATH . '/wp-admin/includes/file.php');
-    WP_Filesystem();
-}
-			
-			
-			/**
-			* @fclose( $this->handle );
-			*/
-			return $this->tmp_filename;
+			$response = $this->api->retrieveJobOutputFileUsingGET( $job_id, $output_type_id, $dl, $this->x_api_key, $this->x_app_api_key, $this->accept_language );
+
+			$fileName = uniqid() . '.zip';
+
+			$this->add_zip_upload_allowed();
+			$file = wp_upload_bits($fileName, null, $response);
+
+            $this->remove_zip_upload_allowed();
+
+			return $file['file'];
 
 		} catch ( Exception $e ) {
+            $this->remove_zip_upload_allowed();
 			throw $e;
 		}
-
 	}
 
 	public function create() {
@@ -68,4 +52,18 @@ class TruEdit_Resource_Job extends TruEdit_Resource {
 
 	}
 
+    public function allow_zip_files($existing_mimes = []){
+        $existing_mimes['zip'] = 'application/zip';
+        $existing_mimes['gz'] = 'application/x-gzip';
+        return $existing_mimes;
+
+    }
+
+    public function add_zip_upload_allowed() {
+        add_filter('upload_mimes', [$this, 'allow_zip_files'], 999, 1);
+    }
+
+    public function remove_zip_upload_allowed() {
+        remove_filter('upload_mimes', [$this, 'allow_zip_files']);
+    }
 }
