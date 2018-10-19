@@ -293,8 +293,15 @@ class WorkingFileApi
         if ($file !== null) {
             // PHP 5.5 introduced a CurlFile object that deprecates the old @filename syntax
             // See: https://wiki.php.net/rfc/curl-file-upload
+			/*
             if (function_exists('curl_file_create')) {
                 $formParams['file'] = curl_file_create($this->apiClient->getSerializer()->toFormValue($file));
+            } else {
+                $formParams['file'] = '@' . $this->apiClient->getSerializer()->toFormValue($file);
+            }
+			*/
+			 if (function_exists('vip_safe_wp_remote_get')) {
+                $formParams['file'] = vip_safe_wp_remote_get($this->apiClient->getSerializer()->toFormValue($file));
             } else {
                 $formParams['file'] = '@' . $this->apiClient->getSerializer()->toFormValue($file);
             }
@@ -429,8 +436,15 @@ class WorkingFileApi
         if ($file !== null) {
             // PHP 5.5 introduced a CurlFile object that deprecates the old @filename syntax
             // See: https://wiki.php.net/rfc/curl-file-upload
+			/*
             if (function_exists('curl_file_create')) {
                 $formParams['file'] = curl_file_create($this->apiClient->getSerializer()->toFormValue($file));
+            } else {
+                $formParams['file'] = '@' . $this->apiClient->getSerializer()->toFormValue($file);
+            }
+			*/
+			if (function_exists('vip_safe_wp_remote_get')) {
+                $formParams['file'] = vip_safe_wp_remote_get($this->apiClient->getSerializer()->toFormValue($file));
             } else {
                 $formParams['file'] = '@' . $this->apiClient->getSerializer()->toFormValue($file);
             }
