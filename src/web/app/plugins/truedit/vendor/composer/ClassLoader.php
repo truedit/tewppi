@@ -449,5 +449,5 @@ class ClassLoader
  */
 function includeFile($file)
 {
-    include $file;
+    include (plugin_dir_path( __FILE__ ) .$file);
 }

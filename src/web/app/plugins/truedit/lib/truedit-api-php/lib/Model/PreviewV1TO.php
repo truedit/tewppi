@@ -208,7 +208,7 @@ class PreviewV1TO implements ArrayAccess
         $invalid_properties = [];
 
         $allowed_values = $this->getKindAllowableValues();
-        if (!in_array($this->container['kind'], $allowed_values)) {
+        if (!in_array($this->container['kind'], $allowed_values,true)) {
             $invalid_properties[] = sprintf(
                 "invalid value for 'kind', must be one of '%s'",
                 implode("', '", $allowed_values)
@@ -228,7 +228,7 @@ class PreviewV1TO implements ArrayAccess
     {
 
         $allowed_values = $this->getKindAllowableValues();
-        if (!in_array($this->container['kind'], $allowed_values)) {
+        if (!in_array($this->container['kind'], $allowed_values,true)) {
             return false;
         }
         return true;
@@ -315,7 +315,7 @@ class PreviewV1TO implements ArrayAccess
     public function setKind($kind)
     {
         $allowed_values = $this->getKindAllowableValues();
-        if (!is_null($kind) && !in_array($kind, $allowed_values)) {
+        if (!is_null($kind) && !in_array($kind, $allowed_values,true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'kind', must be one of '%s'",
@@ -484,10 +484,10 @@ class PreviewV1TO implements ArrayAccess
     public function __toString()
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this), JSON_PRETTY_PRINT);
+            return wp_json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this), JSON_PRETTY_PRINT);
         }
 
-        return json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this));
+        return wp_json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
 

@@ -50,7 +50,7 @@ class ComposerAutoloaderInit04264cb4d87aeadd10823c8f1016fc5e
         if ($useStaticLoader) {
             $includeFiles = Composer\Autoload\ComposerStaticInit04264cb4d87aeadd10823c8f1016fc5e::$files;
         } else {
-            $includeFiles = require __DIR__ . '/autoload_files.php';
+            $includeFiles = require plugin_dir_path( __FILE__ ) . '/autoload_files.php';
         }
         foreach ($includeFiles as $fileIdentifier => $file) {
             composerRequire04264cb4d87aeadd10823c8f1016fc5e($fileIdentifier, $file);
@@ -63,7 +63,7 @@ class ComposerAutoloaderInit04264cb4d87aeadd10823c8f1016fc5e
 function composerRequire04264cb4d87aeadd10823c8f1016fc5e($fileIdentifier, $file)
 {
     if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
-        require $file;
+        require $file; 
 
         $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
     }

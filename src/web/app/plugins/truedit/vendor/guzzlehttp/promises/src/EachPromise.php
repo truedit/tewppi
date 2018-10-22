@@ -96,7 +96,8 @@ class EachPromise implements PromisorInterface
 
             // Consume a potentially fluctuating list of promises while
             // ensuring that indexes are maintained (precluding array_shift).
-            while ($promise = current($this->pending)) {
+			$promise = current($this->pending);
+            while ( $promise ) {
                 next($this->pending);
                 $promise->wait();
                 if ($this->aggregate->getState() !== PromiseInterface::PENDING) {
@@ -153,7 +154,7 @@ class EachPromise implements PromisorInterface
 
         $this->pending[$idx] = $promise->then(
             function ($value) use ($idx) {
-                if ($this->onFulfilled) {
+                if (isset($this->onFulfilled)) {
                     call_user_func(
                         $this->onFulfilled, $value, $idx, $this->aggregate
                     );

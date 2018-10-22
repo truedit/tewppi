@@ -66,7 +66,7 @@ class ObjectSerializer
                 $getter = $data::getters()[$property];
                 $value = $data->$getter();
                 if ($value !== null && method_exists($swaggerType, 'getAllowableEnumValues')
-                    && !in_array($value, $swaggerType::getAllowableEnumValues())) {
+                    && !in_array($value, $swaggerType::getAllowableEnumValues(),true)) {
                     $imploded = implode("', '", $swaggerType::getAllowableEnumValues());
                     throw new \InvalidArgumentException("Invalid value for enum '$swaggerType', must be one of: '$imploded'");
                 }
@@ -273,13 +273,14 @@ class ObjectSerializer
             }
             $deserialized = new \SplFileObject($filename, "w");
             $byte_written = $deserialized->fwrite($data);
+
             if (Configuration::getDefaultConfiguration()->getDebug()) {
                 error_log("[DEBUG] Written $byte_written byte to $filename. Please move the file to a proper folder or delete the temp file after processing.".PHP_EOL, 3, Configuration::getDefaultConfiguration()->getDebugFile());
             }
 
             return $deserialized;
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
-            if (!in_array($data, $class::getAllowableEnumValues())) {
+            if (!in_array($data, $class::getAllowableEnumValues(),true)) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
                 throw new \InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'");
             }
