@@ -12,13 +12,20 @@ class TruEdit_Handle {
 
 	}
 
+    /**
+     * @param \Swagger\Client\ApiException $e
+     * @param string $action
+     * @return WP_Error
+     */
 	public static function swagger_exception( $e, $action = '' ) {
 
 		$code     = $e->getCode();
 		$message  = '';
 		$warnings = [];
 
-		$body = json_decode( $e->getResponseBody() );
+		$responseBody = $e->getResponseBody();
+
+		$body = json_decode( $responseBody->errorMessage );
 
 		if ( $code === 404 ) {
 			$message = 'There was no response from the host. Please check that the host url is correct.';
