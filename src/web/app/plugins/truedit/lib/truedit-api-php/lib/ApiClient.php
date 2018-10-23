@@ -153,7 +153,7 @@ class ApiClient
         if ($postData and in_array('Content-Type: application/x-www-form-urlencoded', $headers, true)) {
             $postData = http_build_query($postData);
         } elseif ((is_object($postData) or is_array($postData)) and !in_array('Content-Type: multipart/form-data', $headers, true)) { // json model
-            $postData = json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($postData));
+            $postData = wp_json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($postData));
         }
 
         $url = $this->config->getHost() . $resourcePath;
@@ -164,7 +164,7 @@ class ApiClient
             curl_setopt($curl, CURLOPT_TIMEOUT, $this->config->getCurlTimeout());
         }
         // set connect timeout, if needed
-        if ($this->config->getCurlConnectTimeout() != 0) {
+        if ($this->config->getCurlConnectTimeout() !== 0) {
             curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->getCurlConnectTimeout());
         }
 
