@@ -178,9 +178,6 @@ class ApiClient
             $http_header = $response['headers'];
             $response_info = $response['http_response'];
 
-            var_dump($postData);
-            var_dump($response);
-            exit;
             return [$data, $response_info, $http_header];
         }
     }
