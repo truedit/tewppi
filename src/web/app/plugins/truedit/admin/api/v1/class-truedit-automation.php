@@ -264,13 +264,19 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
              * Get the id from the url in the reponses
              * --------------------------------------------------
              */
-            $result = $res->getResults()[0];
-            $automation->saveAutomationId( $result->getId() );
-            $automation->saveJson( json_decode( $result->__toString() ) );
+            if($res->getResults() != null && count($res->getResults()) > 0) {
+                $result = $res->getResults()[0];
 
-            TruEdit_Log::info( 'Automation ' . $result->getName() . ' created.' );
+                $automation->saveAutomationId( $result->getId() );
+                $automation->saveJson( json_decode( $result->__toString() ) );
 
-            return new WP_REST_Response( $automation->getPost(), 200 );
+                TruEdit_Log::info( 'Automation ' . $result->getName() . ' created.' );
+
+                return new WP_REST_Response( $automation->getPost(), 200 );
+            } else {
+                throw new TruEdit_Exception($res->getErrorMessage());
+            }
+
 
         } catch ( \Swagger\Client\ApiException $e ) {
 
