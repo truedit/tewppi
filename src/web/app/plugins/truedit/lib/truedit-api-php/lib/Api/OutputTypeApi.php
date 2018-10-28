@@ -30,8 +30,6 @@ namespace Swagger\Client\Api;
 
 use \Swagger\Client\ApiClient;
 use \Swagger\Client\ApiException;
-use \Swagger\Client\Configuration;
-use \Swagger\Client\ObjectSerializer;
 
 /**
  * OutputTypeApi Class Doc Comment
@@ -62,29 +60,6 @@ class OutputTypeApi
         }
 
         $this->apiClient = $apiClient;
-    }
-
-    /**
-     * Get API client
-     *
-     * @return \Swagger\Client\ApiClient get the API client
-     */
-    public function getApiClient()
-    {
-        return $this->apiClient;
-    }
-
-    /**
-     * Set the API client
-     *
-     * @param \Swagger\Client\ApiClient $apiClient set the API client
-     *
-     * @return OutputTypeApi
-     */
-    public function setApiClient(\Swagger\Client\ApiClient $apiClient)
-    {
-        $this->apiClient = $apiClient;
-        return $this;
     }
 
     /**
