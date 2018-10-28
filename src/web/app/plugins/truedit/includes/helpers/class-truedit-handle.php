@@ -33,7 +33,7 @@ class TruEdit_Handle {
 			$message = 'The API Key or Application Key set is incorrect.';
 		} else {
 			$code    = 400;
-			$message = 'There was no response from the host. Please check that the host url is correct.';
+			$message = $e->getMessage();
 		}
 
 		// StatusCode 4000 seems be what is used when there is a duplicate Automation

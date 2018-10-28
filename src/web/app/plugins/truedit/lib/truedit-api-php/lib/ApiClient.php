@@ -144,6 +144,7 @@ class ApiClient
         // handle GET requests differently than the others because GET methods don't contain a body
         if($method == self::$GET) {
             $response = wp_remote_get($url, $args);
+            $this->checkForWpError($response);
 
             $data = $this->getBodyData($response, $responseType);
             $http_header = $response['headers'];
@@ -159,7 +160,7 @@ class ApiClient
 
             $args['method'] = $method;
 
-            // form data
+            // if data is a form, convert it to a form request
             if ($postData and in_array('Content-Type: application/x-www-form-urlencoded', $headerParams, true)) {
                 $postData = http_build_query($postData);
             } elseif ((is_object($postData) or is_array($postData)) and !in_array('Content-Type: multipart/form-data', $headerParams, true)) { // json model
@@ -173,6 +174,7 @@ class ApiClient
             }
 
             $response = wp_remote_request($url, $args);
+            $this->checkForWpError($response);
 
             $data = $this->getBodyData($response, $responseType);
             $http_header = $response['headers'];
@@ -255,6 +257,18 @@ class ApiClient
         }
 
         return $headers;
+    }
+
+    private function checkForWpError($response) {
+        if(is_wp_error($response)) {
+            // get each error
+            $error_messages = [];
+            foreach($response->errors as $error) {
+                array_push($error_messages, $error[0]);
+            }
+
+            throw new ApiException(implode(' ', $error_messages), 500);
+        }
     }
 
     private function getBodyData($response, $responseType) {
