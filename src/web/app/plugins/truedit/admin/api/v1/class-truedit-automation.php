@@ -32,7 +32,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
     private $route_version;
     private $route;
     private $routes;
-    private $identifier = 'com.truedit.WordPress';
+    private $identifier = 'com.getnext.wordpress';
 
     public function __construct( $plugin_name, $version ) {
 
