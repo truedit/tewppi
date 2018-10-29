@@ -269,14 +269,9 @@ class ObjectSerializer
                 preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {
                 $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . self::sanitizeFilename($match[1]);
             } else {
-                $filename = tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
+                $filename = wp_tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
             }
             $deserialized = new \SplFileObject($filename, "w");
-            $byte_written = $deserialized->fwrite($data);
-
-            if (Configuration::getDefaultConfiguration()->getDebug()) {
-                error_log("[DEBUG] Written $byte_written byte to $filename. Please move the file to a proper folder or delete the temp file after processing.".PHP_EOL, 3, Configuration::getDefaultConfiguration()->getDebugFile());
-            }
 
             return $deserialized;
         } elseif (method_exists($class, 'getAllowableEnumValues')) {

@@ -227,9 +227,6 @@ class TruEdit_Admin {
 			$this->enqueue_scripts();
 
 			include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-callback.php' );
-
-			exit();
-
 		}
 
 	}
