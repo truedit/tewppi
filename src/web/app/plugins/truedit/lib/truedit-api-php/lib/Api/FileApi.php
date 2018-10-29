@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpCSValidationInspection */
 /**
  * FileApi
  * PHP version 5
@@ -153,10 +153,7 @@ class FileApi
             );
         }
 
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             $httpBody = $formParams; // for HTTP post (form)
         }
         // make the API Call
@@ -241,10 +238,7 @@ class FileApi
             );
         }
 
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             $httpBody = $formParams; // for HTTP post (form)
         }
         // make the API Call

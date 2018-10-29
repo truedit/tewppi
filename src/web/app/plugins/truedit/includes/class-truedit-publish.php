@@ -177,7 +177,7 @@ class TruEdit_Publish {
 				'posts_per_page' => 1,
 				'post_status'    => 'any',
 				'post_type'      => [ $post_type ], // If more posttypes are required, update here				
-			'meta_query'     => [
+			    'meta_query'     => [
 					[
 						'key'     => 'job_id',
 						'value'   => strval( $this->job_id ),

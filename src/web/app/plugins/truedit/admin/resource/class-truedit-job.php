@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpCSValidationInspection */
 
 class TruEdit_Resource_Job extends TruEdit_Resource {
 

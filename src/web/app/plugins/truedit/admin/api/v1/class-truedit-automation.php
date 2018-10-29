@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpCSValidationInspection */
+/** @noinspection PhpCSValidationInspection */
+/** @noinspection PhpCSValidationInspection */
 
 /**
  * Define the internationalization functionality
@@ -264,7 +266,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
              * Get the id from the url in the reponses
              * --------------------------------------------------
              */
-            if($res->getResults() != null && count($res->getResults()) > 0) {
+            if($res->getResults() !== null && count($res->getResults()) > 0) {
                 $result = $res->getResults()[0];
 
                 $automation->saveAutomationId( $result->getId() );

@@ -139,11 +139,14 @@ class ApiClient
     {
         // build url eg. "https://ennv.truedit.com/api/1/automation?minimal=0&pageNumber=1&pageSize=100&orderBy=0%3Dname%2Basc"
         $url = $this->config->getHost() . $resourcePath . '?' . http_build_query($queryParams);
-        $args = ['headers' => $headerParams];
+        $args = [
+            'headers' => $headerParams,
+            'method' => $method
+        ];
 
         // handle GET requests differently than the others because GET methods don't contain a body
-        if($method == self::$GET) {
-            $response = wp_remote_get($url, $args);
+        if($method === self::$GET) {
+            $response = wp_remote_request($url, $args);
             $this->checkForWpError($response);
 
             $data = $this->getBodyData($response, $responseType);
@@ -154,17 +157,16 @@ class ApiClient
         } else {
             $supportedMethods = ['POST', 'HEAD', 'OPTIONS', 'PATCH', 'PUT', 'DELETE'];
             // make sure the given request method is supported
-            if(!in_array($method, $supportedMethods)) {
+            if(!in_array($method, $supportedMethods, TRUE)) {
                 throw new ApiException('Method ' . $method . ' is not recognized.');
             }
 
-            $args['method'] = $method;
 
             // if data is a form, convert it to a form request
             if ($postData and in_array('Content-Type: application/x-www-form-urlencoded', $headerParams, true)) {
                 $postData = http_build_query($postData);
             } elseif ((is_object($postData) or is_array($postData)) and !in_array('Content-Type: multipart/form-data', $headerParams, true)) { // json model
-                $postData = json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($postData));
+                $postData = wp_json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($postData));
             }
 
             $args['body'] = $postData;
