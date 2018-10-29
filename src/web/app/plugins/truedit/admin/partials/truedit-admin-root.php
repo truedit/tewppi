@@ -2,7 +2,7 @@
 	You need to enable JavaScript to run this app.
 </noscript>
 <script type="text/javascript">
-	window.WP_GENERAL_SETTINGS = '/** @noinspection ALL *//** @noinspection PhpCSValidationInspection */<?php echo wp_json_encode( TruEdit_Wp::get_general_settings() ); ?>';
+	window.WP_GENERAL_SETTINGS = '<?php echo wp_json_encode( TruEdit_Wp::get_general_settings() ); ?>';
 </script>
 <div
 	id="root"
