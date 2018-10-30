@@ -6,10 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Swagger\\Client\\' => array($vendorDir . '/truedit/api-php/lib'),
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
-    'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
-    'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
-    'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
-    'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'Swagger\\Client\\' => array($vendorDir . '/truedit/truedit-api-php/lib'),
 );
