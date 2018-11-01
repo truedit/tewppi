@@ -1,7 +1,6 @@
 src/composer.lock
 dist
 phpcs_checkstyle.xml
-spa
 # Web Pack
 /node_modules
 /test/js
