@@ -1,5 +1,3 @@
-$timing: 0.35s;
-
 .TruEdit-app {
 
     .modal-background {
@@ -15,6 +13,12 @@ $timing: 0.35s;
     }
 
     .modal {
+        @media (max-width: 900px) {
+            & {
+                width: 100%;
+                height: 100%;
+            }
+        }
         position: fixed;
         top: 50%;
         left: 50%;
@@ -22,51 +26,58 @@ $timing: 0.35s;
         background-color: white;
         width: 900px;
         border-radius: 7px;
+
+        .modal-header {
+            width: 100%;
+            height: 50px;
+            background-color: rgb(245, 245, 245);
+            padding-left: 10px;
+            border-bottom: 1px solid grey;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+
+            .modal-close-btn {
+                float: right;
+                margin-right: 10px;
+                background-color: #0000;
+                border: none;
+                font-size: 25px;
+                opacity: 0.5;
+                -webkit-appearance: none;
+                &:hover {
+                    opacity: 1.0;
+                    cursor: pointer;
+                }
+
+                &:focus {
+                    outline:none;
+                }
+            }
+
+            .modal-header-text {
+                margin: 0;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+        }
+
+        .modal-content {
+            width: 100%;
+            min-height: 60px;
+            background-color: white;
+            height: auto;
+            overflow: auto;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            padding: 10px 26px;
+        }
+
+        .modal-delete-buttons {
+            padding-bottom: 16px;
+        }
     }
 
-    .modal-close-btn {
-        float: right;
-        margin-right: 10px;
-        background-color: #0000;
-        border: none;
-        font-size: 25px;
-        opacity: 0.5;
-        -webkit-appearance: none;
-    }
 
-    .modal-close-btn:hover {
-        opacity: 1.0;
-        cursor: pointer;
-    }
+    
 
-    .modal-close-btn:focus {
-        outline:none;
-    }
-
-    .modal-header {
-        width: 100%;
-        height: 50px;
-        background-color: rgb(245, 245, 245);
-        padding-left: 10px;
-        border-bottom: 1px solid grey;
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
-    }
-
-    #modal-header-text {
-        margin: 0;
-        padding-top: 16px;
-        padding-bottom: 16px;
-    }
-
-    .modal-content {
-        width: 100%;
-        min-height: 60px;
-        background-color: white;
-        height: auto;
-        overflow: auto;
-        border-bottom-left-radius: 7px;
-        border-bottom-right-radius: 7px;
-        padding: 10px;
-    }
 }

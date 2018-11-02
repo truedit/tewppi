@@ -47,10 +47,10 @@ export default class Modal extends React.Component {
                 <FocusTrap active={this.props.formLoaded}>
                     <div className='modal'>
                         <div className="modal-header">
-                            <button tabIndex="-1" type="button" className="modal-close-btn" onClick={this.props.toggle}>
+                            <button type="button" className="modal-close-btn" onClick={this.props.toggle}>
                                 <span>×</span>
                             </button>
-                            <h1 id="modal-header-text">{this.props.title}</h1>
+                            <h1 className="modal-header-text">{this.props.title}</h1>
                         </div>
                         <div className="modal-content">
                             {this.props.children}

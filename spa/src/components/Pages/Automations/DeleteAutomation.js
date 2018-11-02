@@ -99,7 +99,7 @@ export default class DeleteAutomation extends React.Component {
 
                     <form>
                         <p>Are you sure you want to delete automation <b>{this.props.automation.post_meta.json.name}</b>? This action can not be reversed.</p>
-                        <div className="button-group button-group-margin">
+                        <div className="button-group button-group-margin modal-delete-buttons">
                             <button
                                 data-name="confirm"
                                 ref={(input) => { this.textInput = input; }} 
