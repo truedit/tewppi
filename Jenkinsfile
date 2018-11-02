@@ -7,12 +7,12 @@ try {
   }
   stage('Setup Environment') {
     node('Linux') {
-      sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn && npm install && cd ${WORKSPACE}/src/web/app/plugins/truedit/ && composer install '
+      sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn install '
     }
   }
   stage('Build TruEdit Plugin') {
     node('Linux') {
-      sh 'cd ${WORKSPACE} && npm run build '
+      sh 'cd ${WORKSPACE} && yarn run build '
     }
   }
   stage('Checking PHP') {
