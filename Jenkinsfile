@@ -1,5 +1,5 @@
 try {
-  properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '0')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
+  properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '1')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
   stage('Checkout') {
     node('Linux') {
       checkout scm
