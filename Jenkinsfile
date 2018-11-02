@@ -2,17 +2,18 @@ try {
   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
   stage('Checkout') {
     node('Linux') {
+      sh 'rm -rf ${WORKSPACE}/'
       checkout scm
     }
   }
   stage('Setup Environment') {
     node('Linux') {
-      sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn && npm install && cd ${WORKSPACE}/src/web/app/plugins/truedit/ && composer install '
+      sh 'rm -rf ${WORKSPACE}/dist && cd src && composer install && cd ${WORKSPACE}/spa && yarn install '
     }
   }
   stage('Build TruEdit Plugin') {
     node('Linux') {
-      sh 'cd ${WORKSPACE} && npm run build '
+      sh 'cd ${WORKSPACE} && yarn run build '
     }
   }
   stage('Checking PHP') {

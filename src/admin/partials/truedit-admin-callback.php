@@ -16,7 +16,7 @@
 </head>
 <body <?php body_class( 'wp-core-ui' ); ?>>
 
-	<?php include_once( __DIR__ . '/truedit-admin-root.php' ); ?>
+	<?php include_once(__DIR__ . '/truedit-admin-root.php'); ?>
 
 	<?php wp_footer(); ?>
 </body>

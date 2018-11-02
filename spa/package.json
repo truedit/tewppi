@@ -11,7 +11,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "build-to-wp": "rm -rf ../src/web/app/plugins/truedit/admin/static && npm run build && cp -r build/static ../src/web/app/plugins/truedit/admin/"
+    "build-to-wp": "rm -rf ../src/admin/static && npm run build && cp -r build/static ../src/admin/"
   },
   "author": "",
   "license": "ISC",
