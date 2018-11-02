@@ -2,6 +2,7 @@ try {
   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '1')), [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/truedit/tewppi/'], pipelineTriggers([pollSCM('H * * * * ')])])
   stage('Checkout') {
     node('Linux') {
+      sh 'rm -rf ${WORKSPACE}/'
       checkout scm
     }
   }
