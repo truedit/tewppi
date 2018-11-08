@@ -158,7 +158,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
                 $posts       = get_posts(
                     [
                         'post_type'   => 'automation',
-                        'post_status' => 'draft',
+                        'post_status' => 'publish',
                         'suppress_filters' => false,
                         'numberposts' => 20,
                     ]
@@ -240,7 +240,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
                 [
                     'post_title'    => $form->name,
                     'post_type'     => 'automation',
-                    //'post_status'   => 'publish',
+                    'post_status'   => 'publish',
                 ]
             );
             $automation->setPost( $post_id );
