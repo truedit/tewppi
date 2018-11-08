@@ -190,8 +190,11 @@ class TruEdit_Admin {
 					'name'          => 'Automations',
 					'singular_name' => 'Automation',
 				],
-				'public'      => true,
-				'has_archive' => true,
+				'public'                => true,
+				'has_archive'           => true,
+                'exclude_from_search'   => true,
+                'show_in_nav_menus'     => false,
+                'show_ui'               => false,
 			]
 		);
 

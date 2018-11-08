@@ -238,8 +238,9 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
              */
             $post_id = wp_insert_post(
                 [
-                    'title'     => $form->name,
-                    'post_type' => 'automation',
+                    'post_title'    => $form->name,
+                    'post_type'     => 'automation',
+                    //'post_status'   => 'publish',
                 ]
             );
             $automation->setPost( $post_id );
