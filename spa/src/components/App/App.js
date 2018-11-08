@@ -20,11 +20,7 @@ export default class App extends Component {
 
         // Used to get to the publish iFrame URL, e.g. 
         // http://localhost:3000/?truedit=true&type=automation&id=52
-        if (
-            searchParams['truedit'] &&
-            searchParams['type'] &&
-            searchParams['id']
-        ) {
+        if (searchParams['view'] === 'publish') {
             return 'publish';
         } else if (DEBUG) {
             return window.location.pathname.substr(1);

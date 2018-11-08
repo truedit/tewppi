@@ -217,7 +217,7 @@ class TruEdit {
 		$this->loader->add_action( 'admin_menu', $this->trueditAdmin, 'menu' );
 
 		$this->loader->add_filter( 'query_vars', $this->trueditAdmin, 'query_vars' );
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'custom_template' );
+        $this->loader->add_filter( 'single_template', $this->trueditAdmin, 'custom_template', 99 );
 		$this->loader->add_action( 'tiny_mce_before_init', $this->trueditAdmin, 'tiny_mce_settings' );
 
 		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
@@ -225,8 +225,6 @@ class TruEdit {
 		$this->loader->add_action( 'init', $this->trueditAdmin, 'truedit_modify_headers' );
 		$this->loader->add_action( 'admin_init', $this->trueditAdmin, 'truedit_modify_headers' );
 		$this->loader->add_action( 'login_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		/** $this->loader->add_filter( 'login_redirect ', $this->trueditAdmin, 'truedit_modify_headers' ); */
-
 	}
 
 	/**

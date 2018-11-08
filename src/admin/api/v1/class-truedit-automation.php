@@ -253,7 +253,11 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
                 unset( $form->{$key} );
             }
 
-            $form->url = home_url() . '/index.php?truedit=true&type=automation&id=' . $post_id;
+            $url = get_permalink($post_id);
+            $urlOptions = ['view' => 'publish', 'automation_post_id' => $post_id];
+            $newUrl = add_query_arg($urlOptions, $url);
+
+            $form->url = $newUrl;
 
             $automationForm = $this->convertFormIntoApiForm($form);
 

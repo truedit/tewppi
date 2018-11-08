@@ -185,12 +185,12 @@ class TruEdit_Admin {
 	public function post_types() {
 
 		register_post_type(
-			'truedit_automation', [
+			'automation', [
 				'labels'      => [
 					'name'          => 'Automations',
 					'singular_name' => 'Automation',
 				],
-				'public'      => false,
+				'public'      => true,
 				'has_archive' => true,
 			]
 		);
@@ -217,20 +217,17 @@ class TruEdit_Admin {
 	public function page_logs() {
 		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
 
-	public function custom_template() {
+    public function custom_template($template)
+    {
+        global $post;
 
-		if (
-			isset( $_GET['truedit'] ) && $_GET['truedit'] === 'true' && // Input var okay.
-			isset( $_GET['type'] ) && $_GET['type'] === 'automation' ) { // Input var okay.
-
-			$this->enqueue_styles();
-			$this->enqueue_scripts();
-
-			include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-callback.php' );
-			exit;
-		}
-
-	}
+        add_filter('show_admin_bar', '__return_false');
+        if ($post->post_type == "automation") {
+            $this->enqueue_styles();
+            $this->enqueue_scripts();
+            return plugin_dir_path(__FILE__) . 'partials/truedit-admin-callback.php';
+        }
+    }
 
 	/**
 	 * Ads the args that can be detected

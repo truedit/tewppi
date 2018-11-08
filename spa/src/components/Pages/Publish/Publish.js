@@ -44,7 +44,7 @@ export default class Publish extends React.Component {
             VERIFY_IFRAME(token)
                 .then((res) => {
 
-                    return GET_AUTOMATION(GET_URL_PARAMS()['id']);
+                    return GET_AUTOMATION(GET_URL_PARAMS()['automation_post_id']);
 
                 })
                 .then((res) => {
@@ -65,7 +65,7 @@ export default class Publish extends React.Component {
 
         } else {
 
-            GET_AUTOMATION(GET_URL_PARAMS()['id'])
+            GET_AUTOMATION(GET_URL_PARAMS()['automation_post_id'])
                 .then((res) => {
 
                     this.automation = res.data;
@@ -102,9 +102,7 @@ export default class Publish extends React.Component {
             if (form[field] === 'prompt_on_run') form[field] = '';
         }
 
-        form.truedit = params['truedit'];
-        form.post_type = params['type'];
-        form.id = params['id'];
+        form.id = params['automation_post_id'];
 
         this.setState({
             LOADING: false,
