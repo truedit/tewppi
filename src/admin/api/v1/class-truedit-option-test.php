@@ -99,7 +99,11 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 			$resource = new TruEdit_Resource_Check();
 			$res      = $resource->check();
 
-			$session_info = json_decode( $res->getResult() );
+			if($res['status_code'] !== 0 && $res['result'] === null) {
+                throw new Exception($res['error_message']);
+            }
+
+            $session_info = $res->getResult();
 
 			TruEdit_Option::save( 'verified', 1 );
 
