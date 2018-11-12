@@ -99,7 +99,7 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 			$resource = new TruEdit_Resource_Check();
 			$res      = $resource->check();
 
-			if($res['status_code'] !== 0 && $res['result'] === null) {
+			if($res['status_code'] !== 0 || $res['result'] === null) {
                 throw new Exception($res['error_message']);
             }
 
