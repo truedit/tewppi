@@ -88,7 +88,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://ennv.truedit.com/api';
+    protected $host = '';
 
     /**
      * Timeout (second) of the HTTP request, by default set to 0, no timeout
@@ -304,7 +304,7 @@ class Configuration
     public static function getDefaultConfiguration()
     {
         if (self::$defaultConfiguration === null) {
-            self::$defaultConfiguration = new Configuration();
+            self::$defaultConfiguration = new \TruEdit_Configuration();
         }
 
         return self::$defaultConfiguration;
