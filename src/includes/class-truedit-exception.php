@@ -12,6 +12,7 @@ class TruEdit_Exception extends Exception {
 		'INCORRECT_PHP_VERSION'          => 'TruEdit requires your website PHP version to be at least 5.5. Please update PHP.',
 		'INCORRECT_WP_VERSION'           => 'TruEdit requires your website Wordpress version to be at least 4.7. Please update Wordpress.',
 		'INCORRECT_HOST'                 => 'The host url entered is incorrect.',
+        'NO_HOST'                        => 'No host configured. Please check your configuration.',
 		'INCORRECT_WRITE_PERMISSIONS'    => 'TruEdit requires the uploads folder to have the correct permissions. Please contact your administrator.',
 		'ZIP_DOES_NOT_EXIST'             => 'The file attached to the job does not exist. Please Check In your changes to publish.',
 		'ZIP_NO_FILES'                   => 'The downloaded ZIP file has no files to be extracted.',
@@ -23,15 +24,18 @@ class TruEdit_Exception extends Exception {
 		'POST_NOT_FOUND'                 => 'Unable to find the post.',
 		'AUTOMATION_DOES_NOT_EXIST'      => 'Automation does not exist.',
 		'MULTIPLE_JOB_ID_ATTACHED'       => 'There are multiple posts attached to the same Job IDs.',
-		'AUTOMATION_NAME_EXISTS'         => 'Name is ":name" already in use.',
 		'AUTOMATION_NAME_GREATER_1'      => 'Automation name must be greater than 1 character.',
 		'AUTOMATION_NAME_TOO_LONG'       => 'Automation name is too long. It must be less than 255 characters long.',
 		'AUTOMATION_COULD_NOT_BE_DELETE' => 'Automation could not be deleted.',
+        'UNKNOWN'                        => 'An unknown error has occurred. Please try again later. If this keeps persisting, please contact support',
 	];
 
 	public function __construct( $code, $context = [] ) {
 
 		$message = $this->codes[ $code ];
+		if(empty($message)) {
+		    $message = $code;
+        }
 
 		if ( count( $context ) ) {
 			$replaced = [];
