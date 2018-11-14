@@ -112,7 +112,7 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 			return new WP_REST_Response(
 				[
 					'verified'     => 1,
-					'session_info' => $session_info,
+					'tenantName' => $session_info->getTenantName(),
 				], 200
 			);
 

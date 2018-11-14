@@ -105,11 +105,11 @@ class Form extends React.Component {
     }
 
     setVerifySuccessfulNotice = (res) => {
-      let sessionInfo = res.data.session_info
+      let tenantName = res.data.tenantName;
 
       this.props.addNotice(new NoticeModel(
         'success',
-        'Successfully connected to TruEdit, tenant ' + sessionInfo.tenantName +
+        'Successfully connected to TruEdit, tenant ' + tenantName +
           '.'
       ))
 
