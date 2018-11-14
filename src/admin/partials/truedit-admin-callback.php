@@ -13,6 +13,11 @@
 		  */
 	?>
 	<?php wp_admin_bar_render(); ?>
+    <style>
+        #wpadminbar {
+            display: none;
+        }
+    </style>
 </head>
 <body <?php body_class( 'wp-core-ui' ); ?>>
 

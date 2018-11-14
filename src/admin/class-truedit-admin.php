@@ -224,7 +224,6 @@ class TruEdit_Admin {
     {
         global $post;
 
-        add_filter('show_admin_bar', '__return_false');
         if ($post->post_type === "automation") {
             $this->enqueue_styles();
             $this->enqueue_scripts();
