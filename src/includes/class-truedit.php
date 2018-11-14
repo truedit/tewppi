@@ -218,7 +218,6 @@ class TruEdit {
 
 		$this->loader->add_filter( 'query_vars', $this->trueditAdmin, 'query_vars' );
         $this->loader->add_filter( 'single_template', $this->trueditAdmin, 'custom_template', 99 );
-		$this->loader->add_action( 'tiny_mce_before_init', $this->trueditAdmin, 'tiny_mce_settings' );
 
 		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
 

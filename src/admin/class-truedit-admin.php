@@ -245,19 +245,6 @@ class TruEdit_Admin {
 
 	}
 
-	/**
-	 * Disable auto p
-	 */
-	public function tiny_mce_settings( $in ) {
-
-		if ( isset( $_GET['truedit'] ) && $_GET['truedit'] === 'true' ) { // Input var okay.
-			$in['wpautop'] = false;
-		}
-
-		return $in;
-
-	}
-
 	public function truedit_modify_headers() {
 		TruEditNetwork::allowTruEditIframe();
 
