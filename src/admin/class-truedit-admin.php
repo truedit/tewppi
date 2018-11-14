@@ -225,6 +225,12 @@ class TruEdit_Admin {
         global $post;
 
         if ($post->post_type === "automation") {
+
+            if(!is_user_logged_in()) {
+                wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
+                return;
+            }
+
             $this->enqueue_styles();
             $this->enqueue_scripts();
             return plugin_dir_path(__FILE__) . 'partials/truedit-admin-callback.php';
