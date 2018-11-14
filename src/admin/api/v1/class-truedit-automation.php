@@ -202,7 +202,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
             $form = json_decode( $request->get_body() );
 
             $this->validate_name_length( $form->name );
-            $this->validate_if_exists( $form->name );
 
             $automation = new TruEdit_Post_Automation();
 
@@ -317,7 +316,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
             $automation->setPost( $request['id'] );
 
             $this->validate_name_length( $body->name );
-            $this->validate_if_exists( $body->name, $automation->json->id );
 
             /**
              * Validate the inputs and if succesfully check.
@@ -455,25 +453,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
         // TODO: add it to a list instead.
         if ( strlen( $name ) > 255 ) {
             throw new TruEdit_Exception( 'AUTOMATION_NAME_TOO_LONG' );
-        }
-
-    }
-
-    private function validate_if_exists( $name, $id = -1 ) {
-        $resource = new TruEdit_Resource_Automation();
-        $res      = $resource->read();
-
-        foreach ( $res->getResults() as $auto ) {
-
-            if ( $auto->getName() === $name && $auto->getId() !== $id && $id !== -1 ) {
-
-                throw new TruEdit_Exception(
-                    'AUTOMATION_NAME_EXISTS', [
-                        'name' => $name,
-                    ]
-                );
-
-            }
         }
 
     }
