@@ -31,7 +31,7 @@ class TruEdit_Log extends TruEdit_Levels {
 		} else {
 			$server_http_host = '';
 		}
-		wp_insert_comment(
+		$commentId = wp_insert_comment(
 			[
 				'comment_author'       => 'TruEdit',
 				'comment_author_email' => 'truedit@' . $server_http_host,
@@ -46,7 +46,19 @@ class TruEdit_Log extends TruEdit_Levels {
 			]
 		);
 
+		return $commentId;
 	}
+
+    /**
+     * @param $commentId int
+     * @param $e Exception
+     */
+    private static function addLogDetail($commentId, $e) {
+	    add_comment_meta($commentId, 'original_message', $e->getMessage());
+	    add_comment_meta($commentId, 'error_code', $e->getCode());
+	    add_comment_meta($commentId, 'file', $e->getFile());
+	    add_comment_meta($commentId, 'line_number', $e->getLine());
+    }
 
 	public static function emergency( $message, $context = [] ) {
 		self::log( TruEdit_Levels::EMERGENCY, $message, $context );
@@ -79,5 +91,10 @@ class TruEdit_Log extends TruEdit_Levels {
 	public function debug( $message, $context = [] ) {
 		self::log( TruEdit_Levels::DEBUG, $message, $context );
 	}
+
+	public static function exception( $message, $e ) {
+        $commentId = self::log(TruEdit_Levels::ERROR, $message, []);
+        self::addLogDetail($commentId, $e);
+    }
 
 }

@@ -42,7 +42,7 @@ class TruEdit_Handle {
 			$message = $body->errorMessage;
 		}
 
-		TruEdit_Log::error( $message );
+		TruEdit_Log::exception( $message, $e );
 
 		return new WP_Error(
 			'TR_ERROR', $message, [
@@ -59,7 +59,7 @@ class TruEdit_Handle {
 		$message  = $e->getMessage();
 		$warnings = [];
 
-		TruEdit_Log::error( $message );
+		TruEdit_Log::exception( $message, $e);
 
 		return new WP_Error(
 			'WP_ERROR', $message, [
@@ -76,7 +76,7 @@ class TruEdit_Handle {
 		$message  = $e->getMessage();
 		$warnings = [];
 
-		TruEdit_Log::error( ( ! empty( $action ) ? ucwords( $action ) . ' : ' : '' ) . $message );
+		TruEdit_Log::exception( ( ! empty( $action ) ? ucwords( $action ) . ' : ' : '' ) . $message, $e );
 
 		return new WP_Error(
 			'ERROR', $message, [

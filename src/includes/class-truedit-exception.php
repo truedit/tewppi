@@ -27,7 +27,8 @@ class TruEdit_Exception extends Exception {
 		'AUTOMATION_NAME_GREATER_1'      => 'Automation name must be greater than 1 character.',
 		'AUTOMATION_NAME_TOO_LONG'       => 'Automation name is too long. It must be less than 255 characters long.',
 		'AUTOMATION_COULD_NOT_BE_DELETE' => 'Automation could not be deleted.',
-        'UNKNOWN'                        => 'An unknown error has occurred. Please try again later. If this keeps persisting, please contact support',
+        'UNKNOWN'                        => 'An unknown error has occurred. Please try again later. If this keeps persisting, please contact support.',
+        'EMPTY_RESULT'                   => 'Did not get a response from the server.',
 	];
 
 	public function __construct( $code, $context = [] ) {
