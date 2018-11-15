@@ -29,11 +29,7 @@ class TruEdit_Resource_Check {
 
 		$accept_language = 'application/json'; // string |
 
-		try {
-			return $this->api->getSessionInfoUsingGET( $this->x_api_key, $this->x_app_api_key, $accept_language );
-		} catch ( Exception $e ) {
-			throw $e;
-		}
+        return $this->api->getSessionInfoUsingGET( $this->x_api_key, $this->x_app_api_key, $accept_language );
 
 	}
 

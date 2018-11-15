@@ -46,6 +46,7 @@ class ApiClient
     public static $OPTIONS = "OPTIONS";
     public static $PUT = "PUT";
     public static $DELETE = "DELETE";
+    public static $TIMEOUT = 20;
 
     /**
      * Configuration
@@ -137,11 +138,16 @@ class ApiClient
      */
     public function callApi($resourcePath, $method, $queryParams, $postData, $headerParams, $responseType = null, $endpointPath = null)
     {
+        if(empty($this->config->getHost())) {
+            throw new \TruEdit_Exception('NO_HOST');
+        }
         // build url eg. "https://ennv.truedit.com/api/1/automation?minimal=0&pageNumber=1&pageSize=100&orderBy=0%3Dname%2Basc"
         $url = $this->config->getHost() . $resourcePath . '?' . http_build_query($queryParams);
         $args = [
             'headers' => $headerParams,
-            'method' => $method
+            'method' => $method,
+            'timeout' => self::$TIMEOUT,
+            //'connect_timeout' => self::$TIMEOUT
         ];
 
         // handle GET requests differently than the others because GET methods don't contain a body
@@ -170,10 +176,6 @@ class ApiClient
             }
 
             $args['body'] = $postData;
-
-            if ($this->config->getCurlTimeout() !== 0) {
-                $args['timeout'] = $this->config->getCurlTimeout();
-            }
 
             $response = wp_remote_request($url, $args);
             $this->checkForWpError($response);
@@ -262,6 +264,7 @@ class ApiClient
     }
 
     private function checkForWpError($response) {
+
         if(is_wp_error($response)) {
             // get each error
             $error_messages = [];
@@ -270,6 +273,14 @@ class ApiClient
             }
 
             throw new ApiException(implode(' ', $error_messages), 500);
+        }
+
+        if(isset($response['http_response'])) {
+            $serverResponse = $response['http_response']->to_array();
+
+            if($serverResponse['response']['code'] >= 400 && $$serverResponse['response']['code'] <= 599) {
+                throw new ApiException($serverResponse['response']['message'], $serverResponse['response']['code'],$serverResponse['headers'], $serverResponse['body']);
+            }
         }
     }
 
