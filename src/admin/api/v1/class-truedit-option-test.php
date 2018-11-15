@@ -99,6 +99,10 @@ class TruEdit_ApiRoute_OptionTest implements TruEdit_ApiRoute {
 			$resource = new TruEdit_Resource_Check();
 			$res      = $resource->check();
 
+			if($res === null) {
+			    throw new TruEdit_Exception('UNKNOWN');
+            }
+
 			if($res->getStatusCode() !== 0) {
                 if(!empty($res->getErrorMessage())) {
                     throw new Exception($res->getErrorMessage());
