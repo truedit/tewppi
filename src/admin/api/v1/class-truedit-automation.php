@@ -253,11 +253,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
                 unset( $form->{$key} );
             }
 
-            $url = get_permalink($post_id);
-            $urlOptions = ['view' => 'publish', 'automation_post_id' => $post_id];
-            $newUrl = add_query_arg($urlOptions, $url);
-
-            $form->url = $newUrl;
+            $form->url = $this->generateAutomationUrl($post_id);
 
             $automationForm = $this->convertFormIntoApiForm($form);
 
@@ -356,6 +352,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
             $form->config->formRemote     = true;
             $form->config->externalConfig = true;
             $form->integrationIdentifier  = $this->identifier;
+            $form->url = $this->generateAutomationUrl($request['id']);
 
             $automationForm = $this->convertFormIntoApiForm($form);
 
@@ -463,7 +460,10 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
      */
     private function convertFormIntoApiForm($form) {
         $automationConfig = new \Swagger\Client\Model\Config();
-        $automationConfig->setFormUrl($form->url);
+
+        if(isset($form->url)) {
+            $automationConfig->setFormUrl($form->url);
+        }
         $automationConfig->setFormRemote(true);
         $automationConfig->setExternalConfig(true);
 
@@ -481,6 +481,14 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
         $automationForm->setIntegrationIdentifier($this->identifier);
         $automationForm->setProfiles($automationProfiles);
         return $automationForm;
+    }
+
+    private function generateAutomationUrl($post_id) {
+        $url = get_permalink($post_id);
+        $urlOptions = ['view' => 'publish', 'automation_post_id' => $post_id];
+        $newUrl = add_query_arg($urlOptions, $url);
+
+        return $newUrl;
     }
 
 }
