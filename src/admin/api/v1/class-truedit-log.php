@@ -109,7 +109,7 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 
 			// TODO: Remove this functionality. Will require changes on the SPA as well
 			foreach ( $comments as $comment ) {
-				$comment->comment_type = str_replace( 'TruEdit_log_', '', $comment->comment_type );
+				$comment['comment_type'] = str_replace( 'TruEdit_log_', '', $comment['comment_type'] );
 			}
 
 			$total      = $this->getTotal();
@@ -159,7 +159,9 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 		// There is a comment filter to remove TruEdit logs from the rest of the system. This removes that filter
 		self::removeCommentFilter();
 
-		return get_comments(
+		$commentsWithMetaData = [];
+
+		$comments = get_comments(
 			[
 				'type'   => self::$commentTypes,
 				'order'  => 'DESC',
@@ -167,6 +169,22 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 				'offset' => ( $page - 1 ) * $count,
 			]
 		);
+
+		foreach ($comments as $comment) {
+		    $commentWithMetaData = (array)$comment;
+		    $commentMetaData = [
+                'original_message' => get_comment_meta( $commentWithMetaData['comment_ID'], 'original_message'),
+                'error_code' => get_comment_meta( $commentWithMetaData['comment_ID'], 'error_code'),
+                'file' => get_comment_meta( $commentWithMetaData['comment_ID'], 'file'),
+                'line_number' => get_comment_meta( $commentWithMetaData['comment_ID'], 'line_number')
+            ];
+
+            $commentWithMetaData['metadata'] = $commentMetaData;
+            $commentsWithMetaData[] = $commentWithMetaData;
+        }
+
+        return $commentsWithMetaData;
 	}
+
 
 }
