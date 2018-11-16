@@ -143,9 +143,6 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
         try {
 
-            $resource = new TruEdit_Resource_Automation();
-            $resource->read();
-
             if ( $request['id'] ) {
 
                 $post = new TruEdit_Post_Automation();
@@ -344,6 +341,13 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
              * --------------------------------------------------
              */
 
+            wp_update_post(
+                [
+                    'ID'       => $request['id'],
+                    'post_title'    => $body->name,
+                ]
+            );
+
             $form                         = new stdClass();
             $form->name                   = $body->name;
             $form->action                 = $body->action;
@@ -365,6 +369,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
              * Success
              * --------------------------------------------------
              */
+
             $automation->saveJson( json_decode( $res->getResult() ) );
 
             /**
