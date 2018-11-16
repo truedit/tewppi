@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd spa/ && npm run build-to-wp && cd .. && mkdir -p dist/$npm_package_version && cp -r src/web/app/plugins/truedit dist/$npm_package_version && echo $npm_package_version &> dist/$npm_package_version/truedit/VERSION.txt && cd dist/$npm_package_version/truedit && sed -i -e \"s/1.0.0/$npm_package_version/\" truedit.php && zip -r truedit_wppi.zip ./* && mv truedit_wppi.zip ..",
+    "build": "bash compile.sh $npm_package_version",
     "buildgn": "bash rebrand.sh"
   },
   "author": "",

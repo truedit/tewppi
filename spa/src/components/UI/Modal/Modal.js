@@ -43,43 +43,21 @@ export default class Modal extends React.Component {
 
     modalContent (){
         return <React.Fragment>
-            <FocusTrap active={this.props.formLoaded}>
-                <div className={'media-modal wp-core-ui media-modal-show'}>
-
-                    <button type="button" className="media-modal-close" onClick={this.props.toggle}>
-                        <span className="media-modal-icon">
-                            <span className="screen-reader-text">
-                                Close modal panel
-                            </span>
-                        </span>
-                    </button>
-                    {/* <h2 className="hndle"><span>{this.props.title ? this.props.title : ''}</span></h2> */}
-
-                    <div className="media-modal-content">
-
-                            <div className="media-frame mode-select wp-core-ui">
-                                {
-                                    this.props.menu ?
-                                        <div className="media-frame-menu">
-                                        </div> :
-                                        ''
-                                }
-
-                                <div className={'media-frame-title' + (this.props.menu ? '' : ' no-menu')}>
-                                    <h1>{this.props.title}</h1>
-                                </div>
-                                <div className={'media-frame-content' + (this.props.menu ? '' : ' no-menu')}>
-                                    {this.props.children}
-                                </div>
-                            </div>
-
+            <div className="modal-background">
+                <FocusTrap active={this.props.formLoaded}>
+                    <div className='modal'>
+                        <div className="modal-header">
+                            <button type="button" className="modal-close-btn" onClick={this.props.toggle}>
+                                <span>×</span>
+                            </button>
+                            <h1 className="modal-header-text">{this.props.title}</h1>
+                        </div>
+                        <div className="modal-content">
+                            {this.props.children}
+                        </div>
                     </div>
-
-                </div>
-                <div className={'media-modal-backdrop' + (this.props.isOpen ? '' : ' media-modal-backdrop-hide')} />
-            </FocusTrap>
+                </FocusTrap>
+            </div>
         </React.Fragment>
     }
-
-
 }
