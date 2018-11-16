@@ -154,6 +154,7 @@ class ApiClient
         if($method === self::$GET) {
             $response = wp_remote_request($url, $args);
             $this->checkForWpError($response);
+            $this->checkForServerError($response);
 
             $data = $this->getBodyData($response, $responseType);
             $http_header = $response['headers'];
@@ -179,6 +180,7 @@ class ApiClient
 
             $response = wp_remote_request($url, $args);
             $this->checkForWpError($response);
+            $this->checkForServerError($response);
 
             $data = $this->getBodyData($response, $responseType);
             $http_header = $response['headers'];
@@ -274,6 +276,9 @@ class ApiClient
 
             throw new ApiException(implode(' ', $error_messages), 500);
         }
+    }
+
+    private function checkForServerError($response) {
 
         if(isset($response['http_response'])) {
             $serverResponse = $response['http_response']->to_array();
