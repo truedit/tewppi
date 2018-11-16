@@ -167,7 +167,12 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
                     $automations[] = $automation->getPost();
                 }
 
-                return new WP_REST_Response( $automations, 200 );
+                return new WP_REST_Response([
+                    'automations' => $automations,
+                    'has'         => [
+                        'verified' => TruEdit_Has::verified(),
+                    ],
+                ], 200 );
 
             }
         } catch ( \Swagger\Client\ApiException $e ) {
