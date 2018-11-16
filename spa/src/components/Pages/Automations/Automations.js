@@ -62,7 +62,18 @@ export default class Automations extends React.Component {
 
         GET_AUTOMATIONS()
             .then(res => {
-                this.automations = res.data;
+
+                if(!res.data.has.verified) {
+                    this.setState({
+                        SHOW_ADD: false,
+                        LOADING: false
+                    });
+
+                    this.addNotice(new NoticeModel('error', 'No valid configuration. Please select configuration from the left hand menu and validate server settings.', []));
+                    return;
+                }
+
+                this.automations = res.data.automations;
                 
                 this.setState({
                     LOADING: false,

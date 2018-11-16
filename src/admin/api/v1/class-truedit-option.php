@@ -322,6 +322,8 @@ class TruEdit_ApiRoute_Option implements TruEdit_ApiRoute {
 
 		}
 
+        TruEdit_Option::save( 'verified', 0 );
+
 		return TruEdit_Option::save( $key, $value );
 
 	}

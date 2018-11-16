@@ -227,8 +227,8 @@ class TruEdit_Admin {
         if ($post->post_type === "automation") {
 
             if(!is_user_logged_in()) {
-                wp_redirect(wp_login_url($_SERVER['REQUEST_URI']));
-                return;
+                wp_redirect(wp_login_url(sanitize_text_field($_SERVER['REQUEST_URI'])));
+                exit();
             }
 
             $this->enqueue_styles();
