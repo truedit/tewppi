@@ -147,7 +147,6 @@ class ApiClient
             'headers' => $headerParams,
             'method' => $method,
             'timeout' => self::$TIMEOUT,
-            //'connect_timeout' => self::$TIMEOUT
         ];
 
         // handle GET requests differently than the others because GET methods don't contain a body
