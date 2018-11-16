@@ -85,13 +85,13 @@ class TruEdit_Has {
 	}
 
 	public static function verified() {
-
+        $verified = TruEdit_Option::get( 'verified' );
 		// Reset the value if nothing is set.
-		if ( TruEdit_Option::get( 'verified' ) === '' ) {
+		if ( $verified === '' ) {
 			TruEdit_Option::save( 'verified', -1 );
 		}
 
-		if ( TruEdit_Option::get( 'verified' ) === '-1' ) {
+		if ( $verified === '-1' || $verified === '0') {
 			return false;
 		} else {
 			return true;
