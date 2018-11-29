@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.13 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'TRUEDIT_PLUGIN_NAME_VERSION', '1.0.13' );
+define( 'TRUEDIT_PLUGIN_NAME_VERSION', '1.0.15' );
 
 /**
  * Libs
