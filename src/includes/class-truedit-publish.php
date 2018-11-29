@@ -50,12 +50,6 @@ class TruEdit_Publish {
 
 	private function load_dependencies() {
 
-		/**
-			global $wp_rewrite;
-			if ( is_null( $wp_rewrite ) ) {
-				$wp_rewrite = new wp_rewrite;
-			}
-		*/
 		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
@@ -174,14 +168,16 @@ class TruEdit_Publish {
 
 		$query = new WP_Query(
 			[
-				'posts_per_page' => 1,
-				'post_status'    => 'any',
-				'post_type'      => [ $post_type ], // If more posttypes are required, update here				
-			    'meta_query'     => [
+				'posts_per_page' 		=> 1,
+				'post_status'   		=> 'any',
+				'post_type'      		=> [ $post_type ], // If more posttypes are required, update here		
+				'ignore_sticky_posts' 	=> true,	
+				'no_found_rows'			=> true,	
+			    'meta_query'     		=> [
 					[
-						'key'     => 'job_id',
-						'value'   => strval( $this->job_id ),
-						'compare' => '=',
+						'key'    		=> 'job_id',
+						'value'   		=> strval( $this->job_id ),
+						'compare' 		=> '=',
 					],
 				],
 				

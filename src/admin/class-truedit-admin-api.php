@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -18,7 +18,7 @@
  *
  * @package    TruEdit
  * @subpackage TruEdit/admin
- * @author     TruEdit <test@test.com>
+ * @author     TruEdit <sdk@truedit.com>
  */
 class TruEdit_Admin_Api {
 
@@ -74,12 +74,36 @@ class TruEdit_Admin_Api {
 
 	public function load_dependencies() {
 
-		foreach ( glob( plugin_dir_path( __FILE__ ) . '/api/**/*.php' ) as $filename ) {
-			require_once $filename;
-		}
-		foreach ( glob( plugin_dir_path( __FILE__ ) . '/resource/*.php' ) as $filename ) {
-			require_once $filename;
-		}
+		// Include all apis
+		$apiPath = plugin_dir_path( __FILE__ ) . '/api/v1/';
+
+		require_once $apiPath . 'class-truedit-automation-action.php';
+		require_once $apiPath . 'class-truedit-automation.php';
+		require_once $apiPath . 'class-truedit-dashboard.php';
+		require_once $apiPath . 'class-truedit-log.php';
+		require_once $apiPath . 'class-truedit-option-test.php';
+		require_once $apiPath . 'class-truedit-option.php';
+		require_once $apiPath . 'class-truedit-outputType.php';
+		require_once $apiPath . 'class-truedit-prerequisites.php';
+		require_once $apiPath . 'class-truedit-profile.php';
+		require_once $apiPath . 'class-truedit-publish.php';
+		require_once $apiPath . 'class-truedit-region.php';
+		require_once $apiPath . 'class-truedit-user.php';
+		require_once $apiPath . 'class-truedit-verify.php';
+
+		// Include all resources
+		$resourcePath = plugin_dir_path( __FILE__ ) . '/resource/';
+
+		require_once $resourcePath . 'class-truedit-automation.php';
+		require_once $resourcePath . 'class-truedit-check.php';
+		require_once $resourcePath . 'class-truedit-job.php';
+		require_once $resourcePath . 'class-truedit-outputType.php';
+		require_once $resourcePath . 'class-truedit-profile.php';
+		require_once $resourcePath . 'class-truedit-systemInfo.php';
+		require_once $resourcePath . 'class-truedit-user.php';
+		
+
+		
 
 	}
 

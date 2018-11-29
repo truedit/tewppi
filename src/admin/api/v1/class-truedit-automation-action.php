@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -23,7 +23,7 @@
  * @package    TruEdit
  * @subpackage TruEdit/includes
  * @author     TruEdit
- *  <test@test.com>
+ *  <sdk@truedit.com>
  */
 class TruEdit_ApiRoute_AutomationAction implements TruEdit_ApiRoute {
 

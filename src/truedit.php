@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://truedit.github.com/
+ * @link              https://github.com/truedit/tewppi
  * @since             1.0.13
  * @package           TruEdit
  *
  * @wordpress-plugin
  * Plugin Name:       TruEdit
- * Plugin URI:        https://truedit.github.com/
+ * Plugin URI:        https://github.com/truedit/tewppi
  * Description:       TruEdit® is the secure, cloud-based content and workflow management system, that centralizes content creation and manages workflows for mobile, print, and web publishing.
  * Version:           1.0.13
  * Author:            TruEdit
- * Author URI:        https://truedit.github.com/
+ * Author URI:        https://github.com/truedit/tewppi
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       truedit
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.13 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.13' );
+define( 'TRUEDIT_PLUGIN_NAME_VERSION', '1.0.13' );
 
 /**
  * Libs

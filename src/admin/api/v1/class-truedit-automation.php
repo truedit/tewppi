@@ -8,7 +8,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -24,7 +24,7 @@
  * @since      1.0.0
  * @package    TruEdit
  * @subpackage TruEdit/includes
- * @author     TruEdit <test@test.com>
+ * @author     TruEdit <sdk@truedit.com>
  */
 class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
@@ -497,7 +497,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
         $url = get_permalink($post_id);
         $urlOptions = ['view' => 'publish', 'automation_post_id' => $post_id];
         $newUrl = add_query_arg($urlOptions, $url);
-
+    
         return $newUrl;
     }
 

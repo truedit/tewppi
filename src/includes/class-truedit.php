@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    TruEdit
  * @subpackage TruEdit/includes
- * @author     TruEdit <test@test.com>
+ * @author     TruEdit <sdk@truedit.com>
  */
 class TruEdit {
 
@@ -70,8 +70,8 @@ class TruEdit {
 	 * @since    1.0.0
 	 */
 	private function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-			$this->version = PLUGIN_NAME_VERSION;
+		if ( defined( 'TRUEDIT_PLUGIN_NAME_VERSION' ) ) {
+			$this->version = TRUEDIT_PLUGIN_NAME_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -120,23 +120,26 @@ class TruEdit {
 		/**
 		 * Static helpers
 		 */
-		foreach ( glob( plugin_dir_path( __FILE__ ) . '/helpers/*.php' ) as $filename ) {
-			require_once $filename;
-		}
+
+		 $helperPath = plugin_dir_path( __FILE__ ) . '/helpers/';
+		 require_once $helperPath . 'class-truedit-handle.php';
+		 require_once $helperPath . 'class-truedit-has.php';
+		 require_once $helperPath . 'class-truedit-log.php';
+		 require_once $helperPath . 'class-truedit-network.php';
+		 require_once $helperPath . 'class-truedit-option.php';
+		 require_once $helperPath . 'class-truedit-wp.php';
 
 		/**
 		 * Interfaces
 		 */
-		foreach ( glob( plugin_dir_path( __FILE__ ) . '/interfaces/*.php' ) as $filename ) {
-			require_once $filename;
-		}
 
+		require_once plugin_dir_path( __FILE__ ) . '/interfaces/interface-truedit-route.php';
+		
 		/**
 		 * Models
 		 */
-		foreach ( glob( plugin_dir_path( __FILE__ ) . '/models/*.php' ) as $filename ) {
-			require_once $filename;
-		}
+
+		require_once plugin_dir_path( __FILE__ ) . '/models/class-truedit-post-automation.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
@@ -220,10 +223,6 @@ class TruEdit {
         $this->loader->add_filter( 'single_template', $this->trueditAdmin, 'custom_template', 99 );
 
 		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
-
-		$this->loader->add_action( 'init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'admin_init', $this->trueditAdmin, 'truedit_modify_headers' );
-		$this->loader->add_action( 'login_init', $this->trueditAdmin, 'truedit_modify_headers' );
 	}
 
 	/**

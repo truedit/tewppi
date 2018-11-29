@@ -29,6 +29,7 @@ class TruEdit_Resource_Job extends TruEdit_Resource {
 
 			$this->add_zip_upload_allowed();
 			$file = wp_upload_bits($fileName, null, $response);
+			$file = apply_filters( 'wp_handle_upload', $file );
 
             $this->remove_zip_upload_allowed();
 
