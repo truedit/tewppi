@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -18,7 +18,7 @@
  * @since      1.0.0
  * @package    TruEdit
  * @subpackage TruEdit/includes
- * @author     TruEdit <test@test.com>
+ * @author     TruEdit <sdk@truedit.com>
  */
 class TruEdit_Activator {
 

@@ -13,14 +13,6 @@ class TruEditNetwork {
 	}
 
 	/**
-	 * Removes limitations on iframes while plugin is installed and activated
-	 */
-	public static function allowTruEditIframe() {
-		header_remove( 'X-Frame-Options' );
-		header( 'X-Frame-Options: *' );
-	}
-
-	/**
 	 * Parses a URL and returns just the domain
 	 * @param $url string
 	 * @return string

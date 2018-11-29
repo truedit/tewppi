@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://truedit.github.com/
+ * @link       https://github.com/truedit/tewppi
  * @since      1.0.0
  *
  * @package    TruEdit
@@ -18,7 +18,7 @@
  *
  * @package    TruEdit
  * @subpackage TruEdit/admin
- * @author     TruEdit <test@test.com>
+ * @author     TruEdit <sdk@truedit.com>
  */
 class TruEdit_Admin {
 
@@ -124,7 +124,7 @@ class TruEdit_Admin {
 			'TruEdit',
 			'manage_options',
 			'TruEdit',
-			[ $this, 'page_welcome' ],
+			[ $this, 'page_include' ],
 			plugins_url( '/assets/images/truedit-icon.png', __FILE__ )
 		);
 		add_submenu_page(
@@ -134,7 +134,7 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-options', [
 				$this,
-				'page_options',
+				'page_include',
 			]
 		);
 		add_submenu_page(
@@ -144,7 +144,7 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-automations', [
 				$this,
-				'page_automations',
+				'page_include',
 			]
 		);
 		add_submenu_page(
@@ -154,22 +154,9 @@ class TruEdit_Admin {
 			'manage_options',
 			'TruEdit-logs', [
 				$this,
-				'page_logs',
+				'page_include',
 			]
 		);
-		/**
-		// add_submenu_page(
-		//  'TruEdit',
-		//  'Help',
-		//  'Help',
-		//  'manage_options',
-		//  'TruEdit-options', [
-		//      $this,
-		//      'page_options'
-		//  ]
-		// );
-		*/
-
 	}
 
 	/**
@@ -211,14 +198,10 @@ class TruEdit_Admin {
 
 	}
 
-	public function page_welcome() {
-		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
-	public function page_automations() {
-		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
-	public function page_options() {
-		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
-	public function page_logs() {
-		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' ); }
+	public function page_include() {
+		include_once( plugin_dir_path( __FILE__ ). 'partials/truedit-admin-display.php' );
+	}
+
 
     public function custom_template($template)
     {
@@ -227,7 +210,7 @@ class TruEdit_Admin {
         if ($post->post_type === "automation") {
 
             if(!is_user_logged_in()) {
-                wp_redirect(wp_login_url(sanitize_text_field($_SERVER['REQUEST_URI'])));
+                wp_safe_redirect(wp_login_url(sanitize_text_field($_SERVER['REQUEST_URI'])));
                 exit();
             }
 
@@ -247,11 +230,6 @@ class TruEdit_Admin {
 		$vars[] = 'id';
 
 		return $vars;
-
-	}
-
-	public function truedit_modify_headers() {
-		TruEditNetwork::allowTruEditIframe();
 
 	}
 
