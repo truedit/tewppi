@@ -239,16 +239,16 @@ class TruEdit_Publish {
 
 	/**
 	 * @param $post_id int eg. 100
-	 * @param $file_id int eg. 150
+	 * @param $file_name int eg. 150
 	 * @return string Image Path
 	 */
-	private function get_attachment( $post_id, $file_id ) {
+	private function get_attachment($post_id, $file_name, $mime_type ) {
 
-		$images = get_attached_media( 'image', $post_id );
+		$media_items = get_attached_media( $mime_type, $post_id );
 
-		foreach ( $images as $image ) {
-			if ( pathinfo( $image->guid )['filename'] === $file_id ) {
-				return $image;
+		foreach ( $media_items as $media_item ) {
+			if ( $media_item->post_name === $file_name ) {
+				return $media_item;
 			}
 		}
 
@@ -260,11 +260,11 @@ class TruEdit_Publish {
 	 * Method to update all the media assets (img, video tags) and make them usable within WordPress
 	 * @param $doc DOMDocument
 	 * @param $mediaType integer Should be an enum from MediaTypeEnum
-	 * @param $postId integer WordPress Post ID
+	 * @param $post_id integer WordPress Post ID
 	 * @param $zipPath string Absolute path to the zip content
 	 * @throws Exception
 	 */
-	private function update_media( $doc, $mediaType, $postId, $zipPath ) {
+	private function update_media($doc, $mediaType, $post_id, $zipPath ) {
 		/**
 		 * We separated the loops because we didn't want to replace an image more than
 		 * once if it occurred in the document more than once.
@@ -302,62 +302,54 @@ class TruEdit_Publish {
 		 * they create will be placed into the body.
 		 */
 		$urls = [];
-		foreach ( array_unique( $mediaItems ) as $mediaItem ) {
-			$file_id = pathinfo( $mediaItem, PATHINFO_FILENAME ); // 150
 
-			$attachment = $this->get_attachment( $postId, $file_id );
 
-			if ( ! is_null( $attachment ) ) {
+		// Open up the zip file ready to use
+		$zip = new ZipArchive();
+        $zip->open($zipPath);
 
-				$dateTime = strtotime( $attachment->post_date );
-				$year     = date( 'Y', $dateTime );
-				$month    = date( 'm', $dateTime );
+        // Iterate over every media item in the document
+        foreach ( array_unique( $mediaItems ) as $mediaItem ) {
+            $file_name = pathinfo( $mediaItem, PATHINFO_FILENAME ); // 150
+            $mime_type = $mimeTypePrefix . '/' . pathinfo( $mediaItem, PATHINFO_EXTENSION );
 
-				// Get the absolute path of the exiting file
-				$dir                 = wp_upload_dir()['basedir'] . '/' . $year . '/' . $month;
-				$absolute_path_in_wp = $dir . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
 
-				copy( 'zip://' . $zipPath . '#' . $mediaItem, $absolute_path_in_wp );
+            // Extract the item from the zip and transfer to the uploads folder (VIP will upload to CDN)
+            $data = stream_get_contents($zip->getStream($mediaItem));
+            $file = wp_upload_bits($mediaItem, null, $data);
+            $file = apply_filters( 'wp_handle_upload', $file );
 
-				$mediaId = $attachment->ID;
+            $url = $file['url'];
 
-				if ( $mediaType === MediaTypeEnum::Image ) {
-					$attach_data = wp_generate_attachment_metadata( $mediaId, $absolute_path_in_wp );
-					wp_update_attachment_metadata( $mediaId, $attach_data );
-				}
+            // Add the image as an attachment
+            $attachment = [
+                'guid'           => $file['file'],
+                'post_mime_type' => $mimeTypePrefix . '/' . pathinfo( $mediaItem, PATHINFO_EXTENSION ),
+                'post_title'     => $file_name,
+                'post_content'   => '',
+                'post_status'    => 'inherit',
+            ];
 
-				$urls[ pathinfo( $mediaItem, PATHINFO_FILENAME ) ] = $attachment->guid;
+            // Update the attachment if it already exists
+            $original_attachment = $this->get_attachment( $post_id, $file_name, $mime_type );
 
-			} else {
+            if( $original_attachment != null ) {
+                $attachment['ID'] = $original_attachment->ID;
+            }
 
-				$absolute_path_in_wp = wp_upload_dir()['path'] . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
-				copy( 'zip://' . $zipPath . '#' . $mediaItem, $absolute_path_in_wp );
+            // Insert the attachment
+            $media_id = wp_insert_attachment($attachment, $file['file'], $post_id);
 
-				/**
-				* $pathinfo = pathinfo( $media_item );
-				*/
 
-				$url        = wp_upload_dir()['url'] . '/' . pathinfo( $mediaItem, PATHINFO_BASENAME );
-				$attachment = array(
-					'guid'           => $url,
-					'post_mime_type' => $mimeTypePrefix . '/' . pathinfo( $mediaItem, PATHINFO_EXTENSION ),
-					'post_title'     => '',
-					'post_content'   => '',
-					'post_status'    => 'inherit',
-				);
+            // Generate thumbnails + metadata for images
+            if ( $mediaType === MediaTypeEnum::Image ) {
+                $attach_data = wp_generate_attachment_metadata( $media_id, $file['file'] );
+                wp_update_attachment_metadata( $media_id, $attach_data );
+            }
 
-				// Generate the metadata for the attachment, and update the database record.
-				$mediaId = wp_insert_attachment( $attachment, $absolute_path_in_wp, $postId );
+            $urls[$file_name] = $url;
 
-				if ( $mediaType === MediaTypeEnum::Image ) {
-					$attach_data = wp_generate_attachment_metadata( $mediaId, $absolute_path_in_wp );
-					wp_update_attachment_metadata( $mediaId, $attach_data );
-				}
-
-				$urls[ pathinfo( $mediaItem, PATHINFO_FILENAME ) ] = $url;
-
-			}
-		}
+        }
 
 		/**
 		 * Replace the image into the html
@@ -369,9 +361,9 @@ class TruEdit_Publish {
 
 			$new_el = $element;
 
-			$file_id = pathinfo( $new_el->getAttribute( $urlAttribute ), PATHINFO_FILENAME );
-			if ( $file_id !== 'null' ) {
-				$new_el->setAttribute( $urlAttribute, $urls[ $file_id ] );
+			$file_name = pathinfo( $new_el->getAttribute( $urlAttribute ), PATHINFO_FILENAME );
+			if ( $file_name !== 'null' ) {
+				$new_el->setAttribute( $urlAttribute, $urls[ $file_name ] );
 				$parent->appendChild( $new_el );
 			} else {
 				$new_el->setAttribute( $urlAttribute, '#' );

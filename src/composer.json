@@ -14,7 +14,9 @@
         "truedit/truedit-api-php": "@dev",
 		"ext-curl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-zip": "*",
+        "ext-dom": "*"
     } 
     
 }
