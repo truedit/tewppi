@@ -206,7 +206,7 @@ export default class Publish extends React.Component {
 
         return (
 
-            <Postbox>
+            <Postbox classes='content-offset'>
 
                 <Spinner shouldSpin={this.state.LOADING} />
 
@@ -237,7 +237,7 @@ export default class Publish extends React.Component {
                         !this.state.FORM_IS_SUCCESSFUL && !this.state.notice && !this.state.LOADING ?
 
                             (       
-                                <div>
+                                <div className='field-margins'>
                                     <form onSubmit={this.handlePublish} autoComplete="off">   
                                         <FormGroup label="Action Type">
                                             <Select

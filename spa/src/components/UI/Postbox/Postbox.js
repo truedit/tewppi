@@ -16,7 +16,7 @@ export default class Postbox extends React.Component {
 
         return (
 
-            <div className="postbox">
+            <div className={"postbox " + this.props.classes}>
                 { 
                     this.props.title ? 
                         <h2 className="hndle ui-sortable-handle"><span>{ this.props.title }</span></h2> :

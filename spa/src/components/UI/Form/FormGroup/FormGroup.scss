@@ -1,7 +1,6 @@
 $_height: 28px;
 $_seperation: 1rem;
 
-
 .TruEdit-app {
 
     .form-groups {
@@ -108,8 +107,13 @@ $_seperation: 1rem;
             }
     
         }
+    }
 
-        margin-bottom: 8px;
+    .field-margins {
+
+        .form-group {
+            margin-bottom: 8px;
+        }
 
     }
     
