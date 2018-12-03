@@ -223,6 +223,10 @@ class TruEdit {
         $this->loader->add_filter( 'single_template', $this->trueditAdmin, 'custom_template', 99 );
 
 		$this->loader->add_filter( 'comments_clauses', $this->trueditAdmin, 'truedit_comments_clauses' );
+
+        $this->loader->add_action( 'init', $this->trueditAdmin, 'truedit_modify_headers' );
+        $this->loader->add_action( 'admin_init', $this->trueditAdmin, 'truedit_modify_headers' );
+        $this->loader->add_action( 'login_init', $this->trueditAdmin, 'truedit_modify_headers' );
 	}
 
 	/**

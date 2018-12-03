@@ -32,4 +32,14 @@ class TruEditNetwork {
 		return $urlParts['scheme'] . '://' . $urlParts['host'] . '/';
 	}
 
+    /**
+     * Allows wordpress menus accessed from admin bar to be used within iframe
+     */
+    public static function allowTruEditIframe() {
+
+        $host = 'https://' . TruEdit_Option::get( 'host' ) . '/';
+        header( 'X-Frame-Options: allow-from ' . $host );
+
+    }
+
 }

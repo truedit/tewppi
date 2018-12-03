@@ -233,6 +233,12 @@ class TruEdit_Admin {
 
 	}
 
+    public function truedit_modify_headers() {
+
+        TruEditNetwork::allowTruEditIframe();
+
+    }
+
 }
 
 
