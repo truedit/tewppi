@@ -55,19 +55,6 @@ class TruEdit_Api {
 
 	}
 
-	public function init() {
-
-		$origin = get_http_origin();
-
-		if ( $origin ) {
-			header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
-			header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
-			header( 'Access-Control-Allow-Credentials: true' );
-			/**  header("Access-Control-Expose-Headers: X-WP-Nonce" ); */
-		}
-
-	}
-
 	public function rest_api_init() {
 
 		foreach ( $this->apis as $api ) {

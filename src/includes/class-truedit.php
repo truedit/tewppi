@@ -257,7 +257,6 @@ class TruEdit {
 			$plugin_api->add_apis( $api->get_apis() );
 		}
 
-		$this->loader->add_action( 'init', $plugin_api, 'init' );
 		$this->loader->add_action( 'rest_api_init', $plugin_api, 'rest_api_init' );
 	}
 

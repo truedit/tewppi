@@ -495,7 +495,7 @@ class TruEdit_ApiRoute_Automation implements TruEdit_ApiRoute {
 
     private function generateAutomationUrl($post_id) {
         $url = get_permalink($post_id);
-        $urlOptions = ['view' => 'publish', 'automation_post_id' => $post_id];
+        $urlOptions = ['view' => 'publish', 'automation_post_id' => rawurlencode($post_id)];
         $newUrl = add_query_arg($urlOptions, $url);
     
         return $newUrl;
