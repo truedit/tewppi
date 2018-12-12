@@ -102,8 +102,8 @@ class TruEdit_ApiRoute_Log implements TruEdit_ApiRoute {
 				);
 			}
 
-			$page  = (int) esc_sql( $request['page'] );
-			$count = (int) esc_sql( $request['count'] );
+			$page  = (int) $request['page'];
+			$count = (int) $request['count'];
 
 			$comments = self::getComments( $page, $count );
 
