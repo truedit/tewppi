@@ -22,12 +22,12 @@ export const URL_ARGIFY = (args) => {
 };
 
 export const GET_URL_PARAMS = () => {
-    return window.location.search.substr(1).split('&').reduce(function (q, query) {
-        let chunks = query.split('=');
-        let key = chunks[0];
-        let value = chunks[1];
-        return (q[key] = value, q);
-    }, {});
+    var vars = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+
+    return vars;
 };
 
 export const GUID = () => {

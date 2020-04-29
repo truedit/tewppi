@@ -1,0 +1,10 @@
+dist
+phpcs_checkstyle.xml
+# Web Pack
+/node_modules
+.DS_Store
+*.log
+.idea
+.vscode
+.eslintcache
+package-lock.json

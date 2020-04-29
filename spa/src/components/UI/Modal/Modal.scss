@@ -1,62 +1,83 @@
-$timing: 0.35s;
-
 .TruEdit-app {
-    .media-frame {
-        .spinner {
-            float: none;
-        }
-    }
-    
-    .media-modal {
-        transition: visibility 0.1s ease-in-out, opacity $timing ease-in-out
-    }
-    
-    .media-modal-show {
-        visibility: visible;
-        opacity: 1;
-    }
-    
-    .media-modal-hide {
-        opacity: 0;
-        visibility: hidden;
-    }
-    
-    .media-frame-content {
-        padding: 12px;
-    
-        .notice {
-            margin: 0;
-        }
-    
-    }
-    
-    .media-modal-content {
-        border-radius: 2px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-        border: 1px solid #ccc;
-    
-        .media-frame-content {
-            bottom: 0;
-        }
-    }
-    
-    .no-menu {
-        left: 0 !important;
+
+    .modal-background {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.45);
+        z-index: 9999;
     }
 
-    .media-modal-close {
-        &:focus, &:active {
-            border: none;
-            box-shadow: none;
-            outline: none;
+    .modal {
+        @media (max-width: 900px) {
+            & {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        width: 900px;
+        border-radius: 7px;
+
+        .modal-header {
+            width: 100%;
+            height: 50px;
+            background-color: rgb(245, 245, 245);
+            padding-left: 10px;
+            border-bottom: 1px solid grey;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+
+            .modal-close-btn {
+                float: right;
+                margin-right: 10px;
+                background-color: #0000;
+                border: none;
+                font-size: 25px;
+                opacity: 0.5;
+                -webkit-appearance: none;
+                &:hover {
+                    opacity: 1.0;
+                    cursor: pointer;
+                }
+
+                &:focus {
+                    outline:none;
+                }
+            }
+
+            .modal-header-text {
+                margin: 0;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+        }
+
+        .modal-content {
+            width: 100%;
+            min-height: 60px;
+            background-color: white;
+            height: auto;
+            overflow: auto;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            padding: 10px 26px;
+        }
+
+        .modal-delete-buttons {
+            padding-bottom: 16px;
         }
     }
 
-    .media-modal-backdrop {
-        transition: opacity #{$timing + 0.10} ease-in-out;
-        &.media-modal-backdrop-hide {
-            opacity: 0;
-            position: unset;
-        }
-    }
+
+    
+
 }

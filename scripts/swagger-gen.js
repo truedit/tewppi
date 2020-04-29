@@ -8,7 +8,7 @@ const BIN_FOLDER = process.cwd() + '/bin/'
 const SWAGGER_PATH = BIN_FOLDER + 'swagger-gen.jar'
 const SWAGGER_DOWNLOAD = 'http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar'
 const GENERATED_PATH = 'SwaggerClient-php'
-const TARGET_PATH = process.cwd() + '/src/web/app/plugins/truedit/'
+const TARGET_PATH = process.cwd() + '/src/'
 const LIB_PATH = TARGET_PATH + 'lib/truedit-api-php/'
 
 try {

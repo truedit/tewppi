@@ -1,5 +1,3 @@
-[![Build Status](https://jenkins.truedit.com/buildStatus/icon?job=WordPress_PI/tewppi/develop)](https://jenkins.truedit.com/job/WordPress_PI/job/tewppi/job/develop/)
-
 # Truedit Wordpress Plugin
 
 The TruEdit WordPress Plugin allows users to deliver content from TruAuthor to a WordPress site as posts or pages. Multiple automations can be setup with different configurations for the individual use-cases.
@@ -73,12 +71,9 @@ Note: If the window appears blank, please review the Cross-Domain request settin
 In order to build the plugin, you must first install dependencies using npm, composer and yarn.
 
 1. Enter the `src` directory and run `composer install`
-1. Enter the `spa` directory and run `npm install`
-1. Still in the `spa` directory and run `yarn`
-1. Run `cd ../src/web/app/plugins/truedit/ && composer install` to install Composer
-   packages specific to the plugin.
+1. Still in the `spa` directory and run `yarn install`
 
-Once you have all of the dependencies, you should be able to run `npm run build` in the root of the repository to produce a folder named `truedit` and a zip file named `truedit_wppi.zip` in the `dist/versionNumber/` folder.
+Once you have all of the dependencies, you should be able to run `yarn run build` in the root of the repository to produce a folder named `truedit` and a zip file named `truedit_wppi.zip` in the `dist/versionNumber/` folder.
 
 ## Contributing to Plugin Development
 If you would like to contribute code to the TruEdit Wordpress Plugin, simply submit a pull request to this repository and it will be reviewed. If the code meets the standard outlined in the Coding Conventions section and meaningfully adds to the product, it will likely be merged into the codebase.
@@ -107,4 +102,4 @@ For new code this means:
 - `conf` - Contains any local configs
 
 #### Export API Using Swagger
-`npm run swagger-gen`
+`yarn run swagger-gen`

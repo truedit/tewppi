@@ -98,9 +98,8 @@ export default class DeleteAutomation extends React.Component {
                     <Notices notice={this.state.notice} />
 
                     <form>
-
-                        <div className="button-group button-group-margin">
-
+                        <p>Are you sure you want to delete automation <b>{this.props.automation.post_meta.json.name}</b>? This action can not be reversed.</p>
+                        <div className="button-group button-group-margin modal-delete-buttons">
                             <button
                                 data-name="confirm"
                                 ref={(input) => { this.textInput = input; }} 
@@ -111,7 +110,7 @@ export default class DeleteAutomation extends React.Component {
                                 {
                                     this.state.FORM_PROCESSING ? 
                                         <i className="spinner is-active"></i> : 
-                                        'Are you sure?'
+                                        'Delete'
                                 }
                             </button>
 
