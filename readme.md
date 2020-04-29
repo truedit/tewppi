@@ -1,9 +1,3 @@
-Feature/vip: Develop: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/feature/vip)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/feature/vip)
-
-Develop: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/develop)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/develop)
-
-Master: [![Build Status](https://jenkins.getnext.com/buildStatus/icon?job=WPPI_Pipeline/master)](http://jenkins.getnext.com/job/WPPI_Pipeline/job/master)
-
 # Truedit Wordpress Plugin
 
 The TruEdit WordPress Plugin allows users to deliver content from TruAuthor to a WordPress site as posts or pages. Multiple automations can be setup with different configurations for the individual use-cases.
